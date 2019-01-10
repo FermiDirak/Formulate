@@ -5,7 +5,7 @@ import { subscribeUpdateCallback, FormNode, createFormNode } from '../datastruct
  * Formulate form object
  * @param initialForm The inital state of your form
  * @return A Formulate form object representing your form */
-const useF1 = <T>(initialForm: T): FormNode<T> => {
+const useF8 = <T>(initialForm: T): FormNode<T> => {
   const formTree = createFormNode(initialForm);
   const [formState, updateForm] = useState(formTree);
 
@@ -19,4 +19,4 @@ const useF1 = <T>(initialForm: T): FormNode<T> => {
   return formState;
 }
 
-export default useF1;
+export default useF8;

@@ -1,4 +1,4 @@
 export { default as useLink } from './api/useLink';
 export { default as peekValue } from './api/peekValue';
-export { default as useF1 } from './api/useF1';
+export { default as useF8 } from './api/useF8';
 //# sourceMappingURL=index.d.ts.map
