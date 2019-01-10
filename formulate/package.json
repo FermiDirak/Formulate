@@ -19,8 +19,8 @@
     "@types/react": "^16.7.17",
     "@types/react-dom": "^16.0.11",
     "jest": "^23.6.0",
-    "react": "16.7.0-alpha.2",
-    "react-dom": "16.7.0-alpha.2",
+    "react": "next",
+    "react-dom": "next",
     "ts-jest": "^23.10.5",
     "tsc": "^1.20150623.0",
     "typescript": "^3.2.2"

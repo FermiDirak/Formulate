@@ -1,12 +1,4 @@
-declare const _default: {
-    useLink: <T>(formNode: import("./datastructures/formNode").FormNode<T>, validation?: import("./datastructures/link").Validation<T> | undefined) => {
-        value: T;
-        errors: string[] | null;
-        onChange: (newValue: T) => void;
-        onBlur: (newValue: T) => void;
-    };
-    peekValue: <T>(formNode: import("./datastructures/formNode").FormNode<T>) => T;
-    useF1: <T>(initialForm: T) => import("./datastructures/formNode").FormNode<T>;
-};
-export default _default;
+export { default as useLink } from './api/useLink';
+export { default as peekValue } from './api/peekValue';
+export { default as useF1 } from './api/useF1';
 //# sourceMappingURL=index.d.ts.map
