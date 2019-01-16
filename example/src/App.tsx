@@ -25,6 +25,8 @@ const onSubmit = (formData) => {
 const App = () => {
   const formData = useF8(initialForm);
 
+  console.log(formData);
+
   return (
     <form className='App'>
       <F8TextInput link={formData.name} label='name' />
