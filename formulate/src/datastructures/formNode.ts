@@ -23,7 +23,7 @@ export const createFormNode = <T>(
       formNode[i] = childNode;
     });
 
-  } else if (typeof formDatum === 'object') {
+  } else if (typeof formDatum === 'object' && formDatum !== null) {
     formNode[linkSymbol].valueRef.value = {} as T;
 
     Object.keys(formDatum).forEach(key => {
@@ -43,10 +43,6 @@ export const subscribeUpdateCallback = <T>(
   formNode: FormNode<T>,
   updateCallback: () => void,
 ): void => {
-  if (typeof formNode === 'function') {
-    return;
-  }
-
   formNode[linkSymbol].subscribeUpdateCallback(updateCallback);
 
   if (typeof formNode === 'object') {
@@ -54,4 +50,26 @@ export const subscribeUpdateCallback = <T>(
       subscribeUpdateCallback(formNode[key], updateCallback);
     });
   }
+}
+
+/** Recursively searches a formNode for errors
+ * @param formNode The node to recursively traverse for errors
+ * @return The retrieved errors */
+export const recurisvelyGetErrors = <T>(
+  formNode: FormNode<T>
+): string[] => {
+  const errors = formNode[linkSymbol].errors;
+
+  if (Array.isArray(formNode)) {
+    formNode.forEach(child => {
+      errors.push(...recurisvelyGetErrors(child));
+    });
+  } else if (typeof formNode === 'object' && formNode !== null) {
+    Object.keys(formNode).forEach(key => {
+      const child = formNode[key];
+      errors.push(...recurisvelyGetErrors(child));
+    });
+  }
+
+  return errors;
 }

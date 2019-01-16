@@ -25,15 +25,12 @@ const onSubmit = (formData) => {
 const App = () => {
   const formData = useF8(initialForm);
 
-  console.log(formData);
-
   return (
     <form className='App'>
       <F8TextInput link={formData.name} label='name' />
       <F8TextInput link={formData.age} label='age' />
       <F8TextInput link={formData.profile.nick} label='nick' />
-
-      <button onClick={(e) => {e.preventDefault(); onSubmit(formData)}}>Submit</button>
+      <button onClick={onSubmit}>Submit</button>
 
       {JSON.stringify(peekValue(formData))}
     </form>

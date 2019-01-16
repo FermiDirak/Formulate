@@ -5,7 +5,6 @@ import { linkSymbol } from './../datastructures/link';
  * @param formNode The node value to peek */
 const peekValue = <T>(formNode: FormNode<T>): T => {
   const { valueRef } = formNode[linkSymbol];
-
   return valueRef.getValue();
 }
 

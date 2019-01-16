@@ -19,7 +19,7 @@ import { Validation } from '../datastructures/link';
 import { FormNode } from '../datastructures/formNode';
 declare type LinkInterface<T> = {
     value: T;
-    errors: string[] | null;
+    errors: string[];
     onChange: (newValue: T) => void;
     onBlur: (newValue: T) => void;
 };

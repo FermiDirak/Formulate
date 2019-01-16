@@ -2,7 +2,7 @@ import * as React from 'react';
 
 type Props = {
   value?: string,
-  onChange: (newVal?: string) => void,
+  onChange: (newVal: string) => void,
 };
 
 /**

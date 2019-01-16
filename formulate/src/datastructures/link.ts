@@ -1,4 +1,5 @@
 import Reference from './reference';
+import {FormNode} from './formNode';
 
 /** Used to access links from formNodes */
 export const linkSymbol = Symbol('link');
@@ -7,12 +8,12 @@ export type Validation<T> = (newValue: T) => string[] | null;
 
 class Link<T> {
   valueRef: Reference<T>;
-  errors: Reference<string[] | null>;
+  errors: string[]; // the errors at the current level
   updateCallback: (() => void) | null;
 
   constructor(data: T) {
     this.valueRef = new Reference(data);
-    this.errors = new Reference(null);
+    this.errors = [];
     this.updateCallback = null;
   }
 
@@ -20,13 +21,14 @@ class Link<T> {
     this.updateCallback = updateCallback;
   }
 
-  updateErrors(validation?: Validation<T>): void {
+  updateErrors(validation?: Validation<T>): string[] {
     if (!validation) {
-      return;
+      return [];
     }
 
-    const errors = validation(this.valueRef.getValue());
-    this.errors.updateValue(errors || null);
+    this.errors = validation(this.valueRef.getValue()) || [];
+
+    return this.errors;
   }
 
   onChange(newValue: T): void {

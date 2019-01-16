@@ -34,9 +34,6 @@ exports.createFormNode = (formDatum) => {
  * @param formNode The form node to recursively subscribe
  * @param updateCallback The callback to subscribe recursively */
 exports.subscribeUpdateCallback = (formNode, updateCallback) => {
-    if (typeof formNode === 'function') {
-        return;
-    }
     formNode[link_1.linkSymbol].subscribeUpdateCallback(updateCallback);
     if (typeof formNode === 'object') {
         Object.keys(formNode).forEach(key => {

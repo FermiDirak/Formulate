@@ -5,23 +5,23 @@
  *
  * @example
  * const TextInput = (link) => {
- *   {value, onChange, onBlur, error} = useLink(link);
+ *   {value, onChange, onBlur, errors} = useLink(link);
  *
  *   return (
  *     <Container>
  *       <input type="text" value={value} onChange={onChange} onBlur={onBlur} />
- *       <p>{error}</p>
+ *       <p> {errors.join('')} </p>
  *     </Container>
  *   );
  * }
  */
 
 import {linkSymbol, Validation} from '../datastructures/link';
-import {FormNode} from '../datastructures/formNode';
+import {FormNode, recurisvelyGetErrors} from '../datastructures/formNode';
 
-type LinkInterface<T> = {
+export type Link<T> = {
   value: T,
-  errors: string[] | null,
+  errors: string[],
   onChange: (newValue: T) => void,
   onBlur: (newValue: T) => void,
 }
@@ -30,14 +30,13 @@ type LinkInterface<T> = {
  * @param formNode The FormNode to retrieve the link from
  * @param validation The validation function to be used on the value
  * @return The content of the link */
-const useLink = <T>(formNode: FormNode<T>, validation?: Validation<T>): LinkInterface<T> => {
+const useLink = <T>(formNode: FormNode<T>, validation?: Validation<T>): Link<T> => {
   const linkContent = formNode[linkSymbol];
-
   linkContent.updateErrors(validation);
 
   return {
     value: linkContent.valueRef.getValue(),
-    errors: linkContent.errors.getValue(),
+    errors: recurisvelyGetErrors(formNode),
     onChange: (newValue: T) => { linkContent.onChange(newValue); },
     onBlur: linkContent.onBlur,
   }

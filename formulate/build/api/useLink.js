@@ -27,7 +27,7 @@ const useLink = (formNode, validation) => {
     linkContent.updateErrors(validation);
     return {
         value: linkContent.valueRef.getValue(),
-        errors: linkContent.errors.getValue(),
+        errors: [],
         onChange: (newValue) => { linkContent.onChange(newValue); },
         onBlur: linkContent.onBlur,
     };

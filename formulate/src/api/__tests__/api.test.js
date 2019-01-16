@@ -1,4 +1,5 @@
 import { createFormNode } from '../../datastructures/formNode';
+import Reference from './../../datastructures/reference';
 import useLink from '../useLink';
 
 describe('useLink', () => {
@@ -9,8 +10,8 @@ describe('useLink', () => {
     const linkContent = useLink(link);
 
     const mockLinkContent = {
-      value: 'I am a form',
-      error: null,
+      value: new Reference('I am a form'),
+      errors: null,
     };
 
     expect(linkContent).toMatchObject(mockLinkContent);

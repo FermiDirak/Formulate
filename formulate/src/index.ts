@@ -1,3 +1,10 @@
-export {default as useLink} from './api/useLink';
-export {default as peekValue} from './api/peekValue';
-export {default as useF8} from './api/useF8';
+import useLink, {Link} from './api/useLink';
+import peekValue from './api/peekValue';
+import useF8 from './api/useF8';
+
+export {
+  useLink,
+  Link,
+  peekValue,
+  useF8,
+};

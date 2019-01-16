@@ -18,6 +18,7 @@ class Reference<T> {
 
     if (Array.isArray(value)) {
       return value.map(val => val instanceof Reference ? val.getValue() : val);
+
     } else if (typeof value === 'object' && value !== null) {
       const clone = {};
 

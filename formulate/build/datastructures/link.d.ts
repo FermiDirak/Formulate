@@ -4,7 +4,7 @@ export declare const linkSymbol: unique symbol;
 export declare type Validation<T> = (newValue: T) => string[] | null;
 declare class Link<T> {
     valueRef: Reference<T>;
-    errors: Reference<string[] | null>;
+    errors: string[] | null;
     updateCallback: (() => void) | null;
     constructor(data: T);
     subscribeUpdateCallback(updateCallback: () => void): void;
