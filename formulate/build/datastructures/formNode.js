@@ -20,7 +20,7 @@ exports.createFormNode = (formDatum) => {
             formNode[i] = childNode;
         });
     }
-    else if (typeof formDatum === 'object') {
+    else if (typeof formDatum === 'object' && formDatum !== null) {
         formNode[link_1.linkSymbol].valueRef.value = {};
         Object.keys(formDatum).forEach(key => {
             const childNode = exports.createFormNode(formDatum[key]);
@@ -40,5 +40,23 @@ exports.subscribeUpdateCallback = (formNode, updateCallback) => {
             exports.subscribeUpdateCallback(formNode[key], updateCallback);
         });
     }
+};
+/** Recursively searches a formNode for errors
+ * @param formNode The node to recursively traverse for errors
+ * @return The retrieved errors */
+exports.recurisvelyGetErrors = (formNode) => {
+    const errors = formNode[link_1.linkSymbol].errors;
+    if (Array.isArray(formNode)) {
+        formNode.forEach(child => {
+            errors.push(...exports.recurisvelyGetErrors(child));
+        });
+    }
+    else if (typeof formNode === 'object' && formNode !== null) {
+        Object.keys(formNode).forEach(key => {
+            const child = formNode[key];
+            errors.push(...exports.recurisvelyGetErrors(child));
+        });
+    }
+    return errors;
 };
 //# sourceMappingURL=formNode.js.map

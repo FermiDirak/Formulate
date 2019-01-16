@@ -12,7 +12,7 @@ const initialForm = {
   },
 };
 
-const validateNotBob = (name) => {
+const validateNotBob = (name: string) => {
   if (name.trim().toLowerCase() === 'bob') {
     return ['Bob is not allowed to submit this form'];
   }

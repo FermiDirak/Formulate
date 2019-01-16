@@ -6,18 +6,19 @@
  *
  * @example
  * const TextInput = (link) => {
- *   {value, onChange, onBlur, error} = useLink(link);
+ *   {value, onChange, onBlur, errors} = useLink(link);
  *
  *   return (
  *     <Container>
  *       <input type="text" value={value} onChange={onChange} onBlur={onBlur} />
- *       <p>{error}</p>
+ *       <p> {errors.join('')} </p>
  *     </Container>
  *   );
  * }
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const link_1 = require("../datastructures/link");
+const formNode_1 = require("../datastructures/formNode");
 /** retrieves the link content associated with a given formNode
  * @param formNode The FormNode to retrieve the link from
  * @param validation The validation function to be used on the value
@@ -27,7 +28,7 @@ const useLink = (formNode, validation) => {
     linkContent.updateErrors(validation);
     return {
         value: linkContent.valueRef.getValue(),
-        errors: [],
+        errors: formNode_1.recurisvelyGetErrors(formNode),
         onChange: (newValue) => { linkContent.onChange(newValue); },
         onBlur: linkContent.onBlur,
     };

@@ -9,7 +9,7 @@ exports.linkSymbol = Symbol('link');
 class Link {
     constructor(data) {
         this.valueRef = new reference_1.default(data);
-        this.errors = null;
+        this.errors = [];
         this.updateCallback = null;
     }
     subscribeUpdateCallback(updateCallback) {
@@ -17,9 +17,10 @@ class Link {
     }
     updateErrors(validation) {
         if (!validation) {
-            return;
+            return [];
         }
-        this.errors = validation(this.valueRef.getValue());
+        this.errors = validation(this.valueRef.getValue()) || [];
+        return this.errors;
     }
     onChange(newValue) {
         if (!this.updateCallback || newValue === this.valueRef.value) {
