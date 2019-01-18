@@ -1,5 +1,5 @@
 import Reference from './reference';
-import {FormNode} from './formNode';
+import { FormNode, recurisvelyGetErrors } from './formNode';
 
 /** Used to access links from formNodes */
 export const linkSymbol = Symbol('link');

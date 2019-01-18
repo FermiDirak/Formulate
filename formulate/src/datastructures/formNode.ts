@@ -58,7 +58,7 @@ export const subscribeUpdateCallback = <T>(
 export const recurisvelyGetErrors = <T>(
   formNode: FormNode<T>
 ): string[] => {
-  const errors = formNode[linkSymbol].errors;
+  const errors = [...formNode[linkSymbol].errors];
 
   if (Array.isArray(formNode)) {
     formNode.forEach(child => {

@@ -3,6 +3,7 @@ import './App.css';
 
 import { useF8, peekValue } from 'formulate';
 import F8TextInput from './F8TextInput';
+import F8ErrorBox from './F8ErrorBox';
 
 const initialForm = {
   name: 'jack',
@@ -12,10 +13,12 @@ const initialForm = {
   },
 };
 
-const validateNotBob = (name: string) => {
+const notBob = (name: string): string[] | null => {
   if (name.trim().toLowerCase() === 'bob') {
     return ['Bob is not allowed to submit this form'];
   }
+
+  return null;
 }
 
 const onSubmit = (formData) => {
@@ -29,7 +32,8 @@ const App = () => {
 
   return (
     <form className='App'>
-      <F8TextInput link={formData.name} label='name' />
+      <F8ErrorBox link={formData} />
+      <F8TextInput link={formData.name} label='name' validation={notBob} />
       <F8TextInput link={formData.age} label='age' />
       <F8TextInput link={formData.profile.nick} label='nick' />
       <button onClick={onSubmit}>Submit</button>

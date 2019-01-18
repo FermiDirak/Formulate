@@ -24,6 +24,7 @@ export type Link<T> = {
   errors: string[],
   onChange: (newValue: T) => void,
   onBlur: (newValue: T) => void,
+  childErrors: () => string[];
 }
 
 /** retrieves the link content associated with a given formNode
@@ -36,9 +37,10 @@ const useLink = <T>(formNode: FormNode<T>, validation?: Validation<T>): Link<T> 
 
   return {
     value: linkContent.valueRef.getValue(),
-    errors: recurisvelyGetErrors(formNode),
+    errors: linkContent.errors,
     onChange: (newValue: T) => { linkContent.onChange(newValue); },
     onBlur: linkContent.onBlur,
+    childErrors: () => recurisvelyGetErrors(formNode),
   }
 }
 

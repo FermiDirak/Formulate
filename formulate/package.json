@@ -6,7 +6,8 @@
   "private": false,
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "dev": "nodemon tsc"
   },
   "main": "./build/index.js",
   "browserslist": [
