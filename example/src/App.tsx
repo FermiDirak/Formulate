@@ -1,6 +1,4 @@
 import * as React from 'react';
-import './App.css';
-
 import { useF8, peekValue } from 'formulate';
 import F8TextInput from './F8TextInput';
 import F8ErrorBox from './F8ErrorBox';
@@ -29,12 +27,10 @@ const onSubmit = (formData) => {
 const App = () => {
   const formData = useF8(initialForm);
 
-  console.log(formData);
-
   return (
     <form className='App'>
       <F8ErrorBox link={formData} />
-      <F8TextInput link={formData.name} label='name' validation={notBob} />
+      <F8TextInput link={formData.name} label='name' validator={notBob} />
       <F8TextInput link={formData.age} label='age' />
       <F8TextInput link={formData.profile.nick} label='nick' />
       <F8SubmitButton link={formData} onClick={onSubmit}>Submit</F8SubmitButton>

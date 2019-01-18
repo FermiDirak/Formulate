@@ -5,11 +5,11 @@ import TextInput from './TextInput';
 type Props = {
   label: string,
   link: any,
-  validation?: (value: string) => string[] | null,
+  validator?: (value: string) => string[] | null,
 };
 
-const F8TextInput = ({link, validation, label}: Props) => {
-  const {value, onChange, errors} = useLink(link, validation);
+const F8TextInput = ({link, validator, label}: Props) => {
+  const {value, onChange, errors} = useLink(link, validator);
 
   return (
     <React.Fragment>

@@ -10,7 +10,17 @@ const F8ErrorBox = ({link}: Props) => {
   const {childErrors} = useLink(link);
   const errors = childErrors();
 
-  return <ul>{errors.map(error => <li>{error}</li>)}</ul>
+  return (
+    <div className='error-box'>
+      Form Errors:
+      <ul>
+        {errors.length ?
+          errors.map(error => <li>{error}</li>)
+          : <li>no errors!</li>
+        }
+      </ul>
+    </div>
+  );
 };
 
 export default F8ErrorBox;
