@@ -1,3 +1,4 @@
+import Form from './Form';
 import Link, {linkSymbol} from './link';
 
 /** A recusive data-structure that represents a form's
@@ -13,12 +14,13 @@ export type FormNode<T> = {
  * @return The created FormNode */
 export const createFormNode = <T>(
   formDatum: T,
+  head: Form<T>
 ): FormNode<T> => {
-  const formNode = { [linkSymbol]: new Link(formDatum) };
+  const formNode = { [linkSymbol]: new Link(formDatum, head) };
 
   if (Array.isArray(formDatum)) {
     formDatum.forEach((datum, i) => {
-      const childNode = createFormNode(datum);
+      const childNode = createFormNode(datum, head);
       formNode[linkSymbol].valueRef[i] = childNode[linkSymbol].valueRef;
       formNode[i] = childNode;
     });
@@ -27,7 +29,7 @@ export const createFormNode = <T>(
     formNode[linkSymbol].valueRef.value = {} as T;
 
     Object.keys(formDatum).forEach(key => {
-      const childNode = createFormNode(formDatum[key]);
+      const childNode = createFormNode(formDatum[key], head);
       formNode[linkSymbol].valueRef.value[key] = childNode[linkSymbol].valueRef;
       formNode[key] = childNode;
     });

@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import Form from './../datastructures/Form';
 import { subscribeUpdateCallback, FormNode, createFormNode } from '../datastructures/formNode';
 
 /** This hook lets you turn in a form schema into a
@@ -6,17 +7,17 @@ import { subscribeUpdateCallback, FormNode, createFormNode } from '../datastruct
  * @param initialForm The inital state of your form
  * @return A Formulate form object representing your form */
 const useF8 = <T>(initialForm: T): FormNode<T> => {
-  const formTree = createFormNode(initialForm);
-  const [formState, updateForm] = useState(formTree);
+  const formTree = new Form(initialForm);
+  const [form, updateForm] = useState(formTree);
 
   // updateCallback is called whenever any onChange is called
   const updateCallback = (): void => {
-    updateForm(formState);
+    updateForm(form);
   }
 
-  subscribeUpdateCallback(formState, updateCallback);
+  form.subscribeUpdateCallback(updateCallback);
 
-  return formState;
+  return form.formNode;
 }
 
 export default useF8;

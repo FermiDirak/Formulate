@@ -16,7 +16,7 @@
  * }
  */
 
-import {linkSymbol, Validation} from '../datastructures/link';
+import {linkSymbol, Validator} from '../datastructures/link';
 import {FormNode, recurisvelyGetErrors} from '../datastructures/formNode';
 
 export type Link<T> = {
@@ -29,11 +29,11 @@ export type Link<T> = {
 
 /** retrieves the link content associated with a given formNode
  * @param formNode The FormNode to retrieve the link from
- * @param validation The validation function to be used on the value
+ * @param validator The validator function to be used on the value
  * @return The content of the link */
-const useLink = <T>(formNode: FormNode<T>, validation?: Validation<T>): Link<T> => {
+const useLink = <T>(formNode: FormNode<T>, validator?: Validator<T>): Link<T> => {
   const linkContent = formNode[linkSymbol];
-  linkContent.updateErrors(validation);
+  linkContent.updateValidator(validator);
 
   return {
     value: linkContent.valueRef.getValue(),

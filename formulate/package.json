@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "dev": "nodemon tsc"
+    "dev": "tsc -w"
   },
   "main": "./build/index.js",
   "browserslist": [
@@ -21,6 +21,7 @@
     "@types/react": "^16.7.17",
     "@types/react-dom": "^16.0.11",
     "jest": "^23.6.0",
+    "nodemon": "^1.18.9",
     "react": "16.7.0-alpha.2",
     "react-dom": "16.7.0-alpha.2",
     "ts-jest": "^23.10.5",
