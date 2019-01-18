@@ -8,14 +8,9 @@ type Props = {
 /** Displays form errors */
 const F8ErrorBox = ({link}: Props) => {
   const {childErrors} = useLink(link);
+  const errors = childErrors();
 
-  console.log(childErrors());
-
-  return (
-    <ul>
-      {childErrors().map(error => <li>{error}</li>)}
-    </ul>
-  );
+  return <ul>{errors.map(error => <li>{error}</li>)}</ul>
 };
 
 export default F8ErrorBox;

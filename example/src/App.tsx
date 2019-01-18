@@ -4,6 +4,7 @@ import './App.css';
 import { useF8, peekValue } from 'formulate';
 import F8TextInput from './F8TextInput';
 import F8ErrorBox from './F8ErrorBox';
+import F8SubmitButton from './F8SubmitButton';
 
 const initialForm = {
   name: 'jack',
@@ -22,7 +23,7 @@ const notBob = (name: string): string[] | null => {
 }
 
 const onSubmit = (formData) => {
-  console.log(JSON.stringify(peekValue(formData)));
+  console.log(JSON.stringify(formData));
 };
 
 const App = () => {
@@ -36,7 +37,7 @@ const App = () => {
       <F8TextInput link={formData.name} label='name' validation={notBob} />
       <F8TextInput link={formData.age} label='age' />
       <F8TextInput link={formData.profile.nick} label='nick' />
-      <button onClick={onSubmit}>Submit</button>
+      <F8SubmitButton link={formData} onClick={onSubmit}>Submit</F8SubmitButton>
 
       {JSON.stringify(peekValue(formData))}
     </form>
