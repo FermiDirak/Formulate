@@ -1,7 +1,7 @@
 # Formulate
 > React Form Management made simple
 
-Formulate is a React Form Management library that provides a simple API for writing expressive forms.
+Formulate is a React Form Management library that provides a clean API for writing expressive forms.
 
 ## Usage
 
@@ -13,32 +13,30 @@ import {useF1, useF1Array} from 'formula-one';
 const initialForm = {
   name: '',
   age: null,
-  pets: [''],
+  profile: {
+    nick: '',
+    adjectives: [null],
+  },
 };
 
-const onSubmit = () => { /* AJAX SEND */};
+const onSubmit = (formData) => { /* AJAX SEND */};
 
 const Form = memo(() => {
-  const {formData, onSubmit} = useF1(initialForm, onSubmit);
-  const {addPetField, removePetField} = useF1Array(formData.pets, '');
+  const formData = useF8(initialForm);
+  const {addPetField, removePetField} = useF8Array(formData.pronouns, null);
 
   return (
-    <Form>
-      <Section>
-        <TextInput link={form.name} label='name' />
-        <FloatInput link={form.age} label='age' />
-      </Section>
-      <Section>
-        {form.pets.map((pet, i) => (
-          <TextInput
-            key={pet}
-            link={pet}
-            label={`Pet number ${i + 1}'s name`}
-          />
-          <Button onClick={removePetField(i)} label="remove pet"/>
-        ))}
-        <Button onClick={addPetField} label="add pet" />
-      </Section>
+    <form>
+      <F8TextInput link={form.name} label='name' />
+      <F8FloatInput link={form.age} label='age' />
+      <F8TextInput link={profile.nick} label="nick name" />
+
+      {form.profile.adjectives.map((pet, i) => (
+        <F8TextInput key={pet} link={pet} label='Adjective' />
+        <Button onClick={removePetField(i)} label='remove pet' />
+      ))}
+
+      <Button onClick={addPetField} label='add pet' />
 
       <Button onClick={onSubmit} />
     </Form>
