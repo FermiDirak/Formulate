@@ -16,59 +16,63 @@ export const createLink = <T>(
   formData: T,
   head: Form<T>,
 ): Link<T> => {
-  const formNode = { [linkSymbol]: new MetaLink(formData, head) };
+  const link = { [linkSymbol]: new MetaLink(formData, head) };
+
+  /* Our valueRef is a reference tree. If formData is a datastructure,
+   * then the below procedures hook up the references */
 
   if (Array.isArray(formData)) {
     formData.forEach((datum, i) => {
       const childNode = createLink(datum, head);
-      formNode[linkSymbol].valueRef[i] = childNode[linkSymbol].valueRef;
-      formNode[i] = childNode;
+      link[linkSymbol].valueRef[i] = childNode[linkSymbol].valueRef;
+      link[i] = childNode;
     });
 
   } else if (typeof formData === 'object' && formData !== null) {
-    formNode[linkSymbol].valueRef.value = {} as T;
+    link[linkSymbol].valueRef.value = {} as T;
 
     Object.keys(formData).forEach(key => {
       const childNode = createLink(formData[key], head);
-      formNode[linkSymbol].valueRef.value[key] = childNode[linkSymbol].valueRef;
-      formNode[key] = childNode;
+      link[linkSymbol].valueRef.value[key] = childNode[linkSymbol].valueRef;
+      link[key] = childNode;
     });
   }
 
-  return formNode;
+  return link;
 }
 
-/** resursively subscribes a Form Tree with the update callback
- * @param formNode The form node to recursively subscribe
+/** resursively subscribes a Link with the update callback
+ * @param link The link to recursively subscribe
  * @param updateCallback The callback to subscribe recursively */
 export const subscribeUpdateCallback = <T>(
-  formNode: Link<T>,
+  link: Link<T>,
   updateCallback: () => void,
 ): void => {
-  formNode[linkSymbol].subscribeUpdateCallback(updateCallback);
+  link[linkSymbol].subscribeUpdateCallback(updateCallback);
 
-  if (typeof formNode === 'object') {
-    Object.keys(formNode).forEach(key => {
-      subscribeUpdateCallback(formNode[key], updateCallback);
+  if (typeof link === 'object') {
+    Object.keys(link).forEach(key => {
+      subscribeUpdateCallback(link[key], updateCallback);
     });
   }
 }
 
-/** Recursively searches a formNode for errors
- * @param formNode The node to recursively traverse for errors
+/** Recursively traverses a link for errors
+ * @param link The link to recursively traverse for errors
  * @return The retrieved errors */
 export const recurisvelyGetErrors = <T>(
-  formNode: Link<T>
+  link: Link<T>
 ): string[] => {
-  const errors = [...formNode[linkSymbol].errors];
+  const errors = [...link[linkSymbol].errors];
 
-  if (Array.isArray(formNode)) {
-    formNode.forEach(child => {
+  if (Array.isArray(link)) {
+    link.forEach(child => {
       errors.push(...recurisvelyGetErrors(child));
     });
-  } else if (typeof formNode === 'object' && formNode !== null) {
-    Object.keys(formNode).forEach(key => {
-      const child = formNode[key];
+
+  } else if (typeof link === 'object' && link !== null) {
+    Object.keys(link).forEach(key => {
+      const child = link[key];
       errors.push(...recurisvelyGetErrors(child));
     });
   }

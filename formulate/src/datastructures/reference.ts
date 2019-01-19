@@ -1,4 +1,7 @@
-/** A reference is value that be accessed as both a pointer and as a value */
+/**
+ * A reference turns a value into a reference to a value and
+ * exposes methods to update and retrieve the value
+ */
 class Reference<T> {
   value: T;
 

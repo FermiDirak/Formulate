@@ -1,5 +1,5 @@
 import Form from './Form';
-import Reference from './reference';
+import Reference from './Reference';
 
 /** Used to access MetaLink from a form Link */
 export const linkSymbol = Symbol('link');

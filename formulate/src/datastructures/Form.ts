@@ -15,7 +15,4 @@ export default class Form <T> {
   subscribeUpdateCallback(updateCallback) {
     subscribeUpdateCallback(this.formNode, updateCallback);
   }
-
-
-
 }
