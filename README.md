@@ -1,4 +1,4 @@
-# Formulate
+# Form-It
 > React Form Management made simple
 
 Formulate is a React Form Management library that provides a clean API for writing expressive forms.
@@ -27,18 +27,17 @@ const Form = memo(() => {
 
   return (
     <form>
-      <F8TextInput link={form.name} label='name' />
-      <F8FloatInput link={form.age} label='age' />
-      <F8TextInput link={profile.nick} label="nick name" />
+      <FITextInput link={form.name} label='name' />
+      <FIFloatInput link={form.age} label='age' />
+      <FITextInput link={profile.nick} label="nick name" />
 
       {form.profile.adjectives.map((pet, i) => (
         <F8TextInput key={pet} link={pet} label='Adjective' />
         <Button onClick={removePetField(i)} label='remove pet' />
       ))}
-
       <Button onClick={addPetField} label='add pet' />
 
-      <Button onClick={onSubmit} />
+      <FIButton onClick={onSubmit} />
     </Form>
   );
 

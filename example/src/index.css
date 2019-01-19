@@ -51,7 +51,7 @@ button {
 }
 
 .error-box {
-  border: 1px solid #282c34;
+  border: 1px solid lightgrey;
   padding: 16px 52px;
   margin: 12px;
 }
