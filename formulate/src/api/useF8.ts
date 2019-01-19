@@ -1,12 +1,12 @@
 import {useState} from 'react';
 import Form from './../datastructures/Form';
-import { subscribeUpdateCallback, FormNode, createFormNode } from '../datastructures/formNode';
+import { subscribeUpdateCallback, Link, createLink } from '../datastructures/formNode';
 
 /** This hook lets you turn in a form schema into a
  * Formulate form object
  * @param initialForm The inital state of your form
  * @return A Formulate form object representing your form */
-const useF8 = <T>(initialForm: T): FormNode<T> => {
+const useF8 = <T>(initialForm: T): Link<T> => {
   const formTree = new Form(initialForm);
   const [form, updateForm] = useState(formTree);
 

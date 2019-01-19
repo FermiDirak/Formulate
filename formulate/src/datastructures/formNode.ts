@@ -1,35 +1,35 @@
 import Form from './Form';
-import Link, {linkSymbol} from './link';
+import MetaLink, {linkSymbol} from './MetaLink';
 
 /** A recusive data-structure that represents a form's
- * internal structure. Each form node contains a link
- * and its respective children */
-export type FormNode<T> = {
-  [linkSymbol]: Link<T>,
-  [properties: string]: FormNode<T>,
+ * internal structure */
+export type Link<T> = {
+  [linkSymbol]: MetaLink<T>,
+  [properties: string]: Link<T>,
 };
 
-/** creates a form node from a given datum
- * @param formDatum The form data to create a FormNode from
- * @return The created FormNode */
-export const createFormNode = <T>(
-  formDatum: T,
-  head: Form<T>
-): FormNode<T> => {
-  const formNode = { [linkSymbol]: new Link(formDatum, head) };
+/** creates a link from a given datum
+ * @param formData The form data to create a Link from
+ * @param head The parent Form
+ * @return The created recursive link */
+export const createLink = <T>(
+  formData: T,
+  head: Form<T>,
+): Link<T> => {
+  const formNode = { [linkSymbol]: new MetaLink(formData, head) };
 
-  if (Array.isArray(formDatum)) {
-    formDatum.forEach((datum, i) => {
-      const childNode = createFormNode(datum, head);
+  if (Array.isArray(formData)) {
+    formData.forEach((datum, i) => {
+      const childNode = createLink(datum, head);
       formNode[linkSymbol].valueRef[i] = childNode[linkSymbol].valueRef;
       formNode[i] = childNode;
     });
 
-  } else if (typeof formDatum === 'object' && formDatum !== null) {
+  } else if (typeof formData === 'object' && formData !== null) {
     formNode[linkSymbol].valueRef.value = {} as T;
 
-    Object.keys(formDatum).forEach(key => {
-      const childNode = createFormNode(formDatum[key], head);
+    Object.keys(formData).forEach(key => {
+      const childNode = createLink(formData[key], head);
       formNode[linkSymbol].valueRef.value[key] = childNode[linkSymbol].valueRef;
       formNode[key] = childNode;
     });
@@ -42,7 +42,7 @@ export const createFormNode = <T>(
  * @param formNode The form node to recursively subscribe
  * @param updateCallback The callback to subscribe recursively */
 export const subscribeUpdateCallback = <T>(
-  formNode: FormNode<T>,
+  formNode: Link<T>,
   updateCallback: () => void,
 ): void => {
   formNode[linkSymbol].subscribeUpdateCallback(updateCallback);
@@ -58,7 +58,7 @@ export const subscribeUpdateCallback = <T>(
  * @param formNode The node to recursively traverse for errors
  * @return The retrieved errors */
 export const recurisvelyGetErrors = <T>(
-  formNode: FormNode<T>
+  formNode: Link<T>
 ): string[] => {
   const errors = [...formNode[linkSymbol].errors];
 

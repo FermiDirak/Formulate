@@ -1,13 +1,13 @@
-import { FormNode, createFormNode, subscribeUpdateCallback } from './formNode';
+import { Link, createLink, subscribeUpdateCallback } from './formNode';
 
 /** The main container for Formulate */
 export default class Form <T> {
   value: T;
-  formNode: FormNode<T>;
+  formNode: Link<T>;
 
   constructor(formValue: T) {
     this.value = formValue;
-    this.formNode = createFormNode(formValue, this);
+    this.formNode = createLink(formValue, this);
   }
 
   /** resursively subscribes a Form Tree with the update callback

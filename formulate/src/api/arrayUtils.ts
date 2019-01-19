@@ -1,4 +1,4 @@
-import { FormNode } from './../datastructures/formNode';
+import { Link } from './../datastructures/formNode';
 
 type ArrayUtils = [
   () => void, // removeField
@@ -7,10 +7,10 @@ type ArrayUtils = [
 
 /**
  * Provides utils for working with arrays in forms
- * @param formNode The array formNode to provide utils for
+ * @param Link The array link to provide utils for
  * @param defaultVal The default value that will be used when adding
- * a field to the formNode */
-const arrayUtils = <T>(formNode: FormNode<T>, defaultVal: T) => {
+ * a field to the Link */
+const arrayUtils = <T>(link: Link<T>, defaultVal: T) => {
   //@todo
 }
 
