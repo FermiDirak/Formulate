@@ -15,7 +15,7 @@ const initialForm = {
   age: null,
   profile: {
     nick: '',
-    adjectives: [null],
+    pets: [null],
   },
 };
 
@@ -31,7 +31,7 @@ const Form = memo(() => {
       <FIFloatInput link={form.age} label='age' />
       <FITextInput link={profile.nick} label="nick name" />
 
-      {form.profile.adjectives.map((pet, i) => (
+      {form.profile.pets.map((pet, i) => (
         <F8TextInput key={pet} link={pet} label='Adjective' />
         <Button onClick={removePetField(i)} label='remove pet' />
       ))}
