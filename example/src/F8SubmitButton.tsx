@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { useLink, Link } from 'formulate';
 
-type Props<T> = {
-  link: Link<T>,
+type Props = {
+  link: Link<any>,
   onClick: (formData: any) => void,
   children: string,
 }
 
 
 
-function F8SubmitButton<T>({link, onClick, children}: Props<T>) {
+const F8SubmitButton = ({link, onClick, children}: Props) => {
   const {value} = useLink(link);
 
   const handleClick = (e: React.SyntheticEvent<HTMLButtonElement>) => {
