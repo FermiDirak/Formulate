@@ -1,4 +1,4 @@
-import { Link, createLink, subscribeUpdateCallback } from './formNode';
+import { Link, createLink, subscribeUpdateCallback } from './Link';
 
 /** The main container for Formulate */
 export default class Form <T> {

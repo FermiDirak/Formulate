@@ -1,4 +1,4 @@
-import { Link } from './../datastructures/formNode';
+import { Link } from '../datastructures/Link';
 
 type ArrayUtils = [
   () => void, // removeField

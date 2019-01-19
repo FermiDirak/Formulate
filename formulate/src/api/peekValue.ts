@@ -1,4 +1,4 @@
-import { Link } from './../datastructures/formNode';
+import { Link } from '../datastructures/Link';
 import { linkSymbol } from '../datastructures/MetaLink';
 
 /** Peek a form node's current value

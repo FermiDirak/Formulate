@@ -17,7 +17,7 @@
  */
 
 import {linkSymbol, Validator} from '../datastructures/MetaLink';
-import {Link, recurisvelyGetErrors} from '../datastructures/formNode';
+import {Link, recurisvelyGetErrors} from '../datastructures/Link';
 
 export type LinkContents<T> = {
   value: T,
