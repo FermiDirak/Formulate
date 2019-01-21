@@ -16,13 +16,20 @@ export default class Form <T> {
     subscribeUpdateCallback(this.formNode, updateCallback);
   }
 
+  /** Partially updates the value given a path to the property to update
+   * @param path The path to the property to update
+   * @param data The data to update the property with */
   updateVal(path: (string | number)[], data: any) {
     if (path.length === 0) {
       this.value = data;
     }
 
-    const nextPath = path.shift();
+    let ptr = this.value;
 
-    const temp = this.value;
+    for (let i = 0; i < path.length - 2; ++i) {
+      ptr = ptr[path[i]];
+    }
+
+    ptr[path[path.length - 1]] = data;
   }
 }
