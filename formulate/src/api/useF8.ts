@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import Form from './../datastructures/Form';
-import { subscribeUpdateCallback, Link, createLink } from '../datastructures/Link';
+import { subscribeUpdateCallback, Link } from '../datastructures/Link';
 
 /** This hook lets you turn in a form schema into a
  * Formulate form object

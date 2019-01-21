@@ -13,20 +13,25 @@ export type Validator<T> = (newValue: T) => string[] | null;
 class MetaLink<T> {
   // The head of the Form tree. Contains metadata on the form
   head: Form<T>;
-  // callback for when the form node is changed
-  updateCallback: (() => void) | null;
-  // validation for this corresponding Link's error handling
-  validator?: Validator<T>;
+  // the path to access the given link
+  path: (string | number)[];
   // A reference to this Link's current value
   valueRef: Reference<T>;
   // the errors at the current level
   errors: string[];
+  // callback for when the form node is changed
+  updateCallback: (() => void) | null;
+  // validation for this corresponding Link's error handling
+  validator: Validator<T> | null;
 
-  constructor(data: T, head: Form<T>) {
+  constructor(head: Form<T>, path: (string | number)[], data: T) {
+    this.head = head;
+    this.path = path;
     this.valueRef = new Reference(data);
     this.errors = [];
+
     this.updateCallback = null;
-    this.head = head;
+    this.validator = null;
   }
 
   subscribeUpdateCallback(updateCallback: () => void): void {
@@ -34,7 +39,7 @@ class MetaLink<T> {
   }
 
   updateValidator(validator?: Validator<T>) {
-    this.validator = validator;
+    this.validator = validator || null;
   }
 
   onChange(newValue: T): void {
