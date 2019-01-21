@@ -1,4 +1,4 @@
-# Form-It
+# Formulate
 > React Form Management made simple
 
 Formulate is a React Form Management library that provides a clean API for writing expressive forms.
@@ -8,7 +8,7 @@ Formulate is a React Form Management library that provides a clean API for writi
 ```jsx
 
 import {Form, Section, TextInput, FloatInput, Button} from "latitude";
-import {useF1, useF1Array} from 'formula-one';
+import {useF8, useF8Array} from 'formulate';
 
 const initialForm = {
   name: '',

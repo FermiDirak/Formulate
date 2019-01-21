@@ -12,7 +12,17 @@ export default class Form <T> {
 
   /** resursively subscribes a Form Tree with the update callback
    * @param updateCallback The callback to subscribe recursively */
-  subscribeUpdateCallback(updateCallback) {
+  subscribeUpdateCallback(updateCallback: () => void) {
     subscribeUpdateCallback(this.formNode, updateCallback);
+  }
+
+  updateVal(path: (string | number)[], data: any) {
+    if (path.length === 0) {
+      this.value = data;
+    }
+
+    const nextPath = path.shift();
+
+    const temp = this.value;
   }
 }
