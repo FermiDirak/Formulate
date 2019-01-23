@@ -15,16 +15,15 @@ export type Link<T> = {
 export const createLink = <T>(
   head: Form<T>,
   formData: T,
-  path: (string | number)[],
 ): Link<T> => {
-  const link = { [linkSymbol]: new MetaLink(head, path, formData) };
+  const link = { [linkSymbol]: new MetaLink(head, formData) };
 
   /* Our valueRef is a reference tree. If formData is a datastructure,
    * then the below procedures hook up the references */
 
   if (Array.isArray(formData)) {
     formData.forEach((datum, i) => {
-      const childNode = createLink(head, datum, [...path, i]);
+      const childNode = createLink(head, datum);
       link[linkSymbol].valueRef[i] = childNode[linkSymbol].valueRef;
       link[i] = childNode;
     });
@@ -33,7 +32,7 @@ export const createLink = <T>(
     link[linkSymbol].valueRef.value = {} as T;
 
     Object.keys(formData).forEach(key => {
-      const childNode = createLink(head, formData[key], [...path, key]);
+      const childNode = createLink(head, formData[key]);
       link[linkSymbol].valueRef.value[key] = childNode[linkSymbol].valueRef;
       link[key] = childNode;
     });

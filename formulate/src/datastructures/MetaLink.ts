@@ -13,8 +13,6 @@ export type Validator<T> = (newValue: T) => string[] | null;
 class MetaLink<T> {
   // The head of the Form tree. Contains metadata on the form
   head: Form<T>;
-  // the path to access the given link
-  path: (string | number)[];
   // A reference to this Link's current value
   valueRef: Reference<T>;
   // the errors at the current level
@@ -24,9 +22,8 @@ class MetaLink<T> {
   // validation for this corresponding Link's error handling
   validator: Validator<T> | null;
 
-  constructor(head: Form<T>, path: (string | number)[], data: T) {
+  constructor(head: Form<T>, data: T) {
     this.head = head;
-    this.path = path;
     this.valueRef = new Reference(data);
     this.errors = [];
 
