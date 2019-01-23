@@ -10,6 +10,7 @@ const initialForm = {
   profile: {
     nick: 'dirak',
   },
+  friends: ['jill'],
 };
 
 const notBob = (name: string): string[] | null => {
@@ -33,6 +34,7 @@ const App = () => {
       <F8TextInput link={formData.name} label='name' validator={notBob} />
       <F8TextInput link={formData.age} label='age' />
       <F8TextInput link={formData.profile.nick} label='nick' />
+
       <F8SubmitButton link={formData} onClick={onSubmit}>Submit</F8SubmitButton>
 
       {JSON.stringify(peekValue(formData))}

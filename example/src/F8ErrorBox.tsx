@@ -15,7 +15,9 @@ const F8ErrorBox = ({link}: Props) => {
       Form Errors:
       <ul>
         {errors.length ?
-          errors.map(error => <li style={{color: 'red'}}>{error}</li>)
+          errors.map(error => (
+            <li key={error} style={{color: 'red'}}>{error}</li>
+          ))
           : <li>no errors!</li>
         }
       </ul>

@@ -18,20 +18,21 @@ export const createLink = <T>(
 ): Link<T> => {
   /* ValueRef is a reference tree. The below procedure hooks up
    * the valueRef upwards */
+  const link = { [linkSymbol]: new MetaLink(head, formData) };
 
   if (Array.isArray(formData)) {
-    const link: Link<any>[] = [];
-    link[linkSymbol] = new MetaLink(head, formData);
+    const arrayLink: any = [];
+    arrayLink[linkSymbol] = new MetaLink(head, formData);
 
     formData.forEach((datum, i) => {
       const childNode = createLink(head, datum);
-      link[linkSymbol].valueRef[i] = childNode[linkSymbol].valueRef;
-      link[i] = childNode;
+      arrayLink[linkSymbol].valueRef[i] = childNode[linkSymbol].valueRef;
+      arrayLink[i] = childNode;
     });
 
-  } else if (typeof formData === 'object' && formData !== null) {
-    const link = { [linkSymbol]: new MetaLink(head, formData) };
+    return arrayLink;
 
+  } else if (typeof formData === 'object' && formData !== null) {
     link[linkSymbol].valueRef.value = {} as T;
 
     Object.keys(formData).forEach(key => {
@@ -41,7 +42,7 @@ export const createLink = <T>(
     });
   }
 
-  return { [linkSymbol]: new MetaLink(head, formData) };
+  return link;
 }
 
 /** resursively subscribes a Link with the update callback
