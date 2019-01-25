@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -17,10 +22,6 @@ body {
   color: white;
 }
 
-h1, h2, h3 {
-  margin: 0;
-  padding: 0;
-}
 
 form {
   display: flex;
@@ -47,7 +48,16 @@ code {
 }
 
 button {
-  margin: 2.5em;
+  margin: 1em;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.text-input {
+  margin: 16px;
 }
 
 .error-box {

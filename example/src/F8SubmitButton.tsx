@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useLink, Link } from 'formulate';
+import Button from './Button';
 
 type Props = {
   link: Link<any>,
-  onClick: (formData: any) => void,
+  onClick?: (formData: any) => void,
   children: string,
 }
 
@@ -12,15 +13,14 @@ type Props = {
 const F8SubmitButton = ({link, onClick, children}: Props) => {
   const {value} = useLink(link);
 
-  const handleClick = (e: React.SyntheticEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    onClick(value);
+  const handleClick = () => {
+    onClick && onClick(value);
   }
 
   return(
-    <button type="submit" onClick={handleClick}>
+    <Button type="submit" onClick={handleClick}>
       {children}
-    </button>
+    </Button>
   );
 }
 

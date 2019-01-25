@@ -12,11 +12,11 @@ const F8TextInput = ({link, validator, label}: Props) => {
   const {value, onChange, errors} = useLink(link, validator);
 
   return (
-    <React.Fragment>
+    <div className='text-input'>
       <h3>{label}</h3>
       <TextInput value={value} onChange={onChange} />
       <p style={{color: 'red'}}>{errors.join(' ')}</p>
-    </React.Fragment>
+    </div>
   );
 };
 
