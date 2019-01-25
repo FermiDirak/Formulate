@@ -8,8 +8,6 @@ type Props = {
   children: string,
 }
 
-
-
 const F8SubmitButton = ({link, onClick, children}: Props) => {
   const {value} = useLink(link);
 
