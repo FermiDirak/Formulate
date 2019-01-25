@@ -26,14 +26,11 @@ export const createLink = <T>(
     arrayLink[linkSymbol] = new MetaLink(head, formData);
     arrayLink[linkSymbol].valueRef.value = [];
 
-
     formData.forEach((datum, i) => {
       const childNode = createLink(head, datum);
       arrayLink[linkSymbol].valueRef.value[i] = childNode[linkSymbol].valueRef;
       arrayLink[i] = childNode;
     });
-
-    console.log(arrayLink)
 
     return arrayLink;
 
