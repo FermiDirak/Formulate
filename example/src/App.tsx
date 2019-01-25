@@ -35,6 +35,12 @@ const App = () => {
       <F8TextInput link={formData.age} label='age' />
       <F8TextInput link={formData.profile.nick} label='nick' />
 
+      {formData.friends.map((friend, i) => (
+        <React.Fragment key={i}>
+          <F8TextInput link={friend} label={`friend ${i + 1}`}/>
+        </React.Fragment>
+      ))}
+
       <F8SubmitButton link={formData} onClick={onSubmit}>Submit</F8SubmitButton>
 
       {JSON.stringify(peekValue(formData))}

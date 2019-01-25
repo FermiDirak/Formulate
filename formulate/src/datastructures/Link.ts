@@ -3,10 +3,11 @@ import MetaLink, {linkSymbol} from './MetaLink';
 
 /** A recusive data-structure that represents a form's
  * internal structure */
-export type Link<T> = {
-  [linkSymbol]: MetaLink<T>,
-  [properties: string]: Link<T>,
-};
+// export type Link<T> = {
+//   [linkSymbol]: MetaLink<T>,
+//   [properties: string]: Link<T>,
+// };
+export type Link<T> = any;
 
 /** creates a link from a given datum
  * @param head The parent Form
@@ -23,12 +24,16 @@ export const createLink = <T>(
   if (Array.isArray(formData)) {
     const arrayLink: any = [];
     arrayLink[linkSymbol] = new MetaLink(head, formData);
+    arrayLink[linkSymbol].valueRef.value = [];
+
 
     formData.forEach((datum, i) => {
       const childNode = createLink(head, datum);
-      arrayLink[linkSymbol].valueRef[i] = childNode[linkSymbol].valueRef;
+      arrayLink[linkSymbol].valueRef.value[i] = childNode[linkSymbol].valueRef;
       arrayLink[i] = childNode;
     });
+
+    console.log(arrayLink)
 
     return arrayLink;
 
