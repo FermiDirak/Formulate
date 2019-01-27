@@ -24,7 +24,14 @@ const arrayUtils = <T>(link: Link<T>, defaultVal: T): ArrayUtils => {
   }
 
   const removeField = (index: number) => {
-    //@TODO: removeField
+    const metaLink = link[linkSymbol];
+    link.splice(index, 1);
+    link[linkSymbol].valueRef.value = [
+      ...metaLink.valueRef.value.slice(0, index),
+      ...metaLink.valueRef.value.slice(index + 1)
+    ];
+
+    link[linkSymbol].updateCallback();
   }
 
   return [addField, removeField];

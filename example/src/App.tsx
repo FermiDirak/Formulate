@@ -30,6 +30,8 @@ const App = () => {
   const formData = useF8(initialForm);
   const [addFriend, removeFriend] = arrayUtils(formData.friends, '');
 
+  console.log(formData);
+
   return (
     <form className='App'>
       <F8ErrorBox link={formData} />
@@ -41,7 +43,7 @@ const App = () => {
         {formData.friends.map((friend, i) => (
           <div key={i}>
             <F8TextInput link={friend} label={`friend ${i + 1}`}/>
-            <Button>Remove Friend</Button>
+            <Button onClick={() => {removeFriend(i)}}>Remove Friend</Button>
           </div>
         ))}
       </section>

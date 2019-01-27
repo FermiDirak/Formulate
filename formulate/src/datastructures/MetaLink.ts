@@ -6,13 +6,20 @@ export const linkSymbol = Symbol('link');
 
 export type Validator<T> = (newValue: T) => string[] | null;
 
-/**
- * MetaLink is the container for the metadata of a Form's Link
- * It's stored on a Link's LinkSymbol
- */
+let nextId = 0;
+const getNextId = (): number => {
+  const currentId = nextId;
+  nextId += 1;
+  return currentId;
+}
+
+/** MetaLink is the container for the metadata of a Form's Link
+ * It's stored on a Link's LinkSymbol */
 class MetaLink<T> {
   // The head of the Form tree. Contains metadata on the form
   head: Form<T>;
+  // a unique identifier for the MetaLink
+  id: number;
   // A reference to this Link's current value
   valueRef: Reference<T>;
   // the errors at the current level
@@ -24,6 +31,7 @@ class MetaLink<T> {
 
   constructor(head: Form<T>, data: T) {
     this.head = head;
+    this.id = getNextId();
     this.valueRef = new Reference(data);
     this.errors = [];
 

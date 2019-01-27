@@ -20,6 +20,7 @@ import {linkSymbol, Validator} from '../datastructures/MetaLink';
 import {Link, recurisvelyGetErrors} from '../datastructures/Link';
 
 export type LinkContents<T> = {
+  id: number,
   value: T,
   errors: string[],
   onChange: (newValue: T) => void,
@@ -39,6 +40,7 @@ const useLink = <T>(
   linkContent.updateValidator(validator);
 
   return {
+    id: linkContent.id,
     value: linkContent.valueRef.getValue(),
     errors: linkContent.errors,
     onChange: (newValue: T) => { linkContent.onChange(newValue); },
