@@ -4,7 +4,7 @@ import Reference from './Reference';
 /** Used to access MetaLink from a form Link */
 export const linkSymbol = Symbol('link');
 
-export type Validator<T> = (newValue: T) => string[] | null;
+export type Validator<T> = (newValue: T) => string[] | string | null;
 
 let nextId = 0;
 const getNextId = (): number => {
@@ -53,7 +53,13 @@ class MetaLink<T> {
     }
 
     if (this.validator) {
-      this.errors = this.validator(newValue) || [];
+      let errors = this.validator(newValue) || [];
+
+      if (typeof errors === 'string') {
+        errors = [errors];
+      }
+
+      this.errors = errors;
     }
 
     this.valueRef.updateValue(newValue);

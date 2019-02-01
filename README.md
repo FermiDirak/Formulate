@@ -3,7 +3,7 @@
 
 Formulate is an ergonomic React Form library for building high preformance and expressive forms.
 
-Formulate abstracts away the complexities of error handling, validation, and state management via a powerful concept called **links**. Simply declare the shape of your form with its default values, and *link* the forms data with data entry fields. Each form datum is directly _linked_ to a field, and the field takes care of handling all aspects of its linked data.
+Formulate abstracts away the complexities of error handling, validation, and state management via a powerful concept called **links**. Simply declare the shape of your form with initial values, and *link* the forms data with data entry fields. Each form datum is directly _linked_ to a field, and the field takes care of handling all aspects of its linked data.
 
 ## Usage
 
@@ -25,11 +25,11 @@ const initialForm = {
 
 const thirteenAndUp = (age) => {
   if (age < 13) {
-    return ['Must be 13 years or older to submit this form'];
+    return 'Must be 13 years or older to submit this form';
   }
 }
 
-const onSubmit = (formData) => { /* AJAX SEND */};
+const onSubmit = (formData) => { /* AJAX SEND */ };
 
 const MyForm = memo(() => {
   const formData = useFormulate(initialForm);
@@ -46,9 +46,9 @@ const MyForm = memo(() => {
 });
 ```
 
-In the above example, each field is directly tied to a singular piece of data declared in the form. When the user inputs into the 'name' field, `form.name` updates accordingly. When the user presses the Submit Button, onSubmit is called with its link `form`.
+In the above example, each field is directly tied to a singular datum declared in the form. When the user inputs into the 'name' field, `form.name` updates accordingly. When the user presses the Submit Button, onSubmit is called with its link `form`.
 
-To use Formulate, it's highly suggested to create Formulate specific components _(prefixed with FL)_ that take in a _link_ and and optional _validator_ prop.
+To use Formulate, it's highly suggested to create Formulate specific components _(prefixed with FL)_ that take in a required _link_ and and optional _validator_ prop.
 
 ```jsx
 const FLTextInput = ({link, validator, label}: Props) => {
@@ -126,10 +126,10 @@ const initialForm = {
   },
 };
 
-const validateName = (name) => !name.length ? ['must provide name'] : null;
-const validateSSN = (ssn) => !ssn.length ? ['must provide ssn'] : null;
+const validateName = (name) => !name.length ? 'must provide name' : null;
+const validateSSN = (ssn) => !ssn.length ? 'must provide ssn' : null;
 const validateClearance (clearance) =>  clearance !== 'None'
-   ? ['You have no clearance!'] : null;
+   ? 'You have no clearance!' : null;
 
 const MyForm = () => {
   const formData = useFormulate(initialForm);
