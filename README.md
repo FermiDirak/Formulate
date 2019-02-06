@@ -5,6 +5,12 @@ Formulate is an ergonomic React Form library for building high preformance and e
 
 Formulate abstracts away the complexities of error handling, validation, and state management via a powerful concept called **links**. Simply declare the shape of your form with initial values, and *link* the forms data with data entry fields. Each form datum is directly _linked_ to a field, and the field takes care of handling all aspects of its linked data.
 
+## Live Demo
+
+See Formulate in action here: https://formulatedemo.netlify.com
+
+_(Source in the  [/example](./example) directory!)_
+
 ## Usage
 
 ### Basic Usage
