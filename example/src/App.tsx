@@ -6,7 +6,7 @@ import F8ErrorBox from './F8ErrorBox';
 import F8SubmitButton from './F8SubmitButton';
 
 const initialForm = {
-  name: 'dr hammer fish',
+  name: 'totally not bob',
   age: '1337',
   profile: {
     nick: 'dirak',
