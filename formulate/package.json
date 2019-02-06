@@ -1,6 +1,6 @@
 {
   "name": "formulate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Form Management Library for expressive forms",
   "license": "MIT",
   "private": false,
