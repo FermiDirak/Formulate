@@ -9,7 +9,7 @@ Formulate abstracts away the complexities of error handling, validation, and sta
 
 See Formulate in action here: https://formulatedemo.netlify.com
 
-_(Source in the  [/example](./example) directory!)_
+_(Source in the  [/example](./example) directory)_
 
 ## Usage
 
