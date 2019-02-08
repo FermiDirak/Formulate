@@ -118,7 +118,7 @@ const MyDoggoForm = () => {
 
 ### Validations Example
 
-Imagine you're working on a complex form where you must be strict about data entry formatting. There are form level errors and section level errors and any error will bar the form from being submitted. This is what Formulate was built for!
+Imagine you're working on a complex form where you must be strict about data entry formatting. There are form level errors and section level errors and any error will bar the form from being submitted. This is precisely what Formulate was built for!
 
 ```jsx
 
@@ -163,7 +163,7 @@ const MyForm = () => {
 }
 ```
 
-In the above example, the FLErrorBox component displays all nested validation errors. Formulate abstracts away the complexity of validation handling and allows you to  aggregate and display all nested validation errors from a given form node.
+In the above example, the FLErrorBox displays all nested validation errors of a given link. This is a powerful pattern when needing to display form level and section level validation errors. Below is the implementation of FLErrorBox. 
 
 ```jsx
 const F8ErrorBox = ({link}: Props) => {
