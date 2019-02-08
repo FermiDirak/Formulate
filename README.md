@@ -156,7 +156,7 @@ const initialForm = {
 };
 ```
 
-Our form should allow users to add pets to their list of pets, and remove a pet if they so desire. Formulate handles this.
+Our form should allow users to add pets to their list of pets, and remove a pet if they so desire. Formulate handles this by providing a utility `arrayUtils`, which allows you to create callbacks for adding and removing entries to given array form link.
 
 ```jsx
 import {useFormulate, arrayUtils, getId} from 'formulate';
@@ -183,5 +183,6 @@ const MyDoggoForm = () => {
 }
 ```
 
+## MISC
 
 See more Formulate in action in the [/example](./example) directory!
