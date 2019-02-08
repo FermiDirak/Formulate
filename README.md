@@ -1,6 +1,9 @@
 # Formulate
 > React Form Management made simple
 
+![npm version](https://badge.fury.io/js/formulate.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Formulate is an ergonomic React Form library for building highly preformant and expressive forms.
 
 Formulate abstracts away the complexities of error handling, validation, and state management via a powerful concept called **links**. Simply declare the shape of your form with initial values, and *link* the forms data with data entry fields. Each form datum is directly _linked_ to a field, and the field takes care of handling all aspects of its linked data.
