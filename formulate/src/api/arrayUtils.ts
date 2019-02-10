@@ -10,7 +10,7 @@ type ArrayUtils = [ addField, removeField ];
  * @param Link The array link to provide utils for
  * @param defaultVal The default value that will be used when adding
  * a field to the Link */
-const arrayUtils = <T>(link: Link<T>, defaultVal: T): ArrayUtils => {
+const arrayUtils = <T>(link: any, defaultVal: T): ArrayUtils => {
   if (!Array.isArray(link)) {
     throw new TypeError('ArrayUtil must only be used on Array Links');
   }

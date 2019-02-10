@@ -28,24 +28,24 @@ export type LinkContents<T> = {
   childErrors: () => string[];
 }
 
-/** retrieves the link content associated with a given formNode
- * @param formNode The FormNode to retrieve the link from
+/** retrieves the link content associated with a given Link
+ * @param link The link to retrieve the link from
  * @param validator The validator function to be used on the value
  * @return The content of the link */
 const useLink = <T>(
-  formNode: Link<T>,
+  link: Link<T>,
   validator?: Validator<T>,
 ): LinkContents<T> => {
-  const linkContent = formNode[linkSymbol];
-  linkContent.updateValidator(validator);
+  const metaLink = link[linkSymbol];
+  metaLink.updateValidator(validator);
 
   return {
-    id: linkContent.id,
-    value: linkContent.valueRef.getValue(),
-    errors: linkContent.errors,
-    onChange: (newValue: T) => { linkContent.onChange(newValue); },
-    onBlur: linkContent.onBlur,
-    childErrors: () => recurisvelyGetErrors(formNode),
+    id: metaLink.id,
+    value: metaLink.valueRef.getValue(),
+    errors: metaLink.errors,
+    onChange: (newValue: T) => { metaLink.onChange(newValue); },
+    onBlur: metaLink.onBlur,
+    childErrors: () => recurisvelyGetErrors(link),
   }
 }
 

@@ -15,9 +15,9 @@ const getNextId = (): number => {
 
 /** MetaLink is the container for the metadata of a Form's Link
  * It's stored on a Link's LinkSymbol */
-class MetaLink<T> {
+class MetaLink<HEAD, T> {
   // The head of the Form tree. Contains metadata on the form
-  head: Form<T>;
+  head: Form<HEAD>;
   // a unique identifier for the MetaLink
   id: number;
   // A reference to this Link's current value
@@ -29,7 +29,7 @@ class MetaLink<T> {
   // validation for this corresponding Link's error handling
   validator: Validator<T> | null;
 
-  constructor(head: Form<T>, data: T) {
+  constructor(head: Form<HEAD>, data: T) {
     this.head = head;
     this.id = getNextId();
     this.valueRef = new Reference(data);

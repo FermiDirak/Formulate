@@ -7,27 +7,30 @@ import MetaLink, {linkSymbol} from './MetaLink';
 //   [linkSymbol]: MetaLink<T>,
 //   [properties: string]: Link<T>,
 // };
-export type Link<T> = any;
+export type Link<T> = {
+  [P in keyof T]: T[P];
+  // [linkSymbol]: MetaLink<any, T>,
+};
 
 /** creates a link from a given datum
  * @param head The parent Form
  * @param formData The form data to create a Link from
  * @return The created recursive link */
-export const createLink = <T>(
-  head: Form<T>,
+export const createLink = <HEAD, T>(
+  head: Form<HEAD>,
   formData: T,
-): Link<T> => {
+) => {
   /* ValueRef is a reference tree. The below procedure hooks up
    * the valueRef upwards */
-  const link = { [linkSymbol]: new MetaLink(head, formData) };
+  const link = { [linkSymbol]: new MetaLink<HEAD, T>(head, formData) };
 
   if (Array.isArray(formData)) {
     const arrayLink: any = [];
-    arrayLink[linkSymbol] = new MetaLink(head, formData);
+    arrayLink[linkSymbol] = new MetaLink<HEAD, T>(head, formData);
     arrayLink[linkSymbol].valueRef.value = [];
 
     formData.forEach((datum, i) => {
-      const childNode = createLink(head, datum);
+      const childNode = createLink<HEAD, typeof datum>(head, datum);
       arrayLink[linkSymbol].valueRef.value[i] = childNode[linkSymbol].valueRef;
       arrayLink[i] = childNode;
     });
@@ -38,7 +41,8 @@ export const createLink = <T>(
     link[linkSymbol].valueRef.value = {} as T;
 
     Object.keys(formData).forEach(key => {
-      const childNode = createLink(head, formData[key]);
+      const value = formData[key];
+      const childNode = createLink<HEAD, typeof value>(head, value);
       link[linkSymbol].valueRef.value[key] = childNode[linkSymbol].valueRef;
       link[key] = childNode;
     });
@@ -50,7 +54,7 @@ export const createLink = <T>(
 /** resursively subscribes a Link with the update callback
  * @param link The link to recursively subscribe
  * @param updateCallback The callback to subscribe recursively */
-export const subscribeUpdateCallback = <T>(
+export const subscribeUpdateCallback = <HEAD, T>(
   link: Link<T>,
   updateCallback: () => void,
 ): void => {
@@ -58,7 +62,8 @@ export const subscribeUpdateCallback = <T>(
 
   if (typeof link === 'object') {
     Object.keys(link).forEach(key => {
-      subscribeUpdateCallback(link[key], updateCallback);
+      const childLink = link[key];
+      subscribeUpdateCallback<HEAD, typeof childLink>(childLink, updateCallback);
     });
   }
 }

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { useLink } from 'formulate';
+import { useLink, Link } from 'formulate';
 import TextInput from './TextInput';
 
 type Props = {
   label: string,
-  link: any,
-  validator?: (value: string) => string[] | null,
+  link: Link<string>,
+  validator?: (value: string) => string[] | string | null,
 };
 
 const F8TextInput = ({link, validator, label}: Props) => {
