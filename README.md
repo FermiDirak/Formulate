@@ -1,7 +1,10 @@
 # Formulate
 > React Form Management made simple
 
-Formulate is an ergonomic React Form library for building high preformance and expressive forms.
+![npm version](https://badge.fury.io/js/formulate.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Formulate is an ergonomic React Form library for building highly preformant and expressive forms.
 
 Formulate abstracts away the complexities of error handling, validation, and state management via a powerful concept called **links**. Simply declare the shape of your form with initial values, and *link* the forms data with data entry fields. Each form datum is directly _linked_ to a field, and the field takes care of handling all aspects of its linked data.
 
@@ -9,7 +12,7 @@ Formulate abstracts away the complexities of error handling, validation, and sta
 
 See Formulate in action here: https://formulatedemo.netlify.com
 
-_(Source in the  [/example](./example) directory!)_
+_(Source in the  [/example](./example) directory)_
 
 ## Usage
 
@@ -71,54 +74,9 @@ const FLTextInput = ({link, validator, label}: Props) => {
 }
 ```
 
-### Forms with Arrays of Entries Example
-
-Sometimes we need to write forms where you can add an abitrary number of entries to a list. Consider the following form to be used by your nextdoor dog walking startup: Doggo.
-
-```js
-const initialPet = {
-  name: '',
-  funFact: '',
-};
-
-const initialForm = {
-  name: '',
-  doggos: [
-    initialPet,
-  ],
-};
-```
-
-Our form should allow users to add pets to their list of pets, and remove a pet if they so desire. Formulate handles this.
-
-```jsx
-import {useFormulate, arrayUtils, getId} from 'formulate';
-
-const MyDoggoForm = () => {
-  const formData = useFormulate(initialForm);
-  const [addDoggo, removeDoggo] = arrayUtils(formData.doggos, initialPet);
-
-  return (
-    <form>
-      {formData.doggos.map(doggo => (
-        <div key={getId(doggo)}>
-          <FLTextInput link={doggo.name} label='name'/>
-          <FLTextInput link={doggo.funFact} label='fun fact!'/>
-          <Button onClick={() => {removeDoggo(i)}} label='remove doggo' />
-        </div>
-      ))}
-
-      <Button onClick={addDoggo} label='add doggo!' />
-
-      <FLSubmit link={formData} onSubmit={onSubmit} />
-    </form>
-  );
-}
-```
-
 ### Validations Example
 
-Imagine you're working on a complex form where you must be strict about data entry formatting. There are form level errors and section level errors and any error will bar the form from being submitted. This is what Formulate was built for!
+Imagine you're working on a complex form where you must be strict about data entry formatting. There are form level errors and section level errors and any error will bar the form from being submitted. This is precisely what Formulate was built for!
 
 ```jsx
 
@@ -163,7 +121,7 @@ const MyForm = () => {
 }
 ```
 
-In the above example, the FLErrorBox component displays all nested validation errors. Formulate abstracts away the complexity of validation handling and allows you to  aggregate and display all nested validation errors from a given form node.
+In the above example, the FLErrorBox displays all nested validation errors of a given link. This is a powerful pattern when needing to display form level and section level validation errors. Below is the implementation of FLErrorBox. 
 
 ```jsx
 const F8ErrorBox = ({link}: Props) => {
@@ -182,5 +140,52 @@ const F8ErrorBox = ({link}: Props) => {
   );
 };
 ```
+
+### Forms with Arrays of Entries Example
+
+Sometimes we need to write forms where you can add an abitrary number of entries to a list. Consider the following form to be used by your nextdoor dog walking startup: Doggo.
+
+```js
+const initialPet = {
+  name: '',
+  funFact: '',
+};
+
+const initialForm = {
+  name: '',
+  doggos: [
+    initialPet,
+  ],
+};
+```
+
+Our form should allow users to add pets to their list of pets, and remove a pet if they so desire. Formulate handles this by providing a utility `arrayUtils`, which allows you to create callbacks for adding and removing entries to given array form link.
+
+```jsx
+import {useFormulate, arrayUtils, getId} from 'formulate';
+
+const MyDoggoForm = () => {
+  const formData = useFormulate(initialForm);
+  const [addDoggo, removeDoggo] = arrayUtils(formData.doggos, initialPet);
+
+  return (
+    <form>
+      {formData.doggos.map(doggo => (
+        <div key={getId(doggo)}>
+          <FLTextInput link={doggo.name} label='name'/>
+          <FLTextInput link={doggo.funFact} label='fun fact!'/>
+          <Button onClick={() => {removeDoggo(i)}} label='remove doggo' />
+        </div>
+      ))}
+
+      <Button onClick={addDoggo} label='add doggo!' />
+
+      <FLSubmit link={formData} onSubmit={onSubmit} />
+    </form>
+  );
+}
+```
+
+## MISC
 
 See more Formulate in action in the [/example](./example) directory!
