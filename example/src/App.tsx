@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useF8, arrayUtils, peekValue } from 'formulate';
+import { useForm, useFormArray, peekValue } from 'formulate';
 import Button from './Button';
 import F8TextInput from './F8TextInput';
 import F8ErrorBox from './F8ErrorBox';
@@ -27,8 +27,8 @@ const onSubmit = (formData) => {
 };
 
 const App = () => {
-  const formData = useF8(initialForm);
-  const [addFriend, removeFriend] = arrayUtils(formData.friends, '');
+  const formData = useForm(initialForm);
+  const [addFriend, removeFriend] = useFormArray(formData.friends, '');
 
   console.log(formData);
 

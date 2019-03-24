@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import Form from './../datastructures/Form';
+import Form from '../datastructures/Form';
 import { subscribeUpdateCallback, Link } from '../datastructures/Link';
 import peekValue from './peekValue';
 
@@ -7,7 +7,7 @@ import peekValue from './peekValue';
  * Formulate form object
  * @param initialForm The inital state of your form
  * @return A Formulate form object representing your form */
-const useF8 = <T>(initialForm: T): Link<T> => {
+const useForm = <T>(initialForm: T): Link<T> => {
   const formTree = new Form(initialForm);
   const [form, updateForm] = useState(formTree);
 
@@ -21,4 +21,4 @@ const useF8 = <T>(initialForm: T): Link<T> => {
   return form.formNode;
 }
 
-export default useF8;
+export default useForm;

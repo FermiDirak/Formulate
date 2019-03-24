@@ -19,7 +19,7 @@ The most beautiful aspect of Formulate is how concise it makes writing forms.
 
 ```jsx
 import {FLTextInput, FLNumberInput, FLSubmitButton} from 'my-form-components';
-import {useFormulate} from 'formulate';
+import {useForm} from 'formulate';
 
 const initialForm = {
   name: '',
@@ -38,7 +38,7 @@ const thirteenAndUp = (age) => {
 const onSubmit = (formData) => { /* AJAX SEND */ };
 
 const MyForm = memo(() => {
-  const formData = useFormulate(initialForm);
+  const formData = useForm(initialForm);
 
   return (
     <form>
@@ -92,11 +92,11 @@ const initialForm = {
 Our form should allow users to add pets to their list of pets, and remove a pet if they so desire. Formulate handles this.
 
 ```jsx
-import {useFormulate, arrayUtils, getId} from 'formulate';
+import {useForm, useFormArray, getId} from 'formulate';
 
 const MyDoggoForm = () => {
-  const formData = useFormulate(initialForm);
-  const [addDoggo, removeDoggo] = arrayUtils(formData.doggos, initialPet);
+  const formData = useForm(initialForm);
+  const [addDoggo, removeDoggo] = useFormArray(formData.doggos, initialPet);
 
   return (
     <form>
@@ -138,7 +138,7 @@ const validateClearance (clearance) =>  clearance !== 'None'
    ? 'You have no clearance!' : null;
 
 const MyForm = () => {
-  const formData = useFormulate(initialForm);
+  const formData = useForm(initialForm);
 
   return (
     <form>
