@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import Form from './../datastructures/Form';
 import { subscribeUpdateCallback, Link } from '../datastructures/Link';
+import peekValue from './peekValue';
 
 /** This hook lets you turn in a form schema into a
  * Formulate form object
@@ -12,7 +13,7 @@ const useF8 = <T>(initialForm: T): Link<T> => {
 
   // updateCallback is called whenever any onChange is called
   const updateCallback = (): void => {
-    updateForm(form);
+    updateForm(new Form(peekValue(form.formNode)));
   }
 
   form.subscribeUpdateCallback(updateCallback);
