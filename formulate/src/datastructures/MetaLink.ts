@@ -16,17 +16,17 @@ const getNextId = (): number => {
 /** MetaLink is the container for the metadata of a Form's Link
  * It's stored on a Link's LinkSymbol */
 class MetaLink<HEAD, T> {
-  // The head of the Form tree. Contains metadata on the form
+  /** The head of the Form tree. Contains metadata on the form */
   head: Form<HEAD>;
-  // a unique identifier for the MetaLink
+  /** a unique identifier for the MetaLink */
   id: number;
-  // A reference to this Link's current value
+  /** A reference to this Link's current value */
   valueRef: Reference<T>;
-  // the errors at the current level
+  /** the errors at the current level */
   errors: string[];
-  // callback for when the form node is changed
+  /** callback for when the form node is changed */
   updateCallback: (() => void) | null;
-  // validation for this corresponding Link's error handling
+  /** validation for this corresponding Link's error handling */
   validator: Validator<T> | null;
 
   constructor(head: Form<HEAD>, data: T) {
