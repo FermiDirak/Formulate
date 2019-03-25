@@ -8,7 +8,7 @@ import MetaLink, {linkSymbol} from './MetaLink';
 //   [properties: string]: Link<T>,
 // };
 export type Link<T> = {
-  [P in keyof T]: T[P];
+  [P in keyof T]: Link<T[P]>;
   // [linkSymbol]: MetaLink<any, T>,
 };
 
