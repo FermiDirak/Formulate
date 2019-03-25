@@ -1,36 +1,37 @@
-import Form from './Form';
 import MetaLink, {linkSymbol} from './MetaLink';
 
-/** A recusive data-structure that represents a form's
- * internal structure */
-// export type Link<T> = {
-//   [linkSymbol]: MetaLink<T>,
-//   [properties: string]: Link<T>,
-// };
-export type Link<T> = {
-  [P in keyof T]: T[P];
-  // [linkSymbol]: MetaLink<any, T>,
-};
+type LinkData<T> = { [linkSymbol]: MetaLink<T> };
+type ValuesOf<T extends any[]>= T[number];
+
+
+/**
+ * A recusive data-structure that represents a form's
+ * internal structure
+ */
+export type Link<T> =
+  T extends any[] ? any[] & LinkData<T> :
+  T extends object ? { [P in keyof T]: Link<T[P]>} & LinkData<T> :
+  LinkData<T>;
 
 /** creates a link from a given datum
- * @param head The parent Form
  * @param formData The form data to create a Link from
  * @return The created recursive link */
-export const createLink = <HEAD, T>(
-  head: Form<HEAD>,
+export const createLink = <T>(
   formData: T,
 ) => {
   /* ValueRef is a reference tree. The below procedure hooks up
    * the valueRef upwards */
-  const link = { [linkSymbol]: new MetaLink<HEAD, T>(head, formData) };
+  const link = {
+    [linkSymbol]: new MetaLink<T>(formData, 0)
+  };
 
   if (Array.isArray(formData)) {
     const arrayLink: any = [];
-    arrayLink[linkSymbol] = new MetaLink<HEAD, T>(head, formData);
+    arrayLink[linkSymbol] = new MetaLink<T>(formData, 0);
     arrayLink[linkSymbol].valueRef.value = [];
 
     formData.forEach((datum, i) => {
-      const childNode = createLink<HEAD, typeof datum>(head, datum);
+      const childNode = createLink<typeof datum>(datum);
       arrayLink[linkSymbol].valueRef.value[i] = childNode[linkSymbol].valueRef;
       arrayLink[i] = childNode;
     });
@@ -42,7 +43,7 @@ export const createLink = <HEAD, T>(
 
     Object.keys(formData).forEach(key => {
       const value = formData[key];
-      const childNode = createLink<HEAD, typeof value>(head, value);
+      const childNode = createLink<typeof value>(value);
       link[linkSymbol].valueRef.value[key] = childNode[linkSymbol].valueRef;
       link[key] = childNode;
     });
@@ -54,7 +55,7 @@ export const createLink = <HEAD, T>(
 /** resursively subscribes a Link with the update callback
  * @param link The link to recursively subscribe
  * @param updateCallback The callback to subscribe recursively */
-export const subscribeUpdateCallback = <HEAD, T>(
+export const subscribeUpdateCallback = <T>(
   link: Link<T>,
   updateCallback: () => void,
 ): void => {
@@ -63,7 +64,7 @@ export const subscribeUpdateCallback = <HEAD, T>(
   if (typeof link === 'object') {
     Object.keys(link).forEach(key => {
       const childLink = link[key];
-      subscribeUpdateCallback<HEAD, typeof childLink>(childLink, updateCallback);
+      subscribeUpdateCallback<typeof childLink>(childLink, updateCallback);
     });
   }
 }

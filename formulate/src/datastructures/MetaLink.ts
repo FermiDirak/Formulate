@@ -1,8 +1,7 @@
-import Form from './Form';
 import Reference from './Reference';
 
 /** Used to access MetaLink from a form Link */
-export const linkSymbol = Symbol('link');
+export const linkSymbol: unique symbol = Symbol('link');
 
 export type Validator<T> = (newValue: T) => string[] | string | null;
 
@@ -15,11 +14,18 @@ const getNextId = (): number => {
 
 /** MetaLink is the container for the metadata of a Form's Link
  * It's stored on a Link's LinkSymbol */
-class MetaLink<HEAD, T> {
-  /** The head of the Form tree. Contains metadata on the form */
-  head: Form<HEAD>;
+class MetaLink<T> {
+
+  /** The parent of this form link */
+  parent?: MetaLink<any>;
+
+  /** The children of the form link */
+  children?: MetaLink<any>[];
+
   /** a unique identifier for the MetaLink */
   id: number;
+  /** a counter that starts at zero. Used to keep track of what needs to update */
+  changeCounter: number;
   /** A reference to this Link's current value */
   valueRef: Reference<T>;
   /** the errors at the current level */
@@ -29,10 +35,10 @@ class MetaLink<HEAD, T> {
   /** validation for this corresponding Link's error handling */
   validator: Validator<T> | null;
 
-  constructor(head: Form<HEAD>, data: T) {
-    this.head = head;
+  constructor(data: T, counter: number) {
     this.id = getNextId();
     this.valueRef = new Reference(data);
+    this.changeCounter = counter;
     this.errors = [];
 
     this.updateCallback = null;
@@ -48,7 +54,7 @@ class MetaLink<HEAD, T> {
   }
 
   onChange(newValue: T): void {
-    if (!this.updateCallback || newValue === this.valueRef.value) {
+    if (!this.updateCallback) {
       return;
     }
 
@@ -67,7 +73,7 @@ class MetaLink<HEAD, T> {
   }
 
   onBlur(newValue: T): void {
-    //@TODO: I don't know what to do with this
+    // @TODO
   }
 }
 

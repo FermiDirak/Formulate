@@ -8,6 +8,7 @@ import { linkSymbol } from '../datastructures/MetaLink';
  */
 const peekValue = <T>(formNode: Link<T>): T => {
   const { valueRef } = formNode[linkSymbol];
+
   return valueRef.getValue();
 }
 
