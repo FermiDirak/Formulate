@@ -1,4 +1,3 @@
-import Form from './Form';
 import MetaLink, {linkSymbol} from './MetaLink';
 
 /** A recusive data-structure that represents a form's
@@ -48,7 +47,7 @@ export const createLink = <T>(
 /** resursively subscribes a Link with the update callback
  * @param link The link to recursively subscribe
  * @param updateCallback The callback to subscribe recursively */
-export const subscribeUpdateCallback = <HEAD, T>(
+export const subscribeUpdateCallback = <T>(
   link: Link<T>,
   updateCallback: () => void,
 ): void => {
@@ -57,7 +56,7 @@ export const subscribeUpdateCallback = <HEAD, T>(
   if (typeof link === 'object') {
     Object.keys(link).forEach(key => {
       const childLink = link[key];
-      subscribeUpdateCallback<HEAD, typeof childLink>(childLink, updateCallback);
+      subscribeUpdateCallback<typeof childLink>(childLink, updateCallback);
     });
   }
 }
