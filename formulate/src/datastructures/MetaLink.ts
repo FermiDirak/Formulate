@@ -71,6 +71,10 @@ class MetaLink<T> {
     this.valueRef.updateValue(newValue);
     this.updateCallback();
   }
+
+  onBlur(newValue: T): void {
+    // @TODO
+  }
 }
 
 export default MetaLink;
