@@ -16,7 +16,7 @@ const useFormArray = <T>(link: any, defaultVal: T): ArrayUtils => {
   }
 
   const addField = () => {
-    const newLink = createLink(link[linkSymbol].head, defaultVal);
+    const newLink = createLink(defaultVal);
     link[linkSymbol].valueRef.value[link.length] = newLink[linkSymbol].valueRef;
     link.push(newLink);
 
