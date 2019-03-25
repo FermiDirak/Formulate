@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import Form from '../datastructures/Form';
-import { subscribeUpdateCallback, Link } from '../datastructures/Link';
+import { createLink, subscribeUpdateCallback, Link } from '../datastructures/Link';
 import peekValue from './peekValue';
 
 /** This hook lets you turn in a form schema into a
@@ -9,6 +9,7 @@ import peekValue from './peekValue';
  * @return A Formulate form object representing your form */
 const useForm = <T>(initialForm: T): Link<T> => {
   const formTree = new Form(initialForm);
+
   const [form, updateForm] = useState(formTree);
 
   // updateCallback is called whenever any onChange is called

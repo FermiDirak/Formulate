@@ -1,4 +1,3 @@
-import Form from './Form';
 import Reference from './Reference';
 
 /** Used to access MetaLink from a form Link */
@@ -16,8 +15,6 @@ const getNextId = (): number => {
 /** MetaLink is the container for the metadata of a Form's Link
  * It's stored on a Link's LinkSymbol */
 class MetaLink<T> {
-  /** The head of the Form tree. Contains metadata on the form */
-  head: Form<any>;
 
   /** The parent of this form link */
   parent?: MetaLink<any>;
@@ -38,8 +35,7 @@ class MetaLink<T> {
   /** validation for this corresponding Link's error handling */
   validator: Validator<T> | null;
 
-  constructor(head: Form<any>, data: T, counter: number) {
-    this.head = head;
+  constructor(data: T, counter: number) {
     this.id = getNextId();
     this.valueRef = new Reference(data);
     this.changeCounter = counter;
@@ -58,7 +54,7 @@ class MetaLink<T> {
   }
 
   onChange(newValue: T): void {
-    if (!this.updateCallback || newValue === this.valueRef.value) {
+    if (!this.updateCallback) {
       return;
     }
 

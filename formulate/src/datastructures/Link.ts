@@ -9,24 +9,22 @@ export type Link<T> = {
 };
 
 /** creates a link from a given datum
- * @param head The parent Form
  * @param formData The form data to create a Link from
  * @return The created recursive link */
-export const createLink = <HEAD, T>(
-  head: Form<HEAD>,
+export const createLink = <T>(
   formData: T,
 ) => {
   /* ValueRef is a reference tree. The below procedure hooks up
    * the valueRef upwards */
-  const link = { [linkSymbol]: new MetaLink<T>(head, formData, 0) };
+  const link = { [linkSymbol]: new MetaLink<T>(formData, 0) };
 
   if (Array.isArray(formData)) {
     const arrayLink: any = [];
-    arrayLink[linkSymbol] = new MetaLink<T>(head, formData, 0);
+    arrayLink[linkSymbol] = new MetaLink<T>(formData, 0);
     arrayLink[linkSymbol].valueRef.value = [];
 
     formData.forEach((datum, i) => {
-      const childNode = createLink<HEAD, typeof datum>(head, datum);
+      const childNode = createLink<typeof datum>(datum);
       arrayLink[linkSymbol].valueRef.value[i] = childNode[linkSymbol].valueRef;
       arrayLink[i] = childNode;
     });
@@ -38,7 +36,7 @@ export const createLink = <HEAD, T>(
 
     Object.keys(formData).forEach(key => {
       const value = formData[key];
-      const childNode = createLink<HEAD, typeof value>(head, value);
+      const childNode = createLink<typeof value>(value);
       link[linkSymbol].valueRef.value[key] = childNode[linkSymbol].valueRef;
       link[key] = childNode;
     });

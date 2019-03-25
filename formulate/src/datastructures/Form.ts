@@ -5,7 +5,7 @@ export default class Form <T> {
   formNode: Link<T>;
 
   constructor(formValue: T) {
-    this.formNode = createLink(this, formValue);
+    this.formNode = createLink(formValue);
   }
 
   /** resursively subscribes a Form Tree with the update callback
