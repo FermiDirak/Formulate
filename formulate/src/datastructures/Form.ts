@@ -1,4 +1,3 @@
-import Reference from './Reference';
 import { Link, createLink, subscribeUpdateCallback } from './Link';
 
 /** The main container for Formulate */

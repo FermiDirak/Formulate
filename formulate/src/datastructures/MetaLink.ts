@@ -15,11 +15,20 @@ const getNextId = (): number => {
 
 /** MetaLink is the container for the metadata of a Form's Link
  * It's stored on a Link's LinkSymbol */
-class MetaLink<HEAD, T> {
+class MetaLink<T> {
   /** The head of the Form tree. Contains metadata on the form */
-  head: Form<HEAD>;
+  head: Form<any>;
+
+  /** The parent of this form link */
+  parent?: MetaLink<any>;
+
+  /** The children of the form link */
+  children?: MetaLink<any>[];
+
   /** a unique identifier for the MetaLink */
   id: number;
+  /** a counter that starts at zero. Used to keep track of what needs to update */
+  changeCounter: number;
   /** A reference to this Link's current value */
   valueRef: Reference<T>;
   /** the errors at the current level */
@@ -29,10 +38,11 @@ class MetaLink<HEAD, T> {
   /** validation for this corresponding Link's error handling */
   validator: Validator<T> | null;
 
-  constructor(head: Form<HEAD>, data: T) {
+  constructor(head: Form<any>, data: T, counter: number) {
     this.head = head;
     this.id = getNextId();
     this.valueRef = new Reference(data);
+    this.changeCounter = counter;
     this.errors = [];
 
     this.updateCallback = null;
@@ -64,10 +74,6 @@ class MetaLink<HEAD, T> {
 
     this.valueRef.updateValue(newValue);
     this.updateCallback();
-  }
-
-  onBlur(newValue: T): void {
-    //@TODO: I don't know what to do with this
   }
 }
 
