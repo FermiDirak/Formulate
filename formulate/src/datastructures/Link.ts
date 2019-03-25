@@ -1,11 +1,17 @@
 import MetaLink, {linkSymbol} from './MetaLink';
 
-/** A recusive data-structure that represents a form's
- * internal structure */
-export type Link<T> = {
-  [P in keyof T]: Link<T[P]>;
-  // [linkSymbol]: MetaLink<any, T>,
-};
+type LinkData<T> = { [linkSymbol]: MetaLink<T> };
+type ValuesOf<T extends any[]>= T[number];
+
+
+/**
+ * A recusive data-structure that represents a form's
+ * internal structure
+ */
+export type Link<T> =
+  T extends any[] ? any[] & LinkData<T> :
+  T extends object ? { [P in keyof T]: Link<T[P]>} & LinkData<T> :
+  LinkData<T>;
 
 /** creates a link from a given datum
  * @param formData The form data to create a Link from
@@ -15,7 +21,9 @@ export const createLink = <T>(
 ) => {
   /* ValueRef is a reference tree. The below procedure hooks up
    * the valueRef upwards */
-  const link = { [linkSymbol]: new MetaLink<T>(formData, 0) };
+  const link = {
+    [linkSymbol]: new MetaLink<T>(formData, 0)
+  };
 
   if (Array.isArray(formData)) {
     const arrayLink: any = [];

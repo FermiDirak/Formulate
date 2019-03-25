@@ -1,7 +1,7 @@
 import Reference from './Reference';
 
 /** Used to access MetaLink from a form Link */
-export const linkSymbol = Symbol('link');
+export const linkSymbol: unique symbol = Symbol('link');
 
 export type Validator<T> = (newValue: T) => string[] | string | null;
 

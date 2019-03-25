@@ -22,7 +22,7 @@ const notBob = (name: string): string[] | null => {
   return null;
 }
 
-const onSubmit = (formData) => {
+const onSubmit = (formData: typeof initialForm) => {
   console.log(JSON.stringify(formData));
 };
 
