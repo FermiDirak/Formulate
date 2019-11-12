@@ -1,7 +1,10 @@
-import formulate from './../src/index';
+import useForm from './../src/index';
 
 describe("test", () => {
   it("should do stuff", () => {
-    expect(formulate()).toBe(3);
+    const formSchema = {
+      name: { initial: '', isRequired: true, placeholder: 'Alex' }
+    }
+
   });
 });
