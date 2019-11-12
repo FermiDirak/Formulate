@@ -1,0 +1,17 @@
+{
+  "name": "formulate",
+  "version": "2.0.0",
+  "description": "A controlled react form state management library",
+  "main": "index.js",
+  "author": "Bryan Manuele",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "react",
+    "form",
+    "hooks",
+    "typescript",
+    "state",
+    "forms"
+  ]
+}
