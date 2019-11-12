@@ -2,8 +2,9 @@
   "name": "formulate",
   "version": "2.0.0",
   "description": "A controlled react form state management library",
-  "main": "index.js",
   "author": "Bryan Manuele",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "license": "MIT",
   "private": false,
   "keywords": [
@@ -13,5 +14,24 @@
     "typescript",
     "state",
     "forms"
-  ]
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "clean": "rm -rf dist",
+    "prebuild": "yarn clean",
+    "build": "rollup -c",
+    "lint": "yarn eslint --fix && yarn prettier",
+    "prettier": "prettier --write './src/**/*.ts' './src/**/*.tsx' --config ./.prettierrc",
+    "eslint": "eslint ./src --ext .jsx,.ts --report-unused-disable-directives",
+    "coverage": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "postrelease": "yarn publish && git push --follow-tags",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "yarn test:coverage -- --watchAll",
+    "bundlesize": "rollup -c rollup.min.config.js && bundlesize",
+    "prepublishOnly": "yarn lint && yarn test && yarn run clean && yarn build"
+  },
+  "peerDependencies": {
+    "react": "^16.11.0"
+  }
 }
