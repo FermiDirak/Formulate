@@ -23,7 +23,7 @@
     "lint": "yarn eslint --fix && yarn prettier",
     "prettier": "prettier --write './src/**/*.ts' './src/**/*.tsx' --config ./.prettierrc",
     "eslint": "eslint ./src --ext .jsx,.ts --report-unused-disable-directives",
-    "coverage": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "coverage": "jest --coverage --coverageReporters=text-lcov",
     "postrelease": "yarn publish && git push --follow-tags",
     "test": "jest",
     "test:coverage": "jest --coverage",
@@ -33,5 +33,29 @@
   },
   "peerDependencies": {
     "react": "^16.11.0"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/react-hooks": "^3.2.1",
+    "@types/jest": "^24.0.22",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-test-renderer": "^16.9.0",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
+    "bundlesize": "^0.18.0",
+    "eslint": "^6.6.0",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-hooks": "^2.2.0",
+    "jest": "^24.7.1",
+    "prettier": "^1.19.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-test-renderer": "^16.9.0",
+    "rollup": "^1.20.3",
+    "rollup-plugin-terser": "^5.1.1",
+    "rollup-plugin-typescript2": "^0.24.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.7.2"
   }
 }
