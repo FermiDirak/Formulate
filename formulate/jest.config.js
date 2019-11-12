@@ -1,5 +1,5 @@
 module.exports = {
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>/tests'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
@@ -10,6 +10,5 @@ module.exports = {
   },
   testMatch: ['**/?(*.)+(spec|test).ts?(x)'],
   transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
-  setupFiles: ['<rootDir>/setup.ts'],
   moduleFileExtensions: ['ts', 'tsx', 'js'],
 };

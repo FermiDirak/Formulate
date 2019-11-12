@@ -1,3 +1,5 @@
+import swag from './swag';
+
 export default function() {
-  return 3;
+  return swag;
 }

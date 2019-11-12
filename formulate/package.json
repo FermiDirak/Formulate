@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "description": "A controlled react form state management library",
   "author": "Bryan Manuele",
-  "main": "dist/index.js",
+  "main": "dist/formulate.js",
+  "module": "dist/formulate.es.js",
   "types": "dist/index.d.ts",
   "license": "MIT",
   "private": false,
@@ -55,7 +56,7 @@
     "rollup": "^1.20.3",
     "rollup-plugin-terser": "^5.1.1",
     "rollup-plugin-typescript2": "^0.24.0",
-    "ts-jest": "^24.0.2",
+    "ts-jest": "^24.1.0",
     "typescript": "^3.7.2"
   }
 }
