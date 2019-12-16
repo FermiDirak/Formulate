@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "module": "es2015",
+    "module": "esnext",
     "target": "es2017",
     "moduleResolution": "node",
     "outDir": "./dist",
@@ -16,6 +16,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
   },
   "include": ["src"],
   "exclude": ["node_modules", "app", "examples", "cypress"]
