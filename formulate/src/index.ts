@@ -43,10 +43,8 @@ export default function useForm(
 
   const [formData, dispatcher] = React.useReducer(reducer, generateInitialFormData(formSchema));
 
-  const fields = computeFormInputs(formSchema, formData, dispatcher);
-
   return {
-    formInputs: fields,
+    formInputs: computeFormInputs(formSchema, formData, dispatcher),
     formData,
   };
 }
