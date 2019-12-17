@@ -1,42 +1,11 @@
 import React from "react";
 import {mount} from "enzyme";
-import useForm from '../src/index';
-
-type TextInputProps = React.HTMLProps<HTMLInputElement> & {
-  type?: void,
-  onChange: (text: string) => void,
-}
-
-function TextInput({onChange, ...props}: TextInputProps) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  };
-  return <input type="text" onChange={handleChange} {...props} />;
-}
-
-type FormProps = {
-  onSubmit: (formData: any) => void,
-}
-
-function Form({onSubmit}: FormProps) {
-  const formSchema = {
-    name: { initial: '', placeholder: 'Alex', required: true }
-  }
-
-  const {formInputs, formData} = useForm(formSchema);
-
-  return (
-    <form>
-      <TextInput {...formInputs.name} />
-      <button type="button" onClick={() => onSubmit(formData)} />
-    </form>
-  )
-}
+import { BasicErrorsForm } from './basicErrors';
 
 describe("Basic Usage", () => {
   it("renders a basic form", () => {
-    const wrapper = mount(<Form onSubmit={() => {}} />);
-    expect(wrapper.find(Form)).toBeTruthy();
+    const wrapper = mount(<BasicErrorsForm onSubmit={() => {}} />);
+    expect(wrapper.find(BasicErrorsForm)).toBeTruthy();
   });
 
   it("calls onClick with initial formData when no actions are made", () => {
@@ -45,7 +14,7 @@ describe("Basic Usage", () => {
       name: '',
     };
 
-    const wrapper = mount(<Form onSubmit={onSubmit} />);
+    const wrapper = mount(<BasicErrorsForm onSubmit={onSubmit} />);
     wrapper.find("button").simulate('click');
 
     expect(onSubmit.mock.calls.length).toBe(1);
@@ -58,10 +27,9 @@ describe("Basic Usage", () => {
       name: 'formulate',
     };
 
-    const wrapper = mount(<Form onSubmit={onSubmit} />);
+    const wrapper = mount(<BasicErrorsForm onSubmit={onSubmit} />);
     wrapper.find("input").simulate('change', {target: {value: 'formulate'}});
     wrapper.find("button").simulate('click');
-    console.log(wrapper.find("input").debug());
 
     expect(onSubmit.mock.calls.length).toBe(1);
     expect(onSubmit.mock.calls[0][0]).toMatchObject(expectedFormData);
