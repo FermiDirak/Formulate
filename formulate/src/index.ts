@@ -1,4 +1,7 @@
 import * as React from 'react';
+import generateInitialFormData from './generateInitialFormData';
+import computeFormInputs from './computeFormInputs';
+import { Action } from './action';
 
 /** Contains data about a form field */
 export type Field<T> = {
@@ -30,52 +33,20 @@ type FormData = {
   [fieldName: string]: FieldData<any>,
 }
 
-/** Verifies a form schema */
-export function verifySchema(formData: FormData, formSchema: FormSchema) {
-  return !Object.entries(formSchema).some(([key, value]) => {
-    if (value.isRequired) {
-      if (!formData[key]) {
-        return true;
-      }
-
-      if (formData[key] === undefined || formData[key] === null) {
-        return true;
-      }
-    }
-
-    return false;
-  });
-}
-
 export default function useForm(
-  schema: FormSchema,
+  formSchema: FormSchema,
 ): {formInputs: FormInputProps, formData: FormData} {
-  type State = {[key: string]: any};
-  type Action = {key: string, newValue: any};
+  const reducer = (formData: FormData, action: Action) => ({
+    ...formData,
+    [action.key]: action.newValue
+  });
 
-  const initialState = Object.entries(schema).reduce((acc: {[key: string]: any}, [key, field]) => {
-    acc[key] = field.initial;
-    return acc;
-  }, {});
+  const [formData, dispatcher] = React.useReducer(reducer, generateInitialFormData(formSchema));
 
-  const reducer = (state: State, action: Action) => ({ ...state, [action.key]: action.newValue });
-
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-
-  const fields = Object.entries(state).reduce((acc: {[key: string]: any}, [key, value]) => {
-    const { initial, ...fieldProperties } = schema[key];
-
-    acc[key] = {
-      value,
-      onChange: (newValue: any) => { dispatch({ key, newValue }); },
-      ...fieldProperties,
-    };
-
-    return acc;
-  }, {});
+  const fields = computeFormInputs(formSchema, formData, dispatcher);
 
   return {
     formInputs: fields,
-    formData: state,
+    formData,
   };
 }

@@ -1,10 +1,11 @@
 import {FormSchema, FormSchemaField, FormData} from './types';
 
 /** generates the inital data for a form given a schema */
-export function generateInitialFormData(formSchema: FormSchema) {
+export default function generateInitialFormData(formSchema: FormSchema) {
   function reducer(acc: FormData, [key, value]: [string, FormSchemaField<any>]) {
     if (Array.isArray(value)) {
-      throw new Error('Arrays aren\'t currently supported')
+      // @TODO: me
+      throw new Error('Arrays aren\'t currently supported');
     } else if (typeof value === 'object') {
       acc[key] = value.initial;
     } else {
