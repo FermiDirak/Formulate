@@ -20,10 +20,10 @@ type FormProps = {
 
 function Form({onSubmit}: FormProps) {
   const formSchema = {
-    name: { initial: '', placeholder: 'Alex' }
+    name: { initial: '', placeholder: 'Alex', required: true }
   }
 
-  const [formInputs, formData] = useForm(formSchema);
+  const {formInputs, formData} = useForm(formSchema);
 
   return (
     <form>

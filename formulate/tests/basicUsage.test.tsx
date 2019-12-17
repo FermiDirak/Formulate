@@ -23,7 +23,7 @@ function BasicForm({onSubmit}: BasicFormProps) {
     name: { initial: '', placeholder: 'Alex' }
   }
 
-  const [formInputs, formData] = useForm(formSchema);
+  const {formInputs, formData} = useForm(formSchema);
 
   return (
     <form>

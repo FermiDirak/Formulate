@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 /** Contains data about a form field */
-type Field<T> = {
+export type Field<T> = {
   initial: T,
   isRequired?: boolean,
 };
@@ -49,7 +49,7 @@ export function verifySchema(formData: FormData, formSchema: FormSchema) {
 
 export default function useForm(
   schema: FormSchema,
-): [FormInputProps, FormData] {
+): {formInputs: FormInputProps, formData: FormData} {
   type State = {[key: string]: any};
   type Action = {key: string, newValue: any};
 
@@ -74,5 +74,8 @@ export default function useForm(
     return acc;
   }, {});
 
-  return [fields, state];
+  return {
+    formInputs: fields,
+    formData: state,
+  };
 }
