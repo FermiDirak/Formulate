@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@types/jest": "^25.1.1"
+  }
+}

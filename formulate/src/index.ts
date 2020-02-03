@@ -4,9 +4,14 @@ import computeFormInputs from './computeFormInputs';
 import { Action } from './action';
 import { FormSchema, FormData, FormInputProps } from './types';
 
+type UseFormData = {
+  formInputs: FormInputProps,
+  formData: FormData,
+}
+
 export default function useForm(
   formSchema: FormSchema,
-): {formInputs: FormInputProps, formData: FormData} {
+): UseFormData {
   const reducer = (formData: FormData, action: Action) => ({
     ...formData,
     [action.key]: action.newValue
