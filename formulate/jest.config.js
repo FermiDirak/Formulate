@@ -1,15 +1,9 @@
 module.exports = {
-  roots: ['<rootDir>/tests'],
+  roots: ['<rootDir>/tests', '<rootDir>/src'],
+  moduleFileExtensions: ['js', 'jsx', 'json'],
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
+    '^.+\\.js$': 'babel-jest',
   },
-  globals: {
-    'ts-jest': {
-      tsConfig: 'jest.tsconfig.json',
-    },
-  },
-  testMatch: ['**/?(*.)+(spec|test).ts?(x)'],
-  transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
-  moduleFileExtensions: ['ts', 'tsx', 'js'],
-  setupFiles: ['./jest.setup.js'],
-};
+  moduleDirectories: ['<rootDir>/src', 'node_modules', 'bower_components'],
+  setupFiles: ['<rootDir>/jest.setup.js'],
+}
