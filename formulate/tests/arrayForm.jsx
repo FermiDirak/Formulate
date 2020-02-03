@@ -1,4 +1,3 @@
-/** @flow */
 
 import * as React from "react";
 
@@ -21,16 +20,19 @@ type Props = {
 
 function BasicForm ({onSubmit}: Props) {
   const formSchema = {
-    name: { initial: "" },
+    names: [{ initial: "" }],
   };
 
   const {formData, formInputs} = useForm(formSchema);
-
   const handleSubmit = () => onSubmit(formData);
 
   return (
     <form>
-      <TextInput {...formInputs.name} />
+      {formInputs.names.map(name => {
+        <TextInput {...name} />
+      })}
+      <button onClick={formInputs.names.addArrayEntry} />
+      <button onClick={formInputs.names.removeArrayEntry} />
       <button onClick={handleSubmit} />
     </form>
   );

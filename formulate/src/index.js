@@ -13,24 +13,23 @@ import type {
 } from './types';
 
 
-function mapSchemaFieldToInput<T, PassThroughProps: {}>(
-  field: FormSchemaField<T, PassThroughProps>
-): FormFieldInputProps<T, PassThroughProps> {
+function mapSchemaFieldToInput<T>(
+  field: FormSchemaField<T>
+): FormFieldInputProps<T> {
   return {
-    ...field.passThrough,
     value: field.initial,
     onChange: () => {},
   };
 }
 
 function mapSchemaFieldToData<T>(
-  field: FormSchemaField<T, any>
+  field: FormSchemaField<T>
 ): FormFieldData<T> {
   return field.initial;
 }
 
 
-function useForm<FormSchema: {[key: string]: FormSchemaField<mixed, {}>}>(
+function useForm<FormSchema: {[key: string]: any}>(
   formSchema: FormSchema
 ): {
   formInputs: $ObjMap<FormSchema, FormSchemaFieldToFormFieldInputProps>,
