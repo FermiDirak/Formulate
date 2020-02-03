@@ -2,14 +2,52 @@
  * @flow
  */
 
-import * as React from "react";
+import * as React from 'react';
 
-type Data = {
-  t: string,
+import type {
+  FormSchemaField,
+  FormFieldInputProps,
+  FormFieldData,
+  FormSchemaFieldToFormFieldInputProps,
+  FormSchemaFieldToFormFieldData,
+} from './types';
+
+
+function mapSchemaFieldToInput<T, PassThroughProps: {}>(
+  field: FormSchemaField<T, PassThroughProps>
+): FormFieldInputProps<T, PassThroughProps> {
+  return {
+    ...field.passThrough,
+    value: field.initial,
+    onChange: () => {},
+  };
 }
 
-const data: Data = {t: 'Hello world'};
+function mapSchemaFieldToData<T>(
+  field: FormSchemaField<T, any>
+): FormFieldData<T> {
+  return field.initial;
+}
 
-export default function HelloWorld() {
-  return <div>{data.t}</div>;
-};
+
+function useForm<FormSchema: {[key: string]: FormSchemaField<mixed, {}>}>(
+  formSchema: FormSchema
+): {
+  formInputs: $ObjMap<FormSchema, FormSchemaFieldToFormFieldInputProps>,
+  formData: $ObjMap<FormSchema, FormSchemaFieldToFormFieldData>,
+} {
+
+  const formInputs = {};
+  const formData = {};
+
+  Object.keys(formSchema).forEach(key => {
+    const field = formSchema[key];
+
+    formInputs[key] = mapSchemaFieldToInput(field);
+    formData[key] = mapSchemaFieldToInput(field);
+  });
+
+  return { formInputs, formData };
+}
+
+export default useForm;
