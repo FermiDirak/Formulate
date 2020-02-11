@@ -4,49 +4,34 @@
 
 import * as React from 'react';
 
-import type {
-  FormSchemaField,
-  FormFieldInputProps,
-  FormFieldData,
-  FormSchemaFieldToFormFieldInputProps,
-  FormSchemaFieldToFormFieldData,
-} from './types';
+// import type {
+//   FormSchemaField,
+//   FormFieldInputProps,
+//   FormFieldData,
+//   FormSchemaFieldToFormFieldInputProps,
+//   FormSchemaFieldToFormFieldData,
+// } from './types';
+
+import FormInput from "./FormInput";
+import FormArrayInput from "./FormArrayInput";
+
+export {FormInput, FormArrayInput};
 
 
-function mapSchemaFieldToInput<T>(
-  field: FormSchemaField<T>
-): FormFieldInputProps<T> {
-  return {
-    value: field.initial,
-    onChange: () => {},
-  };
-}
-
-function mapSchemaFieldToData<T>(
-  field: FormSchemaField<T>
-): FormFieldData<T> {
-  return field.initial;
-}
-
-
-function useForm<FormSchema: {[key: string]: any}>(
-  formSchema: FormSchema
+function useForm<FormData, FormInputs>(
+  formSchema: FormInputs,
 ): {
-  formInputs: $ObjMap<FormSchema, FormSchemaFieldToFormFieldInputProps>,
-  formData: $ObjMap<FormSchema, FormSchemaFieldToFormFieldData>,
+  formInputs: FormInputs,
+  formData: FormData,
 } {
 
-  const formInputs = {};
-  const formData = {};
+  const formData = (({}: any): FormData);
+  const formInputs = (({}: any): FormInputs);
 
-  Object.keys(formSchema).forEach(key => {
-    const field = formSchema[key];
-
-    formInputs[key] = mapSchemaFieldToInput(field);
-    formData[key] = mapSchemaFieldToInput(field);
-  });
-
-  return { formInputs, formData };
+  return {
+    formData,
+    formInputs,
+  };
 }
 
 export default useForm;

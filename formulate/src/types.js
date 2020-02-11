@@ -2,6 +2,7 @@
  * @flow
  */
 
+
 /** Contains data about a form field */
 export type FormSchemaField<T> = {|
   initial: T,
