@@ -17,16 +17,18 @@ import FormArrayInput from "./FormArrayInput";
 function getInitialData<FormData: {}, FormInputs: {}>(formSchema: FormInputs): FormData {
 
   function extractData(schemaNode: any, dataNode: any) {
-    Object.keys(formSchema).forEach(key => {
+    Object.keys(schemaNode).forEach(key => {
       const value = formSchema[key];
 
       if (value instanceof FormInput) {
         dataNode[key] = value.initial;
+        return;
       }
 
       // @TODO: be able to handle initializing array with multiple values
       if (value instanceof FormArrayInput) {
         dataNode[key] = [value.initial];
+        return;
       }
 
       if (value instanceof Set) {
@@ -43,6 +45,7 @@ function getInitialData<FormData: {}, FormInputs: {}>(formSchema: FormInputs): F
       if (typeof value === "object") {
         const nestedObj = {};
         dataNode[key] = extractData(value, nestedObj);
+        return;
       }
 
       throw new Error('Unknown field');

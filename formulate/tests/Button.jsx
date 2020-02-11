@@ -8,7 +8,7 @@ type Props = {|
 |}
 
 function Button({label, onClick}: Props) {
-  return <button onClick={onClick}>{label}</button>
+  return <button type="button" onClick={onClick}>{label}</button>
 }
 
 export default Button;
