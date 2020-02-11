@@ -24,9 +24,6 @@ export default class FormInput<T> {
   }
 
   props(): InputProps<T> {
-    return {
-      value: this.initial,
-      onChange: () => {},
-    }
+    throw new Error("FormInput must only be used in the context of Formulate")
   }
 }
