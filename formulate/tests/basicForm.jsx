@@ -39,7 +39,6 @@ function BasicForm ({onSubmit}: Props) {
   };
 
   const {formData, formInputs} = useForm<FormData, FormInputs>(formSchema);
-
   const handleSubmit = () => onSubmit(formData);
 
   return (
@@ -55,7 +54,7 @@ function BasicForm ({onSubmit}: Props) {
 
       <TextInput {...formInputs.profile.id.props()} />
 
-      <Button onClick={handleSubmit} />
+      <Button onClick={handleSubmit} label="submit" />
     </form>
   );
 }

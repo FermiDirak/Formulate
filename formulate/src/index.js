@@ -4,19 +4,8 @@
 
 import * as React from 'react';
 
-// import type {
-//   FormSchemaField,
-//   FormFieldInputProps,
-//   FormFieldData,
-//   FormSchemaFieldToFormFieldInputProps,
-//   FormSchemaFieldToFormFieldData,
-// } from './types';
-
 import FormInput from "./FormInput";
 import FormArrayInput from "./FormArrayInput";
-
-export {FormInput, FormArrayInput};
-
 
 function useForm<FormData, FormInputs>(
   formSchema: FormInputs,
@@ -34,4 +23,5 @@ function useForm<FormData, FormInputs>(
   };
 }
 
+export {FormInput, FormArrayInput};
 export default useForm;
