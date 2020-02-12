@@ -7,52 +7,14 @@ import * as React from 'react';
 import useCustomState from "./useCustomState";
 import FormInput from "./FormInput";
 import FormArrayInput from "./FormArrayInput";
+import NodeTypes, {getNodeType} from "./nodeTypes";
+import cloneFormSchema from './cloneFormSchema';
 
 /**
  * Best effort attempts have been made to make the internals typesafe,
  * however, internal type safety has been sacrified on the alter of better
  * performance and semantics.
  */
-
-const NodeTypes = Object.freeze({
-  Array: 1,
-  Object: 2,
-  FormInput: 3,
-  FormArrayInput: 4,
-  Set: 5,
-  Map: 6,
-});
-
-opaque type NodeType = $Values<typeof NodeTypes>;
-
-function getNodeType(node: any): NodeType {
-  if (node instanceof FormInput) {
-    return NodeTypes.FormInput;
-  }
-
-  if (node instanceof FormArrayInput) {
-    return NodeTypes.FormArrayInput;
-  }
-
-  if (node instanceof Set) {
-    return NodeTypes.Set;
-  }
-
-  if (node instanceof Map) {
-    return NodeTypes.Map;
-  }
-
-  if (Array.isArray(node)) {
-    return NodeTypes.Array;
-  }
-
-  if (typeof node === "object") {
-    return NodeTypes.Object;
-  }
-
-  throw new Error(`Unknown data type for value: ${node}`);
-}
-
 
 function getInitialData<FormData: {}, FormInputs: {}>(formSchema: FormInputs): FormData {
 
@@ -100,64 +62,6 @@ function getInitialData<FormData: {}, FormInputs: {}>(formSchema: FormInputs): F
   }
 
   return extractData(formSchema, {});
-}
-
-function cloneFormInput<T>(formInput: FormInput<T>): FormInput<T> {
-  return new FormInput({
-    initial: formInput.initial,
-    isRequired: formInput.isRequired,
-  });
-}
-
-function cloneFormArrayInput<T>(formInput: FormArrayInput<T>): FormArrayInput<T> {
-  return new FormArrayInput({
-    initial: formInput.initial,
-    isRequired: formInput.isRequired,
-  });
-}
-
-function cloneFormSchema<FormSchema: {}>(formSchema: FormSchema): FormSchema {
-  function generateClone(formNode: any, cloneNode: any): any {
-    const nodeType = getNodeType(formNode);
-
-    switch (nodeType) {
-      case (NodeTypes.FormInput): {
-        return cloneFormInput(formNode);
-      }
-
-      case (NodeTypes.FormArrayInput): {
-        return cloneFormArrayInput(formNode);
-      }
-
-      case (NodeTypes.Object): {
-        Object.keys(formNode).forEach(key => {
-          const value = formNode[key];
-          cloneNode[key] = generateClone(value, {});
-        });
-
-        return cloneNode;
-      }
-
-      case (NodeTypes.Set): {
-        throw new Error('Formulate doesn\'t handle this (yet)! @TODO');
-      }
-
-      case (NodeTypes.Map): {
-        throw new Error('Formulate doesn\'t handle this (yet)! @TODO');
-      }
-
-      case (NodeTypes.Array): {
-        throw new Error('Formulate doesn\'t handle this (yet)! @TODO');
-      }
-
-      default: {
-        throw new Error("Unknown Field");
-      }
-    }
-  }
-
-  const clone: FormSchema = generateClone(formSchema, {});
-  return clone;
 }
 
 function formSchemaDFSIterator<FormData: {}, FormInputs: {}>(
@@ -228,24 +132,76 @@ function hookUpFormInputs<FormData: {}, FormInputs: {}>(
     clonedFormSchema,
     formDataRef.current,
     (formSchemaNode, parent, accessor) => {
-
       // we're guaranteed the structure of our formData never changes, hence
       // parent and accessor should never change, allowing for O(1) updates
 
-      if (formSchemaNode instanceof FormInput) {
-        formSchemaNode.props = () => ({
-          value: parent[accessor],
-          onChange: (newValue) => {
-            parent[accessor] = newValue;
-            forceRerender();
+      const nodeType = getNodeType(formSchemaNode);
+
+      switch (nodeType) {
+        case (NodeTypes.FormInput): {
+          formSchemaNode.props = () => ({
+            value: parent[accessor],
+            onChange: (newValue) => {
+              parent[accessor] = newValue;
+              forceRerender();
+              console.log('test', newValue, parent);
+            }
+          });
+
+          return;
+        }
+
+        case (NodeTypes.FormArrayInput): {
+
+          // @TODO: be able to handle initializing array with multiple values
+          formSchemaNode[0] = new FormInput({
+            initial: formSchemaNode.initial,
+          });
+
+          formSchemaNode[0].props = () => ({
+            value: parent[accessor][0],
+            onChange: (newValue) => {
+              parent[accessor][0] = newValue;
+              forceRerender();
+            }
+          });
+
+          // function add(data) {
+          //   const newNode = new FormInput({
+          //     initial: data,
+          //   });
+
+          //   parent[accessor].push(data);
+          //   const index = parent[accessor].length - 1;
+
+          //   newNode.props = () => ({
+          //     value: parent[accessor][index],
+          //     onChange: (newValue) => {
+          //       parent[accessor][index] = newValue;
+          //     },
+          //   });
+
+          //   formSchemaNode.push(newNode);
+          // }
+
+
+          // formSchemaNode.remove = () => {
+          // }
+
+          function removeLast() {
+            this.pop();
+            parent[accessor].pop();
           }
-        });
 
-        return;
-      }
+          // formSchemaNode.add = add.bind(formSchemaNode);
+          formSchemaNode.removeLast = removeLast.bind(formSchemaNode);
 
-      if (formSchemaNode instanceof FormArrayInput) {
-        throw new Error("@TODO")
+          return;
+        }
+
+        default: {
+          throw new Error("Unknown Input Type");
+        }
       }
     },
   );

@@ -29,4 +29,8 @@ export default class FormArrayInput<T> extends Array<FormInput<T>> {
   remove(index: number) {
     throw new Error("FormArrayInput must only be used in the context of Formulate")
   }
+
+  removeLast() {
+    throw new Error("FormArrayInput must only be used in the context of Formulate")
+  }
 }

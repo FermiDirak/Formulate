@@ -11,7 +11,7 @@ import Button from './Button';
 
 type FormData = {|
   +name: string,
-  // +friends: $ReadOnlyArray<string>,
+  +friends: $ReadOnlyArray<string>,
   +profile: {|
     +id: string,
   |}
@@ -19,7 +19,7 @@ type FormData = {|
 
 type FormInputs = {|
   +name: FormInput<string>,
-  // +friends: FormArrayInput<string>,
+  +friends: FormArrayInput<string>,
   +profile: {
     id: FormInput<string>,
   }
@@ -28,7 +28,7 @@ type FormInputs = {|
 function Form () {
   const formSchema = {
     name: new FormInput({initial: "", isRequired: true }),
-    // friends: new FormArrayInput({initial: ""}),
+    friends: new FormArrayInput({initial: ""}),
     profile: {
       id: new FormInput({initial: "et593", isRequired: true }),
     },
@@ -39,18 +39,23 @@ function Form () {
     console.log('submitted: ', formData);
   };
 
-  console.log("formData: ", formData);
+  console.log("formData: ", formData, formInputs.friends);
 
   return (
     <form>
       <TextInput {...formInputs.name.props()} placeholder="name" />
 
-      {/* {formInputs.friends.map(friend => {
-        <TextInput {...friend.props()} />
-      })}
+      <div style={{display: "flex", flexDirection: "row"}}>
+        {formInputs.friends.map((friend, i) => (
+          <TextInput
+            {...friend.props()}
+            placeholder={`friend ${i}`}
+          />
+        ))}
 
-      <Button onClick={() => formInputs.friends.add("")} label="add friend" />
-      <Button onClick={() => formInputs.friends.remove(0)} label="remove friend" /> */}
+        <Button onClick={() => formInputs.friends.add("")} label="add friend" />
+        <Button onClick={() => formInputs.friends.removeLast()} label="remove friend" />
+      </div>
 
       <TextInput {...formInputs.profile.id.props()} placeholder="id" />
 
