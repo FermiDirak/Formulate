@@ -166,35 +166,7 @@ function hookUpFormInputs<FormData: {}, FormInputs: {}>(
             }
           });
 
-          // function add(data) {
-          //   const newNode = new FormInput({
-          //     initial: data,
-          //   });
-
-          //   parent[accessor].push(data);
-          //   const index = parent[accessor].length - 1;
-
-          //   newNode.props = () => ({
-          //     value: parent[accessor][index],
-          //     onChange: (newValue) => {
-          //       parent[accessor][index] = newValue;
-          //     },
-          //   });
-
-          //   formSchemaNode.push(newNode);
-          // }
-
-
-          // formSchemaNode.remove = () => {
-          // }
-
-          function removeLast() {
-            this.pop();
-            parent[accessor].pop();
-          }
-
-          // formSchemaNode.add = add.bind(formSchemaNode);
-          formSchemaNode.removeLast = removeLast.bind(formSchemaNode);
+          // @TODO: implement all callbacks
 
           return;
         }
