@@ -24,6 +24,6 @@ export default class FormInput<T> {
   }
 
   props(): InputProps<T> {
-    throw new Error("FormInput must only be used in the context of Formulate")
+    throw new Error("FormInput must be used in the context of Formulate");
   }
 }

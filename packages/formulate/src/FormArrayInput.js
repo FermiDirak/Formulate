@@ -23,10 +23,10 @@ export default class FormArrayInput<T> extends Array<FormInput<T>> {
   }
 
   add(data: T) {
-    throw new Error("FormInput must only be used in the context of Formulate")
+    throw new Error("FormArrayInput must only be used in the context of Formulate")
   }
 
   remove(index: number) {
-    throw new Error("FormInput must only be used in the context of Formulate")
+    throw new Error("FormArrayInput must only be used in the context of Formulate")
   }
 }
