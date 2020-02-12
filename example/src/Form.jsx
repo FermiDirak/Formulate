@@ -41,7 +41,7 @@ function Form () {
     <form>
       <TextInput {...formInputs.name.props()} placeholder="name" />
 
-      {/* <div style={{display: "flex", flexDirection: "row"}}>
+      <div style={{display: "flex", flexDirection: "row"}}>
         {formInputs.friends.map((friend, i) => (
           <TextInput
             {...friend.props()}
@@ -51,7 +51,7 @@ function Form () {
 
         <Button onClick={() => formInputs.friends.add("")} label="add friend" />
         <Button onClick={() => formInputs.friends.removeLast()} label="remove friend" />
-      </div> */}
+      </div>
 
       <TextInput {...formInputs.profile.id.props()} placeholder="id" />
 

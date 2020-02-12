@@ -6,7 +6,7 @@ import * as React from 'react';
 
 import useForceRerender from "./useForceRerender";
 import FormInput from "./FormInput";
-import FormArrayInput from "./FormArrayInput";
+import FormArrayInput, {hookupFormArrayInput} from "./FormArrayInput";
 import NodeTypes, {getNodeType} from "./nodeTypes";
 import buildFormInputs from './buildFormInputs';
 import hookupFormInputs from './hookupFormInputs';
@@ -17,7 +17,9 @@ import hookupFormInputs from './hookupFormInputs';
  * performance and semantics.
  */
 
-function generateFormData<FormData: {}, FormInputs: {}>(formInputs: FormInputs): FormData {
+function generateFormData<FormData: {}, FormInputs: {}>(
+  formInputs: FormInputs
+): FormData {
 
   function dfs(node: any): any {
     switch (getNodeType(node)) {
@@ -26,7 +28,9 @@ function generateFormData<FormData: {}, FormInputs: {}>(formInputs: FormInputs):
       }
 
       case (NodeTypes.FormArrayInput): {
-        return node.map(element => element.value);
+        console.log('n!', node);
+
+        return Array.from(node.map(element => element.value));
       }
 
       case (NodeTypes.Object): {
@@ -75,6 +79,7 @@ function useForm<FormData: {}, FormInputs: {}>(
   );
 
   hookupFormInputs(formInputsRef.current, forceRerender);
+  hookupFormArrayInput(formInputsRef.current.friends, forceRerender);
 
   const formData = generateFormData(formInputsRef.current);
 

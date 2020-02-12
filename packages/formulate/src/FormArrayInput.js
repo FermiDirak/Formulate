@@ -1,6 +1,6 @@
 /** @flow */
 
-import FormInput from "./FormInput";
+import FormInput, {cloneFormInput, hookupFormInput} from "./FormInput";
 
 type FormInputProps<T> = {|
   +initial: T,
@@ -14,6 +14,7 @@ type FormInputProps<T> = {|
 class FormArrayInput<T> extends Array<FormInput<T>> {
   initial: T;
   isRequired: boolean;
+  hookedUp: boolean;
 
   constructor({initial, isRequired = false}: FormInputProps<T>) {
     super();
@@ -42,8 +43,40 @@ function cloneFormArrayInput<T>(formInput: FormArrayInput<T>): FormArrayInput<T>
   });
 }
 
-function hookupFormArrayInput<T>(formInput: FormArrayInput<T>, forceRerender: () => void): FormArrayInput<T> {
-  // @TODO
+function hookupFormArrayInput<T>(
+  formInput: FormArrayInput<T>,
+  forceRerender: () => void
+): FormArrayInput<T> {
+  // initialize value on first hookup
+  if (!formInput.hookedUp) {
+    const childNode = new FormInput({
+      initial: formInput.initial,
+    });
+
+    formInput.push(childNode);
+    formInput.hookedUp = true;
+  }
+
+
+  for (let i = 0; i < formInput.length; ++i) {
+    hookupFormInput(formInput[i], forceRerender);
+  }
+
+  formInput.add = () => {
+    const newNode = new FormInput({
+      initial: formInput.initial,
+    });
+
+    hookupFormInput(newNode, forceRerender);
+
+    formInput.push(newNode);
+    forceRerender();
+  }
+
+  formInput.removeLast = () => {
+    formInput.pop();
+    forceRerender();
+  }
 
   return formInput;
 }

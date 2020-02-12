@@ -9,8 +9,6 @@ function hookupFormInputs<FormSchema: {}>(
   forceRerender: () => void
 ) {
   function dfs(node: any): any {
-    console.log('node', node)
-
     switch (getNodeType(node)) {
       case (NodeTypes.FormInput): {
         hookupFormInput(node, forceRerender);

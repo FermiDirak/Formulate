@@ -19,8 +19,8 @@ function buildFormInputs<FormSchema: {}>(
       }
 
       case (NodeTypes.FormArrayInput): {
-        const clone = cloneFormInput(formNode);
-        hookupFormInput(clone, forceRerender);
+        const clone = cloneFormArrayInput(formNode);
+        hookupFormArrayInput(clone, forceRerender);
         return clone;
       }
 

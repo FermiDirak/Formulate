@@ -9,8 +9,6 @@ type Props = {|
 |}
 
 function TextInput({value, onChange, placeholder}: Props) {
-  console.log('VALUE', value);
-
   return (
     <input
       type="text"
