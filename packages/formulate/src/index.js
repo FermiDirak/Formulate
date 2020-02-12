@@ -8,7 +8,6 @@ import useCustomState from "./useCustomState";
 import FormInput from "./FormInput";
 import FormArrayInput from "./FormArrayInput";
 
-
 /**
  * Best effort attempts have been made to make the internals typesafe,
  * however, internal type safety has been sacrified on the alter of better
