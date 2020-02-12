@@ -12,7 +12,7 @@
     "react-scripts": "3.3.1"
   },
   "scripts": {
-    "link-formulate": "link -s ./../packages/formulate/src ./src/formulate",
+    "sync-formulate": "cp -r ./../packages/formulate/src/ ./src/formulate",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
