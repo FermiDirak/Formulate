@@ -1,30 +1,29 @@
 /** @flow */
 
-import {hookupFormInput} from "./FormInput";
-import {hookupFormArrayInput} from "./FormArrayInput";
 import NodeTypes, {getNodeType} from "./nodeTypes";
 
-function hookupFormInputs<FormSchema: {}>(
-  formSchema: FormSchema,
-  forceRerender: () => void
-) {
+function generateFormData<FormData: {}, FormInputs: {}>(
+  formInputs: FormInputs
+): FormData {
+
   function dfs(node: any): any {
     switch (getNodeType(node)) {
       case (NodeTypes.FormInput): {
-        hookupFormInput(node, forceRerender);
-        return;
+        return node.value;
       }
 
       case (NodeTypes.FormArrayInput): {
-        hookupFormArrayInput(node, forceRerender);
-        return;
+        return Array.from(node.map(element => element.value));
       }
 
       case (NodeTypes.Object): {
-        Object.values(node).forEach(value => {
-          dfs(value);
+        const formData = {};
+
+        Object.keys(node).forEach(key => {
+          formData[key] = dfs(node[key]);
         });
-        return;
+
+        return formData;
       }
 
       case (NodeTypes.Set): {
@@ -40,12 +39,13 @@ function hookupFormInputs<FormSchema: {}>(
       }
 
       default: {
-        throw new Error(`Unknown Field for value ${node} of type ${typeof node}`);
+        throw new Error("Unknown Field");
       }
     }
   }
 
-  dfs(formSchema);
+  const formData: FormData = dfs(formInputs);
+  return formData;
 }
 
-export default hookupFormInputs;
+export default generateFormData;

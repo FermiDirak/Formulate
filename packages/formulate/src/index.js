@@ -9,6 +9,7 @@ import FormInput from "./FormInput";
 import FormArrayInput, {hookupFormArrayInput} from "./FormArrayInput";
 import NodeTypes, {getNodeType} from "./nodeTypes";
 import buildFormInputs from './buildFormInputs';
+import generateFormData from './generateFormData';
 import hookupFormInputs from './hookupFormInputs';
 
 /**
@@ -17,51 +18,6 @@ import hookupFormInputs from './hookupFormInputs';
  * performance and semantics.
  */
 
-function generateFormData<FormData: {}, FormInputs: {}>(
-  formInputs: FormInputs
-): FormData {
-
-  function dfs(node: any): any {
-    switch (getNodeType(node)) {
-      case (NodeTypes.FormInput): {
-        return node.value;
-      }
-
-      case (NodeTypes.FormArrayInput): {
-        return Array.from(node.map(element => element.value));
-      }
-
-      case (NodeTypes.Object): {
-        const formData = {};
-
-        Object.keys(node).forEach(key => {
-          formData[key] = dfs(node[key]);
-        });
-
-        return formData;
-      }
-
-      case (NodeTypes.Set): {
-        throw new Error('Formulate doesn\'t handle this (yet)! @TODO');
-      }
-
-      case (NodeTypes.Map): {
-        throw new Error('Formulate doesn\'t handle this (yet)! @TODO');
-      }
-
-      case (NodeTypes.Array): {
-        throw new Error('Formulate doesn\'t handle this (yet)! @TODO');
-      }
-
-      default: {
-        throw new Error("Unknown Field");
-      }
-    }
-  }
-
-  const formData: FormData = dfs(formInputs);
-  return formData;
-}
 
 function useForm<FormData: {}, FormInputs: {}>(
   formSchema: FormInputs,
