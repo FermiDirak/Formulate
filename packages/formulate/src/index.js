@@ -28,8 +28,6 @@ function generateFormData<FormData: {}, FormInputs: {}>(
       }
 
       case (NodeTypes.FormArrayInput): {
-        console.log('n!', node);
-
         return Array.from(node.map(element => element.value));
       }
 
@@ -78,8 +76,9 @@ function useForm<FormData: {}, FormInputs: {}>(
     buildFormInputs(formSchema, forceRerender)
   );
 
+  // @TODO: hookup is called every render since forceRerender is
+  // different every render. This can be optimized to O(1)
   hookupFormInputs(formInputsRef.current, forceRerender);
-  hookupFormArrayInput(formInputsRef.current.friends, forceRerender);
 
   const formData = generateFormData(formInputsRef.current);
 

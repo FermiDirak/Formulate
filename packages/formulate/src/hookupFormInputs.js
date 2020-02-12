@@ -16,7 +16,9 @@ function hookupFormInputs<FormSchema: {}>(
       }
 
       case (NodeTypes.FormArrayInput): {
-        hookupFormInput(node, forceRerender);
+        console.log('hookup', node);
+
+        hookupFormArrayInput(node, forceRerender);
         return;
       }
 

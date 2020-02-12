@@ -62,6 +62,7 @@ function hookupFormArrayInput<T>(
     hookupFormInput(formInput[i], forceRerender);
   }
 
+  // $FlowFixMe(bryan) dangerously overwrite instance method
   formInput.add = () => {
     const newNode = new FormInput({
       initial: formInput.initial,
@@ -73,6 +74,7 @@ function hookupFormArrayInput<T>(
     forceRerender();
   }
 
+  // $FlowFixMe(bryan) dangerously overwrite instance method
   formInput.removeLast = () => {
     formInput.pop();
     forceRerender();
