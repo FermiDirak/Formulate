@@ -44,12 +44,13 @@ function Form () {
       <div style={{display: "flex", flexDirection: "row"}}>
         {formInputs.friends.map((friend, i) => (
           <TextInput
+            key={friend.hash}
             {...friend.props()}
             placeholder={`friend ${i}`}
           />
         ))}
 
-        <Button onClick={() => formInputs.friends.add("")} label="add friend" />
+        <Button onClick={() => formInputs.friends.add()} label="add friend" />
         <Button onClick={() => formInputs.friends.removeLast()} label="remove friend" />
       </div>
 

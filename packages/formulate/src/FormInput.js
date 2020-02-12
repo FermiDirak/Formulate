@@ -18,11 +18,15 @@ class FormInput<T> {
   initial: T;
   isRequired: boolean;
   value: T;
+  hash: string;
 
   constructor({initial, isRequired = false}: FormInputProps<T>) {
     this.initial = initial;
     this.isRequired = isRequired;
     this.value = initial;
+
+    // @TODO: Naive implementation of hashing
+    this.hash = String(Math.random());
   }
 
   props(): InputProps<T> {
