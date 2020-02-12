@@ -221,8 +221,6 @@ function hookUpFormInputs<FormData: {}, FormInputs: {}>(
 
   const clonedFormSchema = cloneFormSchema(formSchema);
 
-  console.log('gets here?', clonedFormSchema);
-
   // @TODO: this implementation currently mutates formSchema. In the future,
   // this should return a replica formSchema.
 
@@ -235,8 +233,6 @@ function hookUpFormInputs<FormData: {}, FormInputs: {}>(
       // parent and accessor should never change, allowing for O(1) updates
 
       if (formSchemaNode instanceof FormInput) {
-        console.log(parent, parent[accessor]);
-
         formSchemaNode.props = () => ({
           value: parent[accessor],
           onChange: (newValue) => {

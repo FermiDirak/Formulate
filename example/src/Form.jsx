@@ -30,7 +30,7 @@ function Form () {
     name: new FormInput({initial: "", isRequired: true }),
     // friends: new FormArrayInput({initial: ""}),
     profile: {
-      id: new FormInput({initial: "green", isRequired: true }),
+      id: new FormInput({initial: "et593", isRequired: true }),
     },
   };
 
@@ -39,11 +39,11 @@ function Form () {
     console.log('submitted: ', formData);
   };
 
-  console.log(formData, '!!');
+  console.log("formData: ", formData);
 
   return (
     <form>
-      <TextInput {...formInputs.name.props()} />
+      <TextInput {...formInputs.name.props()} placeholder="name" />
 
       {/* {formInputs.friends.map(friend => {
         <TextInput {...friend.props()} />
@@ -52,7 +52,7 @@ function Form () {
       <Button onClick={() => formInputs.friends.add("")} label="add friend" />
       <Button onClick={() => formInputs.friends.remove(0)} label="remove friend" /> */}
 
-      <TextInput {...formInputs.profile.id.props()} />
+      <TextInput {...formInputs.profile.id.props()} placeholder="id" />
 
       <Button onClick={handleSubmit} label="submit" />
     </form>
