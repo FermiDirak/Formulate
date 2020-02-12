@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "name": "formulate-monorepo",
+  "version": "0.0.0",
+  "author": "Bryan Manuele",
+  "homepage": "https://github.com/FermiDirak/Formulate/",
+  "license": "MIT",
+  "workspaces": ["packages/*"]
+}
