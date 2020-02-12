@@ -16,6 +16,7 @@ Formuate is a type-safe controlled React Forms library.
 See this demo in action at https://formulatedemo.netlify.com
 
 ```jsx
+import useForm, {FormInput, FormArrayInput} from 'formulate';
 
 type FormData = {|
   +name: string,
@@ -58,7 +59,7 @@ function Form () {
         />
       ))}
 
-      <Button onClick={() => formInputs.friends.add("")} label="add friend" />
+      <Button onClick={() => formInputs.friends.add()} label="add friend" />
       <Button onClick={() => formInputs.friends.removeLast()} label="remove friend"/>
 
       <TextInput {...formInputs.profile.id.props()} placeholder="id" />

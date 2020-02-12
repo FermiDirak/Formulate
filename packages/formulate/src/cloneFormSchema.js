@@ -1,22 +1,8 @@
 /** @flow */
 
-import FormInput from "./FormInput";
-import FormArrayInput from "./FormArrayInput";
+import FormInput, {cloneFormInput, hookupFormInput} from "./FormInput";
+import FormArrayInput, {cloneFormArrayInput, hookupFormArrayInput} from "./FormArrayInput";
 import NodeTypes, {getNodeType} from "./nodeTypes";
-
-function cloneFormInput<T>(formInput: FormInput<T>): FormInput<T> {
-  return new FormInput({
-    initial: formInput.initial,
-    isRequired: formInput.isRequired,
-  });
-}
-
-function cloneFormArrayInput<T>(formInput: FormArrayInput<T>): FormArrayInput<T> {
-  return new FormArrayInput({
-    initial: formInput.initial,
-    isRequired: formInput.isRequired,
-  });
-}
 
 function cloneFormSchema<FormSchema: {}>(formSchema: FormSchema): FormSchema {
   function generateClone(formNode: any, cloneNode: any): any {
@@ -24,11 +10,15 @@ function cloneFormSchema<FormSchema: {}>(formSchema: FormSchema): FormSchema {
 
     switch (nodeType) {
       case (NodeTypes.FormInput): {
-        return cloneFormInput(formNode);
+        const clone = cloneFormInput(formNode)
+        hookupFormInput(clone);
+        return clone;
       }
 
       case (NodeTypes.FormArrayInput): {
-        return cloneFormArrayInput(formNode);
+        const clone = cloneFormInput(formInput);
+        hookupFormInput(clone);
+        return clone;
       }
 
       case (NodeTypes.Object): {

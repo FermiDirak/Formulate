@@ -49,7 +49,7 @@ function BasicForm ({onSubmit}: Props) {
         <TextInput {...friend.props()} />
       })}
 
-      <Button onClick={() => formInputs.friends.add("")} label="add friend" />
+      <Button onClick={() => formInputs.friends.add()} label="add friend" />
       <Button onClick={() => formInputs.friends.remove(0)} label="remove friend" />
 
       <TextInput {...formInputs.profile.id.props()} />

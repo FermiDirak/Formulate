@@ -11,7 +11,7 @@ type FormInputProps<T> = {|
  * FormArrayInput exists solely for type checking purposes. useForm
  * consumes FormArrayInput as a config and overrides its instance methods
  */
-export default class FormArrayInput<T> extends Array<FormInput<T>> {
+class FormArrayInput<T> extends Array<FormInput<T>> {
   initial: T;
   isRequired: boolean;
 
@@ -22,7 +22,7 @@ export default class FormArrayInput<T> extends Array<FormInput<T>> {
     this.isRequired = isRequired;
   }
 
-  add(data: T) {
+  add() {
     throw new Error("FormArrayInput must only be used in the context of Formulate")
   }
 
@@ -34,3 +34,19 @@ export default class FormArrayInput<T> extends Array<FormInput<T>> {
     throw new Error("FormArrayInput must only be used in the context of Formulate")
   }
 }
+
+function cloneFormArrayInput<T>(formInput: FormArrayInput<T>): FormArrayInput<T> {
+  return new FormArrayInput({
+    initial: formInput.initial,
+    isRequired: formInput.isRequired,
+  });
+}
+
+function buildFormArrayInput<T>(formInput: FormArrayInput<T>, forceRerender: () => void): FormArrayInput<T> {
+  // @TODO
+
+  return formInput;
+}
+
+export { cloneFormArrayInput, buildFormArrayInput };
+export default FormArrayInput;
