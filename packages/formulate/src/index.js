@@ -6,8 +6,7 @@ import * as React from 'react';
 
 import useForceRerender from "./useForceRerender";
 import FormInput from "./FormInput";
-import FormArrayInput, {hookupFormArrayInput} from "./FormArrayInput";
-import NodeTypes, {getNodeType} from "./nodeTypes";
+import FormArrayInput from "./FormArrayInput";
 import buildFormInputs from './buildFormInputs';
 import generateFormData from './generateFormData';
 import hookupFormInputs from './hookupFormInputs';
@@ -17,7 +16,6 @@ import hookupFormInputs from './hookupFormInputs';
  * however, internal type safety has been sacrified on the alter of better
  * performance and semantics.
  */
-
 
 function useForm<FormData: {}, FormInputs: {}>(
   formSchema: FormInputs,

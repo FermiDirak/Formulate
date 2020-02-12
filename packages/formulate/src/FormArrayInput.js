@@ -1,6 +1,6 @@
 /** @flow */
 
-import FormInput, {cloneFormInput, hookupFormInput} from "./FormInput";
+import FormInput, {hookupFormInput} from "./FormInput";
 
 type FormInputProps<T> = {|
   +initial: T,
@@ -56,7 +56,6 @@ function hookupFormArrayInput<T>(
     formInput.push(childNode);
     formInput.hookedUp = true;
   }
-
 
   for (let i = 0; i < formInput.length; ++i) {
     hookupFormInput(formInput[i], forceRerender);
