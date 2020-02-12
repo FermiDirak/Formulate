@@ -1,33 +1,37 @@
 /** @flow */
 
-import FormInput, {cloneFormInput, hookupFormInput} from "./FormInput";
-import FormArrayInput, {cloneFormArrayInput, hookupFormArrayInput} from "./FormArrayInput";
+import {cloneFormInput, hookupFormInput} from "./FormInput";
+import {cloneFormArrayInput, hookupFormArrayInput} from "./FormArrayInput";
 import NodeTypes, {getNodeType} from "./nodeTypes";
 
-function cloneFormSchema<FormSchema: {}>(formSchema: FormSchema): FormSchema {
-  function generateClone(formNode: any, cloneNode: any): any {
+function buildFormInputs<FormSchema: {}>(
+  formSchema: FormSchema,
+  forceRerender: () => void
+): FormSchema {
+  function generateClone(formNode: any): any {
     const nodeType = getNodeType(formNode);
 
     switch (nodeType) {
       case (NodeTypes.FormInput): {
         const clone = cloneFormInput(formNode)
-        hookupFormInput(clone);
+        hookupFormInput(clone, forceRerender);
         return clone;
       }
 
       case (NodeTypes.FormArrayInput): {
-        const clone = cloneFormInput(formInput);
-        hookupFormInput(clone);
+        const clone = cloneFormInput(formNode);
+        hookupFormInput(clone, forceRerender);
         return clone;
       }
 
       case (NodeTypes.Object): {
+        const nestedClone = {};
         Object.keys(formNode).forEach(key => {
           const value = formNode[key];
-          cloneNode[key] = generateClone(value, {});
+          nestedClone[key] = generateClone(value);
         });
 
-        return cloneNode;
+        return nestedClone;
       }
 
       case (NodeTypes.Set): {
@@ -48,8 +52,8 @@ function cloneFormSchema<FormSchema: {}>(formSchema: FormSchema): FormSchema {
     }
   }
 
-  const clone: FormSchema = generateClone(formSchema, {});
+  const clone: FormSchema = generateClone(formSchema);
   return clone;
 }
 
-export default cloneFormSchema;
+export default buildFormInputs;

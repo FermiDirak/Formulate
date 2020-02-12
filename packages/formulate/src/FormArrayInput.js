@@ -42,11 +42,11 @@ function cloneFormArrayInput<T>(formInput: FormArrayInput<T>): FormArrayInput<T>
   });
 }
 
-function buildFormArrayInput<T>(formInput: FormArrayInput<T>, forceRerender: () => void): FormArrayInput<T> {
+function hookupFormArrayInput<T>(formInput: FormArrayInput<T>, forceRerender: () => void): FormArrayInput<T> {
   // @TODO
 
   return formInput;
 }
 
-export { cloneFormArrayInput, buildFormArrayInput };
+export { cloneFormArrayInput, hookupFormArrayInput };
 export default FormArrayInput;

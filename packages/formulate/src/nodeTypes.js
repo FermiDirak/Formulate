@@ -44,7 +44,7 @@ function getNodeType(node: any): NodeType {
     return NodeTypes.Object;
   }
 
-  throw new Error(`Unknown data type for value: ${node}`);
+  throw new Error(`Unknown Field for value ${node} of type ${typeof node}`);
 }
 
 export type { NodeType };

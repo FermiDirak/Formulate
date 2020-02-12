@@ -4,11 +4,12 @@
 
 import * as React from 'react';
 
-import useCustomState from "./useCustomState";
+import useForceRerender from "./useForceRerender";
 import FormInput from "./FormInput";
 import FormArrayInput from "./FormArrayInput";
 import NodeTypes, {getNodeType} from "./nodeTypes";
-import cloneFormSchema from './cloneFormSchema';
+import buildFormInputs from './buildFormInputs';
+import hookupFormInputs from './hookupFormInputs';
 
 /**
  * Best effort attempts have been made to make the internals typesafe,
@@ -16,84 +17,26 @@ import cloneFormSchema from './cloneFormSchema';
  * performance and semantics.
  */
 
-function getInitialData<FormData: {}, FormInputs: {}>(formSchema: FormInputs): FormData {
+function generateFormData<FormData: {}, FormInputs: {}>(formInputs: FormInputs): FormData {
 
-  function extractData(schemaNode: any, dataNode: any) {
-    Object.keys(schemaNode).forEach(key => {
-      const value = schemaNode[key];
-      const nodeType = getNodeType(value);
-
-      switch (nodeType) {
-        case (NodeTypes.FormInput): {
-          dataNode[key] = value.initial;
-          return;
-        }
-
-        // @TODO: be able to handle initializing array with multiple values
-        case (NodeTypes.FormArrayInput): {
-          dataNode[key] = [value.initial];
-          return;
-        }
-
-        case (NodeTypes.Object): {
-          dataNode[key] = extractData(value, {});
-          return;
-        }
-
-        case (NodeTypes.Set): {
-          throw new Error('Formulate doesn\'t handle this (yet)! @TODO');
-        }
-
-        case (NodeTypes.Map): {
-          throw new Error('Formulate doesn\'t handle this (yet)! @TODO');
-        }
-
-        case (NodeTypes.Array): {
-          throw new Error('Formulate doesn\'t handle this (yet)! @TODO');
-        }
-
-        default: {
-          throw new Error("Unknown Field");
-        }
-      }
-    });
-
-    return dataNode;
-  }
-
-  return extractData(formSchema, {});
-}
-
-function formSchemaDFSIterator<FormData: {}, FormInputs: {}>(
-  formSchema: FormInputs,
-  formData: FormData,
-  cb: (node: any, parent: any, accessor: string | number) => void,
-) {
-
-  function dfs(
-    schemaNode: any,
-    dataNode: any,
-    parentDataNode: any,
-    accessor: string | number
-  ) {
-    const schemaNodeType = getNodeType(schemaNode);
-
-    switch (schemaNodeType) {
+  function dfs(node: any): any {
+    switch (getNodeType(node)) {
       case (NodeTypes.FormInput): {
-        cb(schemaNode, parentDataNode, accessor);
-        return;
+        return node.value;
       }
 
       case (NodeTypes.FormArrayInput): {
-        cb(schemaNode, parentDataNode, accessor);
-        return;
+        return node.map(element => element.value);
       }
 
       case (NodeTypes.Object): {
-        Object.keys(schemaNode).forEach(key => {
-          dfs(schemaNode[key], dataNode[key], dataNode, key);
+        const formData = {};
+
+        Object.keys(node).forEach(key => {
+          formData[key] = dfs(node[key]);
         });
-        return;
+
+        return formData;
       }
 
       case (NodeTypes.Set): {
@@ -114,71 +57,8 @@ function formSchemaDFSIterator<FormData: {}, FormInputs: {}>(
     }
   }
 
-  dfs(formSchema, formData, null, '');
-}
-
-function hookUpFormInputs<FormData: {}, FormInputs: {}>(
-  formSchema: FormInputs,
-  formDataRef: {| +current: FormData |},
-  forceRerender: () => void,
-): FormInputs {
-
-  const clonedFormSchema = cloneFormSchema(formSchema);
-
-  // @TODO: this implementation currently mutates formSchema. In the future,
-  // this should return a replica formSchema.
-
-  formSchemaDFSIterator(
-    clonedFormSchema,
-    formDataRef.current,
-    (formSchemaNode, parent, accessor) => {
-      // we're guaranteed the structure of our formData never changes, hence
-      // parent and accessor should never change, allowing for O(1) updates
-
-      const nodeType = getNodeType(formSchemaNode);
-
-      switch (nodeType) {
-        case (NodeTypes.FormInput): {
-          formSchemaNode.props = () => ({
-            value: parent[accessor],
-            onChange: (newValue) => {
-              parent[accessor] = newValue;
-              forceRerender();
-              console.log('test', newValue, parent);
-            }
-          });
-
-          return;
-        }
-
-        case (NodeTypes.FormArrayInput): {
-
-          // @TODO: be able to handle initializing array with multiple values
-          formSchemaNode[0] = new FormInput({
-            initial: formSchemaNode.initial,
-          });
-
-          formSchemaNode[0].props = () => ({
-            value: parent[accessor][0],
-            onChange: (newValue) => {
-              parent[accessor][0] = newValue;
-              forceRerender();
-            }
-          });
-
-          // @TODO: implement all callbacks
-
-          return;
-        }
-
-        default: {
-          throw new Error("Unknown Input Type");
-        }
-      }
-    },
-  );
-
-  return clonedFormSchema;
+  const formData: FormData = dfs(formInputs);
+  return formData;
 }
 
 function useForm<FormData: {}, FormInputs: {}>(
@@ -188,15 +68,19 @@ function useForm<FormData: {}, FormInputs: {}>(
   formData: FormData,
 } {
 
-  const {stateRef: formDataRef, forceRerender} = useCustomState(
-    getInitialData<FormData, FormInputs>(formSchema)
+  const forceRerender = useForceRerender();
+
+  const formInputsRef = React.useRef(
+    buildFormInputs(formSchema, forceRerender)
   );
 
-  const formInputs = hookUpFormInputs(formSchema, formDataRef, forceRerender);
+  hookupFormInputs(formInputsRef.current, forceRerender);
+
+  const formData = generateFormData(formInputsRef.current);
 
   return {
-    formData: formDataRef.current,
-    formInputs,
+    formData,
+    formInputs: formInputsRef.current,
   };
 }
 

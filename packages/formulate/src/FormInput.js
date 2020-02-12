@@ -39,19 +39,16 @@ function cloneFormInput<T>(formInput: FormInput<T>): FormInput<T> {
 
 function hookupFormInput<T>(formInput: FormInput<T>, forceRerender: () => void): FormInput<T> {
 
-  function props() {
-    return {
-      value: this.value,
-      onChange: (newValue) => {
-        this.value = newValue;
-        forceRerender();
-      }
-    }
-  }
+  formInput.value = formInput.value ?? formInput.initial;
 
-  formInput.value = formInput.initial;
   // $FlowFixMe(bryan) Ignoring this for now
-  formInput.props = props.bind(formInput);
+  formInput.props = () => ({
+    value: formInput.value,
+    onChange: (newValue) => {
+      formInput.value = newValue;
+      forceRerender();
+    }
+  });
 
   return formInput;
 }
