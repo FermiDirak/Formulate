@@ -4,7 +4,7 @@ Formuate is a type-safe controlled React Forms library.
 
 ## Features
 
-* Typesafe for both Flow and Typescript
+* Typesafe for Flow and (soon) Typescript
 * Built with DX in mind. Uses React hooks
 * Error propagation
 * Controlled -- mutate and access your form state outside the conext of your form
