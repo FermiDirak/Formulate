@@ -88,11 +88,20 @@ __I'd like to give feedback / express my appreciation for this project. How can 
 
 Submit a github issue, even if it's only to show appreciation and support. Be sure to use the appropriate tag though!
 
-## TODO
+## Whats still to be done
 
-* Build above mentioned eslint rule to keep FormData and FormInput types in sync
-* Support Sets an Maps in forms
-* set up bundle size metrics
-* design error validation props for FormInputs (required, pattern, custom, etc)
-* design error message api with I18n as a first class consideration
+__Error handling__
 
+There currently isn't a decided upon error handling / input error consumption API. Considerations for this API must have a good developer experience for the simple cases (ie when only `required` / `pattern` based validation is necessary), and must take into acount I18n as a first class consideration.
+
+__Support for Tuples and ES6 Data Structures (Set / Map)__
+
+Formulate is set up to be able to handle all data structures. This functionality just hasn't been hooked up yet.
+
+__FormArrayInput__
+
+The FormArrayInput api is currently not fleshed out and api considerations need to be made to enable actions such as prepopulating the array with multiple items, hashing, etc.
+
+__Eslint Rule for syncing FormData and FormInput types__
+
+As mentioned in the Q&A, a FormData and FormInput type must both be specified as generics in order to use Formulate. This opens up the possibility for the two to desync in usages of Formulate. An eslint rule can be created to ensure the two are always in sync.
