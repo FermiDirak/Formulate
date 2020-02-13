@@ -78,6 +78,17 @@ Formulate is also unique in that it will work out of the box with most design sy
 
 Formulate is type sound for both Flow and Typescript, allowing for strong guarantees around the shape and value types of your form.
 
+## How does it work?
+
+Provide `useForm` with a form schema, and it will return your form data `formData` and the input props you'll need to hook up to your inputs `formInputs`. That's it!
+
+To configure your form, you'll need the following three things
+* `type FormData`: a type struct that describes the shape of your from's data
+* `type FormInputs`: mirrors FormData in shape, except form input fields are replaced with `FormInput` and `FormArrayInput`. This is necessary for Formulate to understand the boundaries between data and form fields.
+* `formSchema`: A schema composed of `FormInput`s and `FormArrayInput`s
+
+`useForm` will then return you with `formData` and `formInputs`, which you'll hook up with your form fields. And with that, you have a hooked up form!
+
 ## Q & A
 
 __Why do FormData and FormInputs need to be explicitly typed separately? Couldn't FormData be inferred from FormInput?__
@@ -100,7 +111,7 @@ Formulate is set up to be able to handle all data structures. This functionality
 
 __FormArrayInput__
 
-The FormArrayInput api is currently not fleshed out and api considerations need to be made to enable actions such as prepopulating the array with multiple items, hashing, etc.
+The FormArrayInput api is currently not fleshed out and api considerations need to be made to enable actions such as prepopulating the array with multiple items, hashing, etc. One interesting idea would be to have untouched inputs be excluded in formData.
 
 __Eslint Rule for syncing FormData and FormInput types__
 

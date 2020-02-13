@@ -37,10 +37,10 @@ type FormInputs = {|
 
 function Form () {
   const formSchema = {
-    name: new FormInput({initial: "", isRequired: true }),
+    name: new FormInput({initial: "", isRequired: true}),
     friends: new FormArrayInput({initial: ""}),
     profile: {
-      id: new FormInput({initial: "et593", isRequired: true }),
+      id: new FormInput({initial: "et593", isRequired: true}),
     },
   };
 
@@ -83,8 +83,12 @@ function App() {
         <div className="left-panel">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Formulate is a typesafe controlled Form Library.
+            Formulate is a type safe controlled Form Library.
           </p>
+          <p className="small">
+            Mock user bio form:
+          </p>
+
           <Form />
         </div>
         <div className="right-panel">

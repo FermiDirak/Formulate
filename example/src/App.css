@@ -28,6 +28,16 @@
   color: #61dafb;
 }
 
+p {
+  margin: 12px 0;
+}
+
+.small {
+  line-height: 0.5em;
+  font-size: 12px;
+  margin-top: 0;
+}
+
 .left-panel {
   display: flex;
   flex-direction: column;
