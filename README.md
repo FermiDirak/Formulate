@@ -72,11 +72,11 @@ function Form () {
 
 ## Why Formulate over Formik, react-hook-form, formula-one, etc?
 
-Because Formulate is a controlled form library, Formulate provides you the highest degree of control over your data of all the form libraries. This allows one to explicitly configure the shape of the form data and read and write form data from outside the context of your form.
+Formulate is a type-sound controlled form library that puts Developer Experience as its number one priority, and provides the highest degree of control over form data of all the above mentioned form libraries. This means you have complete control over your form's schema, and can update and read form data from outside the context of your form.
 
-Formulate also will work out of the box with most design systems so long as inputs come with `value` and `onChange` props. No need to register your inputs via refs or create custom Form DSL input cmponents.
+Formulate is also unique in that it will work out of the box with most design systems without a need for DSL component wrappers for hooking up props. So long as your design system's inputs take in a `value` and `onChange` prop, there is no need to register your inputs via refs or create custom Form DSL input components.
 
-Formulate is also type sound for both Flow and Typescript, allowing for strong guarantees around the shape and value types of your form.
+Formulate is type sound for both Flow and Typescript, allowing for strong guarantees around the shape and value types of your form.
 
 ## Q & A
 
