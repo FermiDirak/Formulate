@@ -1,6 +1,7 @@
 /** @flow */
 
 import * as React from "react";
+import Highlight from 'react-highlight.js';
 
 import useForm, {
   FormInput,
@@ -46,7 +47,7 @@ function Form () {
           <TextInput
             key={friend.hash}
             {...friend.props()}
-            placeholder={`friend ${i}`}
+            placeholder="test"
           />
         ))}
 
@@ -57,6 +58,10 @@ function Form () {
       <TextInput {...formInputs.profile.id.props()} placeholder="id" />
 
       <Button onClick={handleSubmit} label="submit" />
+      <br/>
+      <Highlight language="javascript">
+        {JSON.stringify(formData, null, 2)}
+      </Highlight>
     </form>
   );
 }
