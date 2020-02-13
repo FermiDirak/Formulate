@@ -41,7 +41,10 @@ function cloneFormInput<T>(formInput: FormInput<T>): FormInput<T> {
   });
 }
 
-function hookupFormInput<T>(formInput: FormInput<T>, forceRerender: () => void): FormInput<T> {
+function hookupFormInput<T>(
+  formInput: FormInput<T>,
+  forceRerenderRef: {| +current: () => void |},
+): FormInput<T> {
 
   formInput.value = formInput.value ?? formInput.initial;
 
@@ -50,7 +53,7 @@ function hookupFormInput<T>(formInput: FormInput<T>, forceRerender: () => void):
     value: formInput.value,
     onChange: (newValue) => {
       formInput.value = newValue;
-      forceRerender();
+      forceRerenderRef.current();
     }
   });
 

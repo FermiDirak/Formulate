@@ -9,7 +9,6 @@ import FormInput from "./FormInput";
 import FormArrayInput from "./FormArrayInput";
 import buildFormInputs from './buildFormInputs';
 import generateFormData from './generateFormData';
-import hookupFormInputs from './hookupFormInputs';
 
 /**
  * Best effort attempts have been made to make the internals typesafe,
@@ -24,15 +23,12 @@ function useForm<FormData: {}, FormInputs: {}>(
   formData: FormData,
 } {
 
-  const forceRerender = useForceRerender();
+  const forceRerenderRef = React.useRef(() => {});
+  forceRerenderRef.current = useForceRerender();
 
   const formInputsRef = React.useRef(
-    buildFormInputs(formSchema, forceRerender)
+    buildFormInputs(formSchema, forceRerenderRef)
   );
-
-  // @TODO: hookup is called every render since forceRerender is
-  // different every render. This can be optimized to O(1)
-  hookupFormInputs(formInputsRef.current, forceRerender);
 
   const formData = generateFormData(formInputsRef.current);
 

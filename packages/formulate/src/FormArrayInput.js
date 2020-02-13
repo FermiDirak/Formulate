@@ -45,7 +45,7 @@ function cloneFormArrayInput<T>(formInput: FormArrayInput<T>): FormArrayInput<T>
 
 function hookupFormArrayInput<T>(
   formInput: FormArrayInput<T>,
-  forceRerender: () => void
+  forceRerenderRef: {| +current: () => void |},
 ): FormArrayInput<T> {
   // initialize value on first hookup
   if (!formInput.hookedUp) {
@@ -58,7 +58,7 @@ function hookupFormArrayInput<T>(
   }
 
   for (let i = 0; i < formInput.length; ++i) {
-    hookupFormInput(formInput[i], forceRerender);
+    hookupFormInput(formInput[i], forceRerenderRef);
   }
 
   // $FlowFixMe(bryan) dangerously overwrite instance method
@@ -67,16 +67,16 @@ function hookupFormArrayInput<T>(
       initial: formInput.initial,
     });
 
-    hookupFormInput(newNode, forceRerender);
+    hookupFormInput(newNode, forceRerenderRef);
 
     formInput.push(newNode);
-    forceRerender();
+    forceRerenderRef.current();
   }
 
   // $FlowFixMe(bryan) dangerously overwrite instance method
   formInput.removeLast = () => {
     formInput.pop();
-    forceRerender();
+    forceRerenderRef.current();
   }
 
   return formInput;

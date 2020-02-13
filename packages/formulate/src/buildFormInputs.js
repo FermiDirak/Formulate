@@ -6,7 +6,7 @@ import NodeTypes, {getNodeType} from "./nodeTypes";
 
 function buildFormInputs<FormSchema: {}>(
   formSchema: FormSchema,
-  forceRerender: () => void
+  forceRerenderRef: {| +current: () => void |},
 ): FormSchema {
   function generateClone(formNode: any): any {
     const nodeType = getNodeType(formNode);
@@ -14,13 +14,13 @@ function buildFormInputs<FormSchema: {}>(
     switch (nodeType) {
       case (NodeTypes.FormInput): {
         const clone = cloneFormInput(formNode)
-        hookupFormInput(clone, forceRerender);
+        hookupFormInput(clone, forceRerenderRef);
         return clone;
       }
 
       case (NodeTypes.FormArrayInput): {
         const clone = cloneFormArrayInput(formNode);
-        hookupFormArrayInput(clone, forceRerender);
+        hookupFormArrayInput(clone, forceRerenderRef);
         return clone;
       }
 
