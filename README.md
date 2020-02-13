@@ -84,6 +84,10 @@ __Why do FormData and FormInputs need to be explicitly typed separately? Couldn'
 
 Ideally it would be, but Flow doesn't support generic typeguards. Until it does, both FormData and FormInput must be explicitly typed. In the future there will be an eslint rule to keep both in sync.
 
+__I'd like to give feedback / express my appreciation for this project. How can I do so?__
+
+Submit a github issue, even if it's only to show appreciation and support. Be sure to use the appropriate tag though!
+
 ## TODO
 
 * Build above mentioned eslint rule to keep FormData and FormInput types in sync
@@ -91,3 +95,4 @@ Ideally it would be, but Flow doesn't support generic typeguards. Until it does,
 * set up bundle size metrics
 * design error validation props for FormInputs (required, pattern, custom, etc)
 * design error message api with I18n as a first class consideration
+
