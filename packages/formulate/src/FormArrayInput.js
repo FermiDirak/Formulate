@@ -24,6 +24,7 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
 
     this.initial = initial;
     this.isRequired = isRequired;
+
     this.internal = {
       forceRerenderRef: { current: () => {} },
     };

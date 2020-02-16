@@ -43,16 +43,16 @@ function BasicForm ({onSubmit}: Props) {
 
   return (
     <form>
-      <TextInput {...formInputs.name.props()} />
+      <TextInput {...formInputs.name.props} />
 
       {formInputs.friends.map(friend => {
-        <TextInput {...friend.props()} />
+        <TextInput {...friend.props} />
       })}
 
       <Button onClick={() => formInputs.friends.add()} label="add friend" />
       <Button onClick={() => formInputs.friends.remove(0)} label="remove friend" />
 
-      <TextInput {...formInputs.profile.id.props()} />
+      <TextInput {...formInputs.profile.id.props} />
 
       <Button onClick={handleSubmit} label="submit" />
     </form>

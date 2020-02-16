@@ -20,6 +20,8 @@ class FormInput<T> {
   value: T;
   hash: string;
 
+  props: InputProps<T>;
+
   internal: {|
     forceRerenderRef: {| current: () => void |},
   |};
@@ -27,6 +29,7 @@ class FormInput<T> {
   constructor({initial, isRequired = false}: FormInputProps<T>) {
     this.initial = initial;
     this.isRequired = isRequired;
+
     this.internal = {
       forceRerenderRef: { current: () => {} },
     };
@@ -35,16 +38,14 @@ class FormInput<T> {
 
     // @TODO: Naive implementation of hashing
     this.hash = String(Math.random());
-  }
 
-  props(): InputProps<T> {
-    return {
+    this.props = {
       value: this.value,
       onChange: (newValue: T) => {
         this.value = newValue;
         this.internal.forceRerenderRef.current();
       },
-    };
+    }
   }
 }
 
