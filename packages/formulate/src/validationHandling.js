@@ -1,6 +1,6 @@
 /** @flow */
 
-type Validator<T> = (data: T) => string | string[] | null;
+type Validator<T> = (data: T, label: string) => string | string[] | null;
 
 const isRequired = (data: any, label: string) => {
   const errorMessage = `${label} field is required`;
