@@ -1,11 +1,14 @@
 /** @flow */
 
 import FormInput, {hookupFormInput} from "./FormInput";
+import {type Validator} from './validation';
 
 type FormInputProps<T> = {|
   +initial: T,
   +isRequired?: boolean,
   +prefillItems?: $ReadOnlyArray<T>,
+  +label?: string,
+  +validators?: $ReadOnlyArray<Validator<T>>,
 |};
 
 /**
@@ -13,22 +16,24 @@ type FormInputProps<T> = {|
  * consumes FormArrayInput as a config and overrides its instance methods
  */
 class FormArrayInput<T> extends Array<FormInput<T>> {
-  initial: T;
-  isRequired: boolean;
-  prefillItems: $ReadOnlyArray<T>;
-
   internal: {|
+    args: FormInputProps<T>,
     forceRerenderRef: {| current: () => void |},
   |};
 
-  constructor({initial, isRequired = false, prefillItems = []}: FormInputProps<T>) {
+  constructor(args: FormInputProps<T>) {
     super();
 
-    this.initial = initial;
-    this.isRequired = isRequired;
-    this.prefillItems = prefillItems;
+    const {
+      initial,
+      isRequired = false,
+      prefillItems = [],
+      label = "Field",
+      validators = [],
+    } = args;
 
     this.internal = {
+      args,
       forceRerenderRef: { current: () => {} },
     };
 
@@ -49,7 +54,7 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
 
   add() {
     const newNode = new FormInput({
-      initial: this.initial,
+      initial: this.internal.args.initial,
     });
 
     hookupFormInput(newNode, this.internal.forceRerenderRef);
@@ -72,10 +77,7 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
 }
 
 function cloneFormArrayInput<T>(formInput: FormArrayInput<T>): FormArrayInput<T> {
-  return new FormArrayInput({
-    initial: formInput.initial,
-    isRequired: formInput.isRequired,
-  });
+  return new FormArrayInput(formInput.internal.args);
 }
 
 function hookupFormArrayInput<T>(
