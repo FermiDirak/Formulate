@@ -17,7 +17,6 @@ type InputProps<T> = {|
 class FormInput<T> {
   initial: T;
   isRequired: boolean;
-  value: T;
   hash: string;
 
   props: InputProps<T>;
@@ -34,15 +33,13 @@ class FormInput<T> {
       forceRerenderRef: { current: () => {} },
     };
 
-    this.value = initial;
-
     // @TODO: Naive implementation of hashing
     this.hash = String(Math.random());
 
     this.props = {
-      value: this.value,
+      value: this.initial,
       onChange: (newValue: T) => {
-        this.value = newValue;
+        this.props.value = newValue;
         this.internal.forceRerenderRef.current();
       },
     }

@@ -9,11 +9,11 @@ function generateFormData<FormData: {}, FormInputs: {}>(
   function dfs(node: any): any {
     switch (getNodeType(node)) {
       case (NodeTypes.FormInput): {
-        return node.value;
+        return node.props.value;
       }
 
       case (NodeTypes.FormArrayInput): {
-        return Array.from(node.map(element => element.value));
+        return Array.from(node.map(element => element.props.value));
       }
 
       case (NodeTypes.Object): {
