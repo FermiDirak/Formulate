@@ -21,6 +21,8 @@ function useForm<FormData: {}, FormInputs: {}>(
 ): {
   formInputs: FormInputs,
   formData: FormData,
+  errors: $ReadOnlyArray<string>,
+  handleSubmit: (onSubmit: () => void) => (() => void),
 } {
   const forceRerenderRef = React.useRef(() => {});
   forceRerenderRef.current = useForceRerender();
@@ -36,6 +38,8 @@ function useForm<FormData: {}, FormInputs: {}>(
   // each pass.
 
   return {
+    errors: [],
+    handleSubmit: (cb) => cb,
     formData,
     formInputs: formInputsRef.current,
   };
