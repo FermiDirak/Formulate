@@ -9,6 +9,7 @@ import FormInput from "./FormInput";
 import FormArrayInput from "./FormArrayInput";
 import buildFormInputs from './buildFormInputs';
 import generateFormData from './generateFormData';
+import {flattenFieldErrors, type FieldErrors} from './fieldErrors';
 
 /**
  * Best effort attempts have been made to make the internals typesafe,
@@ -27,18 +28,18 @@ function useForm<FormData: {}, FormInputs: {}>(
   const forceRerenderRef = React.useRef(() => {});
   forceRerenderRef.current = useForceRerender();
 
+  const fieldErrorsRef = React.useRef<FieldErrors>(new Map());
+
   const formInputsRef = React.useRef(
-    buildFormInputs(formSchema, forceRerenderRef)
+    buildFormInputs(formSchema, forceRerenderRef, fieldErrorsRef)
   );
 
-  const formData = generateFormData(formInputsRef.current);
 
-  // for aggregating errors, I'm thinking of keeping a map
-  // Map<[FormInput, errors[]]> and then flattening it in order
-  // each pass.
+  const formData = generateFormData(formInputsRef.current);
+  const errors = flattenFieldErrors(fieldErrorsRef.current);
 
   return {
-    errors: [],
+    errors,
     handleSubmit: (cb) => cb,
     formData,
     formInputs: formInputsRef.current,

@@ -3,10 +3,12 @@
 import {cloneFormInput, hookupFormInput} from "./FormInput";
 import {cloneFormArrayInput, hookupFormArrayInput} from "./FormArrayInput";
 import NodeTypes, {getNodeType} from "./nodeTypes";
+import type {FieldErrors} from './fieldErrors';
 
 function buildFormInputs<FormSchema: {}>(
   formSchema: FormSchema,
   forceRerenderRef: {| current: () => void |},
+  fieldErrorsRef: {| current: FieldErrors |},
 ): FormSchema {
   function generateClone(formNode: any): any {
     const nodeType = getNodeType(formNode);
@@ -14,13 +16,13 @@ function buildFormInputs<FormSchema: {}>(
     switch (nodeType) {
       case (NodeTypes.FormInput): {
         const clone = cloneFormInput(formNode)
-        hookupFormInput(clone, forceRerenderRef);
+        hookupFormInput(clone, forceRerenderRef, fieldErrorsRef);
         return clone;
       }
 
       case (NodeTypes.FormArrayInput): {
         const clone = cloneFormArrayInput(formNode);
-        hookupFormArrayInput(clone, forceRerenderRef);
+        hookupFormArrayInput(clone, forceRerenderRef, fieldErrorsRef);
         return clone;
       }
 

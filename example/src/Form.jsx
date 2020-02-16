@@ -26,15 +26,17 @@ type FormInputs = {|
 
 function Form () {
   const formSchema = {
-    name: new FormInput({initial: "", validators: [isRequired] }),
-    friends: new FormArrayInput({initial: ""}),
+    name: new FormInput({initial: "", label: 'Name', validators: [isRequired] }),
+    friends: new FormArrayInput({initial: "", label: 'Friends'}),
     profile: {
-      id: new FormInput({initial: "et593", validators: [isRequired] }),
+      id: new FormInput({initial: "et593", label: 'id', validators: [isRequired] }),
     },
   };
 
   const {formData, formInputs, errors, handleSubmit} = useForm<FormData, FormInputs>(formSchema);
   const onSubmit = () => { console.log('submitted: ', formData); };
+
+  console.log('errors', errors);
 
   return (
     <form>

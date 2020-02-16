@@ -3,7 +3,7 @@
 type Validator<T> = (data: T, label: string) => string | string[] | null;
 
 const isRequired = (data: any, label: string) => {
-  const errorMessage = `${label} field is required`;
+  const errorMessage = `${label} field is required`.trim();
 
   if (data === null) {
     return errorMessage;
@@ -21,7 +21,7 @@ const isRequired = (data: any, label: string) => {
 }
 
 const isValidEmail = (data: string, label: string) => {
-  const errorMessage = `${label} field must contain a valid email`;
+  const errorMessage = `${label} field must contain a valid email`.trim();
 
   if (typeof data !== 'string') {
     return errorMessage;
@@ -34,7 +34,7 @@ const isValidEmail = (data: string, label: string) => {
 
 const isInRange = ({min, max}: {| +min: number, +max: number |}) => {
   return (data: number, label: string) => {
-    const errorMessage = `${label} must be in range [${min}, ${max}]`;
+    const errorMessage = `${label} must be in range [${min}, ${max}]`.trim();
 
     if (data < min || data > max) {
       return errorMessage;

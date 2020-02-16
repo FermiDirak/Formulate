@@ -2,6 +2,7 @@
 
 import genUuid from './genUuid';
 import {type Validator} from './validation';
+import type {FieldErrors} from './fieldErrors';
 
 type FormInputProps<T> = {|
   +initial: T,
@@ -14,10 +15,6 @@ type InputProps<T> = {|
   onChange: (value: T) => void,
 |};
 
-/**
- * FormInput exists solely for type checking purposes. useForm
- * consumes FormInput as a config and overrides its instance methods
- */
 class FormInput<T> {
   hash: number;
   props: InputProps<T>;
@@ -25,6 +22,7 @@ class FormInput<T> {
   internal: {|
     args: FormInputProps<T>,
     touched: boolean,
+    fieldErrorsRef: {| current: FieldErrors |},
     forceRerenderRef: {| current: () => void |},
   |};
 
@@ -38,6 +36,7 @@ class FormInput<T> {
     this.internal = {
       args,
       touched: false,
+      fieldErrorsRef: { current: new Map() },
       forceRerenderRef: { current: () => {} },
     };
 
@@ -48,9 +47,39 @@ class FormInput<T> {
       onChange: (newValue: T) => {
         this.props.value = newValue;
         this.internal.touched = true;
+        this.validate();
         this.internal.forceRerenderRef.current();
       },
     }
+  }
+
+  validate() {
+    if (!this.internal.args.validators) {
+      return;
+    }
+
+    const errors = [];
+
+    this.internal.args.validators.forEach(validator => {
+      const validatorErrors = validator(
+        this.props.value,
+        this.internal.args.label || ""
+      );
+
+      if (!validatorErrors) {
+        return;
+      }
+
+      if (typeof validatorErrors === 'string') {
+        errors.push(validatorErrors);
+      }
+
+      if (Array.isArray(validatorErrors)) {
+        errors.push(...validatorErrors);
+      }
+    });
+
+    this.internal.fieldErrorsRef.current.set(this, errors);
   }
 }
 
@@ -61,8 +90,10 @@ function cloneFormInput<T>(formInput: FormInput<T>): FormInput<T> {
 function hookupFormInput<T>(
   formInput: FormInput<T>,
   forceRerenderRef: {| current: () => void |},
+  fieldErrorsRef: {| current: FieldErrors |},
 ): FormInput<T> {
   formInput.internal.forceRerenderRef = forceRerenderRef;
+  formInput.internal.fieldErrorsRef = fieldErrorsRef;
   return formInput;
 }
 

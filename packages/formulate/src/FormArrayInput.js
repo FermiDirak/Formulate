@@ -1,6 +1,7 @@
 /** @flow */
 
-import FormInput, {hookupFormInput} from "./FormInput";
+import FormInput, {hookupFormInput} from './FormInput';
+import type {FieldErrors} from './fieldErrors';
 import {type Validator} from './validation';
 
 type FormInputProps<T> = {|
@@ -10,13 +11,10 @@ type FormInputProps<T> = {|
   +validators?: $ReadOnlyArray<Validator<T>>,
 |};
 
-/**
- * FormArrayInput exists solely for type checking purposes. useForm
- * consumes FormArrayInput as a config and overrides its instance methods
- */
 class FormArrayInput<T> extends Array<FormInput<T>> {
   internal: {|
     args: FormInputProps<T>,
+    fieldErrorsRef: {| current: FieldErrors |},
     forceRerenderRef: {| current: () => void |},
   |};
 
@@ -32,6 +30,7 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
 
     this.internal = {
       args,
+      fieldErrorsRef: { current: new Map() },
       forceRerenderRef: { current: () => {} },
     };
 
@@ -55,7 +54,7 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
       initial: this.internal.args.initial,
     });
 
-    hookupFormInput(newNode, this.internal.forceRerenderRef);
+    hookupFormInput(newNode, this.internal.forceRerenderRef, this.internal.fieldErrorsRef);
     this.push(newNode);
     this.internal.forceRerenderRef.current();
   }
@@ -81,12 +80,14 @@ function cloneFormArrayInput<T>(formInput: FormArrayInput<T>): FormArrayInput<T>
 function hookupFormArrayInput<T>(
   formInput: FormArrayInput<T>,
   forceRerenderRef: {| current: () => void |},
+  fieldErrorsRef: {| current: FieldErrors |},
 ): FormArrayInput<T> {
 
   formInput.internal.forceRerenderRef = forceRerenderRef;
+  formInput.internal.fieldErrorsRef = fieldErrorsRef;
 
   for (let i = 0; i < formInput.length; ++i) {
-    hookupFormInput(formInput[i], forceRerenderRef);
+    hookupFormInput(formInput[i], forceRerenderRef, fieldErrorsRef);
   }
 
   return formInput;
