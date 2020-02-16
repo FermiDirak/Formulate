@@ -6,7 +6,7 @@ import NodeTypes, {getNodeType} from "./nodeTypes";
 
 function buildFormInputs<FormSchema: {}>(
   formSchema: FormSchema,
-  forceRerenderRef: {| +current: () => void |},
+  forceRerenderRef: {| current: () => void |},
 ): FormSchema {
   function generateClone(formNode: any): any {
     const nodeType = getNodeType(formNode);

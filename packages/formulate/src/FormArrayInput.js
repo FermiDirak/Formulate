@@ -14,25 +14,48 @@ type FormInputProps<T> = {|
 class FormArrayInput<T> extends Array<FormInput<T>> {
   initial: T;
   isRequired: boolean;
-  hookedUp: boolean;
+
+  internal: {|
+    forceRerenderRef: {| current: () => void |},
+  |};
 
   constructor({initial, isRequired = false}: FormInputProps<T>) {
     super();
 
     this.initial = initial;
     this.isRequired = isRequired;
+    this.internal = {
+      forceRerenderRef: { current: () => {} },
+    };
+
+    const childNode = new FormInput({
+      initial,
+    });
+
+    this.push(childNode);
   }
 
   add() {
-    throw new Error("FormArrayInput must only be used in the context of Formulate")
+    const newNode = new FormInput({
+      initial: this.initial,
+    });
+
+    hookupFormInput(newNode, this.internal.forceRerenderRef);
+    this.push(newNode);
+    this.internal.forceRerenderRef.current();
   }
 
   remove(index: number) {
-    throw new Error("FormArrayInput must only be used in the context of Formulate")
+    throw new Error("@TODO To be implemented")
   }
 
   removeLast() {
-    throw new Error("FormArrayInput must only be used in the context of Formulate")
+    if (this.length === 0) {
+      return;
+    }
+
+    this.pop();
+    this.internal.forceRerenderRef.current();
   }
 }
 
@@ -45,38 +68,13 @@ function cloneFormArrayInput<T>(formInput: FormArrayInput<T>): FormArrayInput<T>
 
 function hookupFormArrayInput<T>(
   formInput: FormArrayInput<T>,
-  forceRerenderRef: {| +current: () => void |},
+  forceRerenderRef: {| current: () => void |},
 ): FormArrayInput<T> {
-  // initialize value on first hookup
-  if (!formInput.hookedUp) {
-    const childNode = new FormInput({
-      initial: formInput.initial,
-    });
 
-    formInput.push(childNode);
-    formInput.hookedUp = true;
-  }
+  formInput.internal.forceRerenderRef = forceRerenderRef;
 
   for (let i = 0; i < formInput.length; ++i) {
     hookupFormInput(formInput[i], forceRerenderRef);
-  }
-
-  // $FlowFixMe(bryan) dangerously overwrite instance method
-  formInput.add = () => {
-    const newNode = new FormInput({
-      initial: formInput.initial,
-    });
-
-    hookupFormInput(newNode, forceRerenderRef);
-
-    formInput.push(newNode);
-    forceRerenderRef.current();
-  }
-
-  // $FlowFixMe(bryan) dangerously overwrite instance method
-  formInput.removeLast = () => {
-    formInput.pop();
-    forceRerenderRef.current();
   }
 
   return formInput;

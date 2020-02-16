@@ -20,9 +20,17 @@ class FormInput<T> {
   value: T;
   hash: string;
 
+  internal: {|
+    forceRerenderRef: {| current: () => void |},
+  |};
+
   constructor({initial, isRequired = false}: FormInputProps<T>) {
     this.initial = initial;
     this.isRequired = isRequired;
+    this.internal = {
+      forceRerenderRef: { current: () => {} },
+    };
+
     this.value = initial;
 
     // @TODO: Naive implementation of hashing
@@ -30,7 +38,13 @@ class FormInput<T> {
   }
 
   props(): InputProps<T> {
-    throw new Error("FormInput must be used in the context of Formulate");
+    return {
+      value: this.value,
+      onChange: (newValue: T) => {
+        this.value = newValue;
+        this.internal.forceRerenderRef.current();
+      },
+    };
   }
 }
 
@@ -43,20 +57,10 @@ function cloneFormInput<T>(formInput: FormInput<T>): FormInput<T> {
 
 function hookupFormInput<T>(
   formInput: FormInput<T>,
-  forceRerenderRef: {| +current: () => void |},
+  forceRerenderRef: {| current: () => void |},
 ): FormInput<T> {
 
-  formInput.value = formInput.value ?? formInput.initial;
-
-  // $FlowFixMe(bryan) Ignoring this for now
-  formInput.props = () => ({
-    value: formInput.value,
-    onChange: (newValue) => {
-      formInput.value = newValue;
-      forceRerenderRef.current();
-    }
-  });
-
+  formInput.internal.forceRerenderRef = forceRerenderRef;
   return formInput;
 }
 
