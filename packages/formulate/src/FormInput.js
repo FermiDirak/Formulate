@@ -1,10 +1,12 @@
 /** @flow */
 
 import genUuid from './genUuid';
+import {type Validator} from './validation';
 
 type FormInputProps<T> = {|
   +initial: T,
-  +isRequired?: boolean,
+  +label?: string,
+  +validators?: $ReadOnlyArray<Validator<T>>,
 |};
 
 type InputProps<T> = {|
@@ -27,7 +29,11 @@ class FormInput<T> {
   |};
 
   constructor(args: FormInputProps<T>) {
-    const {initial, isRequired = false} = args;
+    const {
+      initial,
+      label,
+      validators = [],
+    } = args;
 
     this.internal = {
       args,
@@ -56,7 +62,6 @@ function hookupFormInput<T>(
   formInput: FormInput<T>,
   forceRerenderRef: {| current: () => void |},
 ): FormInput<T> {
-
   formInput.internal.forceRerenderRef = forceRerenderRef;
   return formInput;
 }

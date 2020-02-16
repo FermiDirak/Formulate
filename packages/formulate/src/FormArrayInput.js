@@ -5,7 +5,6 @@ import {type Validator} from './validation';
 
 type FormInputProps<T> = {|
   +initial: T,
-  +isRequired?: boolean,
   +prefillItems?: $ReadOnlyArray<T>,
   +label?: string,
   +validators?: $ReadOnlyArray<Validator<T>>,
@@ -26,9 +25,8 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
 
     const {
       initial,
-      isRequired = false,
       prefillItems = [],
-      label = "Field",
+      label,
       validators = [],
     } = args;
 

@@ -22,7 +22,6 @@ function useForm<FormData: {}, FormInputs: {}>(
   formInputs: FormInputs,
   formData: FormData,
 } {
-
   const forceRerenderRef = React.useRef(() => {});
   forceRerenderRef.current = useForceRerender();
 
@@ -31,6 +30,10 @@ function useForm<FormData: {}, FormInputs: {}>(
   );
 
   const formData = generateFormData(formInputsRef.current);
+
+  // for aggregating errors, I'm thinking of keeping a map
+  // Map<[FormInput, errors[]]> and then flattening it in order
+  // each pass.
 
   return {
     formData,

@@ -31,10 +31,10 @@ type FormInputs = {|
 
 function BasicForm ({onSubmit}: Props) {
   const formSchema = {
-    name: new FormInput({initial: "", isRequired: true }),
+    name: new FormInput({initial: "" }),
     friends: new FormArrayInput({initial: ""}),
     profile: {
-      id: new FormInput({initial: "green", isRequired: true }),
+      id: new FormInput({initial: "green" }),
     },
   };
 
