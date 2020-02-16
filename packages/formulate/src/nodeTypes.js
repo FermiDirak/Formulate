@@ -17,7 +17,7 @@ const NodeTypes = Object.freeze({
   Map: 6,
 });
 
-opaque type NodeType = $Values<typeof NodeTypes>;
+type NodeType = $Values<typeof NodeTypes>;
 
 function getNodeType(node: any): NodeType {
   if (node instanceof FormInput) {
