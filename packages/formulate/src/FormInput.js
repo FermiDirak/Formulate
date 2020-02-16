@@ -1,5 +1,7 @@
 /** @flow */
 
+import genUuid from './genUuid';
+
 type FormInputProps<T> = {|
   +initial: T,
   +isRequired?: boolean,
@@ -15,31 +17,28 @@ type InputProps<T> = {|
  * consumes FormInput as a config and overrides its instance methods
  */
 class FormInput<T> {
-  initial: T;
-  isRequired: boolean;
-  hash: string;
-
+  hash: number;
   props: InputProps<T>;
 
   internal: {|
+    args: FormInputProps<T>,
     touched: boolean,
     forceRerenderRef: {| current: () => void |},
   |};
 
-  constructor({initial, isRequired = false}: FormInputProps<T>) {
-    this.initial = initial;
-    this.isRequired = isRequired;
+  constructor(args: FormInputProps<T>) {
+    const {initial, isRequired = false} = args;
 
     this.internal = {
+      args,
       touched: false,
       forceRerenderRef: { current: () => {} },
     };
 
-    // @TODO: Naive implementation of hashing
-    this.hash = String(Math.random());
+    this.hash = genUuid();
 
     this.props = {
-      value: this.initial,
+      value: initial,
       onChange: (newValue: T) => {
         this.props.value = newValue;
         this.internal.touched = true;
@@ -50,10 +49,7 @@ class FormInput<T> {
 }
 
 function cloneFormInput<T>(formInput: FormInput<T>): FormInput<T> {
-  return new FormInput({
-    initial: formInput.initial,
-    isRequired: formInput.isRequired,
-  });
+  return new FormInput(formInput.internal.args);
 }
 
 function hookupFormInput<T>(
