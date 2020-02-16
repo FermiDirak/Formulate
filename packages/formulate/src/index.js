@@ -10,6 +10,7 @@ import FormArrayInput from "./FormArrayInput";
 import buildFormInputs from './buildFormInputs';
 import generateFormData from './generateFormData';
 import {flattenFieldErrors, type FieldErrors} from './fieldErrors';
+import validateAll from './validateAll';
 
 /**
  * Best effort attempts have been made to make the internals typesafe,
@@ -38,9 +39,22 @@ function useForm<FormData: {}, FormInputs: {}>(
   const formData = generateFormData(formInputsRef.current);
   const errors = flattenFieldErrors(fieldErrorsRef.current);
 
+  const handleSubmit = (cb) => {
+    validateAll<FormInputs>(formInputsRef.current);
+
+    if (flattenFieldErrors(fieldErrorsRef.current).length !== 0) {
+      forceRerenderRef.current();
+      return () => {};
+    }
+
+    console.log(fieldErrorsRef.current);
+
+    return cb;
+  }
+
   return {
     errors,
-    handleSubmit: (cb) => cb,
+    handleSubmit,
     formData,
     formInputs: formInputsRef.current,
   };

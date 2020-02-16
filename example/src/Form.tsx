@@ -1,7 +1,4 @@
-/** @flow */
-
 import * as React from "react";
-import Highlight from 'react-highlight.js';
 
 import useForm, {FormInput, FormArrayInput} from './formulate';
 import {isRequired} from './formulate/validation';
@@ -10,32 +7,16 @@ import ErrorBanner from './ErrorBanner';
 import TextInput from './TextInput';
 import Button from './Button';
 
-type FormData = {|
-  +name: string,
-  +friends: $ReadOnlyArray<string>,
-  +profile: {|
-    +id: string,
-  |},
-|};
-
-type FormInputs = {|
-  +name: FormInput<string>,
-  +friends: FormArrayInput<string>,
-  +profile: {|
-    +id: FormInput<string>,
-  |},
-|};
-
 function Form () {
   const formSchema = {
-    name: new FormInput({initial: "", label: 'Name', validators: [isRequired] }),
+    name: new FormInput({initial: '', label: 'Name', validators: [isRequired] }),
     friends: new FormArrayInput({initial: "", label: 'Friends'}),
     profile: {
-      id: new FormInput({initial: "et593", label: 'id', validators: [isRequired] }),
+      id: new FormInput({initial: 'et593', label: 'id', validators: [isRequired] }),
     },
   };
 
-  const {formData, formInputs, errors, handleSubmit} = useForm<FormData, FormInputs>(formSchema);
+  const {formData, formInputs, errors, handleSubmit} = useForm(formSchema);
   const onSubmit = () => { console.log('submitted: ', formData); };
 
   return (
@@ -60,12 +41,6 @@ function Form () {
       <TextInput {...formInputs.profile.id.props} placeholder="id" />
 
       <Button onClick={handleSubmit(onSubmit)} label="submit" />
-
-      <br/>
-
-      <Highlight language="javascript">
-        {JSON.stringify(formData, null, 2)}
-      </Highlight>
     </form>
   );
 }
