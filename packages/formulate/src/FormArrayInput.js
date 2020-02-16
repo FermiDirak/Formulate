@@ -5,6 +5,7 @@ import FormInput, {hookupFormInput} from "./FormInput";
 type FormInputProps<T> = {|
   +initial: T,
   +isRequired?: boolean,
+  +prefillItems?: $ReadOnlyArray<T>,
 |};
 
 /**
@@ -14,20 +15,30 @@ type FormInputProps<T> = {|
 class FormArrayInput<T> extends Array<FormInput<T>> {
   initial: T;
   isRequired: boolean;
+  prefillItems: $ReadOnlyArray<T>;
 
   internal: {|
     forceRerenderRef: {| current: () => void |},
   |};
 
-  constructor({initial, isRequired = false}: FormInputProps<T>) {
+  constructor({initial, isRequired = false, prefillItems = []}: FormInputProps<T>) {
     super();
 
     this.initial = initial;
     this.isRequired = isRequired;
+    this.prefillItems = prefillItems;
 
     this.internal = {
       forceRerenderRef: { current: () => {} },
     };
+
+    prefillItems.forEach(child => {
+      const childNode = new FormInput({
+        initial: child,
+      });
+
+      this.push(childNode);
+    });
 
     const childNode = new FormInput({
       initial,
