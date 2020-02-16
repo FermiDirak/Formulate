@@ -13,7 +13,9 @@ function generateFormData<FormData: {}, FormInputs: {}>(
       }
 
       case (NodeTypes.FormArrayInput): {
-        return Array.from(node.map(element => element.props.value));
+        return Array.from(node)
+          .filter(child => child.internal.touched === true)
+          .map(child => child.props.value);
       }
 
       case (NodeTypes.Object): {

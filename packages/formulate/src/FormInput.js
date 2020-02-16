@@ -8,7 +8,7 @@ type FormInputProps<T> = {|
 type InputProps<T> = {|
   value: T,
   onChange: (value: T) => void,
-|}
+|};
 
 /**
  * FormInput exists solely for type checking purposes. useForm
@@ -22,6 +22,7 @@ class FormInput<T> {
   props: InputProps<T>;
 
   internal: {|
+    touched: boolean,
     forceRerenderRef: {| current: () => void |},
   |};
 
@@ -30,6 +31,7 @@ class FormInput<T> {
     this.isRequired = isRequired;
 
     this.internal = {
+      touched: false,
       forceRerenderRef: { current: () => {} },
     };
 
@@ -40,6 +42,7 @@ class FormInput<T> {
       value: this.initial,
       onChange: (newValue: T) => {
         this.props.value = newValue;
+        this.internal.touched = true;
         this.internal.forceRerenderRef.current();
       },
     }
