@@ -62,8 +62,9 @@ function Pitch() {
         )
       </h2>
       <p className="pitch-paragraph">
-        Formulate was built with type safety as its guiding principle and
-        is type safe for both Typescript and Flow.
+        Formulate was <Shiny>designed with type safety as a first class guiding principle</Shiny> and
+        so you will never have to fight the library or write awkward type defs to achieve type safety.
+        Formulate is <Shiny>completely type sound</Shiny> for both Typescript and Flow.
       </p>
 
       <h2 className="pitch-header">

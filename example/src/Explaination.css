@@ -3,3 +3,10 @@
   font-size: 1.2rem;
   line-height: 1.6rem;
 }
+
+.explaination-header {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--grey40);
+  margin: 0 0 8px 0;
+}

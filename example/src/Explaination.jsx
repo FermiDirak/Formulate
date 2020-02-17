@@ -88,6 +88,7 @@ const hookupCode = blockText`
 function Explaination() {
   return (
     <div className="explaination">
+      <h2 className="explaination-header">How it works</h2>
       <Highlight code={schemaCode} label={schemaCodeLabel} />
       <br/>
       <br/>
