@@ -43,8 +43,9 @@ function useForm<FormData: {}, FormInputs: {}>(
     validateAll<FormInputs>(formInputsRef.current);
 
     if (flattenFieldErrors(fieldErrorsRef.current).length !== 0) {
-      forceRerenderRef.current();
-      return () => {};
+      return () => {
+        forceRerenderRef.current();
+      };
     }
 
     console.log(fieldErrorsRef.current);

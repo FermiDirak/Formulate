@@ -2,7 +2,7 @@
 
 import FormInput, {hookupFormInput} from './FormInput';
 import type {FieldErrors} from './fieldErrors';
-import {type Validator} from './validation';
+import {type Validator} from './validators';
 
 type FormInputProps<T> = {|
   +initial: T,

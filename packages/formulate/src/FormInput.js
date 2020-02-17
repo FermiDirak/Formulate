@@ -1,7 +1,7 @@
 /** @flow */
 
 import genUuid from './genUuid';
-import {type Validator} from './validation';
+import {type Validator} from './validators';
 import type {FieldErrors} from './fieldErrors';
 
 type FormInputProps<T> = {|
