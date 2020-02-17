@@ -20,6 +20,7 @@
 
 .button:hover {
   background: var(--grey40);
+  cursor: pointer;
 }
 
 .button:focus {

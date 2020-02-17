@@ -70,7 +70,14 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
 
     this.pop();
 
-    console.log('did I make it?')
+    if (this.length === 0) {
+      const newNode = new FormInput({
+        initial: this.internal.args.initial,
+      });
+
+      hookupFormInput(newNode, this.internal.forceRerenderRef, this.internal.fieldErrorsRef);
+      this.push(newNode);
+    }
 
     this.internal.forceRerenderRef.current();
   }

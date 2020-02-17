@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import './Pitch.css';
-import Highlight from './Highlight';
 import Button from './Button';
 
 /** returns text without starting and ending new line */
@@ -15,92 +14,69 @@ function blockText([text]) {
     .join('\n');
 }
 
-const text1 = blockText`
-  Formulate is a schema-driven form libary for React meant for building complex forms.
-`;
+function Code({children}: {| +children: React.Node |}) {
+  return (
+    <pre className="pitch-code">
+      <code>
+        {children}
+      </code>
+    </pre>
+  );
+}
 
-const schemaCodeLabel = blockText`
-  Step 1: Declare a form schema containing the form's structure and logic
-`;
-
-const schemaCode = blockText`
-  import useForm, {FormInput, FormArrayInput} from "formulate";
-  import {isRequired, isInRange} from "formulate/validators";
-
-  // formSchema contains all logic pertaining to your form
-  const formSchema = {
-
-    // bolt on field validations via FormInput validators
-    name: FormInput({ initial: "", validators: [isRequired] }),
-
-    // formulate allows the
-    friends: FormArrayInput({ initial: "" });
-
-    // nest your fields within arbitrary datastructures
-    profile: {
-      age: FormInput<?number>({ initial: "", validators: [isRequired, isInRange(1, 120)] }),
-    },
-  };
-`;
-
-const text2 = blockText`
-  Then, pass your formSchema into useForm, and hook up your form data and input to your markup.
-`;
-
-const hookupCodeLabel = blockText`
-  Step 2: Pass your formSchema into useForm, then hook up your form data and
-  inputs to your jsx.
-`;
-const hookupCode = blockText`
-  function Form() {
-    // formulate gives you all the data you would need to render
-    // your form every render
-    const {formData, formInputs, errors, handleSubmit} = useForm(formSchema);
-    const onSubmit = () => { console.log('submitted: ', formData); };
-
-    // plug and play! Never write form logic in your markup again
-    return (
-      <form>
-        <h1 className="form-header">User Profile Form</h1>
-        <ErrorBanner errors={errors} />
-
-        <Label label="name" />
-        <TextInput {...formInputs.name.props} placeholder="Jack Kusto" />
-
-        <Label label="age" />
-        <TextInput {...formInputs.profile.age.props} placeholder={34} />
-
-        <Label label="friends" />
-        {formInputs.friends.map((friend, i) => (
-          <TextInput
-            key={friend.hash}
-            {...friend.props}
-            placeholder={\`friend \${i}\`}
-          />
-        ))}
-
-        <Button label="add friend" onClick={() => formInputs.friends.add()} />
-        <Button label="remove friend" onClick={() => formInputs.friends.removeLast()} />
-
-        <Button onClick={handleSubmit(onSubmit)} label="submit" />
-      </form>
-    );
-  }
-`;
+function Shiny({children}: {| +children: React.Node |}) {
+  return (
+    <span style={{color: "white", textShadow: "0 0 1px white"}}>
+      {children}
+    </span>
+  );
+}
 
 function Pitch() {
   return (
     <div className="pitch">
-      <p className="pitch-text">{text1}</p>
+      <h2 className="pitch-header">
+        <span style={{color: "#61DAFB"}}>Formulate</span>
+        {" "}is a React Forms library designed for building{" "}
+        <span style={{color: "#F1FA8C"}}>complex forms</span>.
+      </h2>
+
       <div className="pitch-button-container">
         <Button label="Demo" onClick={() => {}} />
         <Button label="Github" onClick={() => {}} />
       </div>
-      <Highlight code={schemaCode} label={schemaCodeLabel} />
-      <br/>
-      <br/>
-      <Highlight code={hookupCode} label={hookupCodeLabel} />
 
+      <h2 className="pitch-header"><span style={{color: "#ff79c6"}}>Declarative</span> API</h2>
+      <p className="pitch-paragraph">
+        Formulate forms are configured via a <Shiny>singular schema</Shiny>,
+        meaning all your form and validation logic can
+        be <Shiny>found in one place</Shiny> and not scattered throughout
+        your JSX markup.
+      </p>
+
+      <h2 className="pitch-header">
+        Type safe (
+        <span style={{color: "#61DAFB"}}>Typescript</span>
+        {" "}and{" "}
+        <span style={{color: "#F1FA8C"}}>Flow</span>
+        )
+      </h2>
+      <p className="pitch-paragraph">
+        Formulate was built with type safety as its guiding principle and
+        is type safe for both Typescript and Flow.
+      </p>
+
+      <h2 className="pitch-header">
+        DSL Free
+      </h2>
+      <p className="pitch-paragraph">
+        Formulate <Shiny>works out of the box</Shiny> with
+        {" "}<Shiny>Material-UI</Shiny>, <Shiny>Ant Design</Shiny>, and many other
+        design systems. With Formulate, you won't need to create custom bindings for your inputs
+        <sup style={{lineHeight: 0}}><a href="https://github.com/jannikbuschke/formik-antd" style={{color: "#61DAFB"}}>[1]</a></sup>.
+        So long as your inputs have a <Code>value</Code> and an <Code>onChange</Code> prop,
+        Formulate will work.
+      </p>
     </div>
   )
 }

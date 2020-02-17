@@ -1,13 +1,39 @@
 .pitch {
-  margin: 0 auto 80px auto;
-  width: 800px;
-  font-size: 1.2rem;
-  line-height: 1.6rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .pitch-button-container {
-  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: -20px;
 }
 
-.pitch-text {
+.pitch-header {
+  font-family: 'Tomorrow', sans-serif;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  color: var(--grey20);
+  margin: 0;
+}
+
+.pitch-header:not(:first-child) {
+  margin-left: 16px;
+  margin-top: 40px;
+}
+
+.pitch-paragraph {
+  font-weight: 300;
+  color: var(--grey20);
+  margin-left: 32px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.pitch-code {
+  display: inline;
+  box-shadow: none;
+  border-radius: 3px;
+  background: var(--grey60);
+  padding: 3px 4px;
 }

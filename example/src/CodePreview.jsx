@@ -56,8 +56,8 @@ const code = blockText`
           />
         ))}
 
-        <Button label="add friend" onClick={() => formInputs.friends.add()} />
-        <Button label="remove friend" onClick={() => formInputs.friends.removeLast()} />
+        <Button label="add friend" onClick={formInputs.friends.add} />
+        <Button label="remove friend" onClick={formInputs.friends.removeLast} />
 
         <Label label="age"/>
         <TextInput {...formInputs.profile.id.props} placeholder="id" />

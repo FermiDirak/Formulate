@@ -4,9 +4,10 @@ import * as React from "react";
 import './App.css';
 import logo from './logo.svg';
 
-import Pitch from './Pitch';
+import Explaination from './Explaination';
 import Form from './Form';
 import CodePreview from './CodePreview';
+import Pitch from './Pitch';
 
 const title = "Formulate";
 const description = "The type safe schema driven react forms library";
@@ -26,13 +27,14 @@ function App() {
         <Pitch />
       </div>
 
-      <div className="app-meta">
-        <CodePreview />
+      <div className="app-code">
+        <Explaination />
+        {/* <CodePreview /> */}
       </div>
 
-      <div className="app-form">
+      {/* <div className="app-form">
         <Form />
-      </div>
+      </div> */}
 
       <div className="app-code">
 
