@@ -4,11 +4,12 @@ import * as React from "react";
 import './App.css';
 import logo from './logo.svg';
 
+import Pitch from './Pitch';
 import Form from './Form';
 import CodePreview from './CodePreview';
 
 const title = "Formulate";
-const description = "The type safe opinonated react forms library";
+const description = "The type safe schema driven react forms library";
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
           <p className="app-description">{description}</p>
         </hgroup>
       </header>
+
+      <div className="app-pitch">
+        <Pitch />
+      </div>
 
       <div className="app-meta">
         <CodePreview />

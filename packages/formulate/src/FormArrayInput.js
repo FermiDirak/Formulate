@@ -69,6 +69,9 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
     }
 
     this.pop();
+
+    console.log('did I make it?')
+
     this.internal.forceRerenderRef.current();
   }
 }

@@ -1,11 +1,11 @@
 .button {
   box-sizing: border-box;
-  height: 2rem;
+  height: 40px;
   width: fit-content;
 
   font-size: 1rem;
 
-  padding: 0 8px;
+  padding: 0 24px;
   margin: 0 12px 20px 0;
 
   background: var(--grey50);
@@ -27,5 +27,7 @@
 }
 
 .button:active {
-  background: var(--grey40);
+  background: var(--grey30);
+  border-color: var(--grey30);
+  text-shadow: 0 0 2px var(--grey00);
 }

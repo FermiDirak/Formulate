@@ -2,6 +2,7 @@
   display: grid;
   grid-template-areas:
     'a a'
+    'e e'
     'b c'
     'd d';
   grid-auto-columns: 50% 50%;
@@ -14,6 +15,10 @@
 
   background: linear-gradient(var(--grey50), var(--grey60));
   color: var(--grey10);
+}
+
+.app-pitch {
+  grid-area: e;
 }
 
 .app-header {

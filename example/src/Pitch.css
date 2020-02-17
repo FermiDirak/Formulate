@@ -1,0 +1,13 @@
+.pitch {
+  margin: 0 auto 80px auto;
+  width: 800px;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+}
+
+.pitch-button-container {
+  margin-bottom: 20px;
+}
+
+.pitch-text {
+}

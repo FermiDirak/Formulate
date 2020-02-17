@@ -1,8 +1,7 @@
 /** @flow */
 
 import * as React from "react";
-import Highlight from 'react-highlight.js';
-import './CodePreview.css';
+import Highlight from './Highlight';
 
 /** returns text without starting and ending new line */
 function blockText([text]) {
@@ -49,26 +48,16 @@ const code = blockText`
         <TextInput {...formInputs.name.props} placeholder="Jack Kusto" />
 
         <Label label="friends"/>
-        <div className="form-array">
-          {formInputs.friends.map((friend, i) => (
-            <TextInput
-              key={friend.hash}
-              {...friend.props}
-              placeholder={\`friend $\{i}\`}
-            />
-          ))}
+        {formInputs.friends.map((friend, i) => (
+          <TextInput
+            key={friend.hash}
+            {...friend.props}
+            placeholder={\`friend $\{i}\`}
+          />
+        ))}
 
-          <div className="form-array-buttons">
-            <Button
-              label="add friend"
-              onClick={() => formInputs.friends.add()}
-            />
-            <Button
-              label="remove friend"
-              onClick={() => formInputs.friends.removeLast()}
-            />
-          </div>
-        </div>
+        <Button label="add friend" onClick={() => formInputs.friends.add()} />
+        <Button label="remove friend" onClick={() => formInputs.friends.removeLast()} />
 
         <Label label="age"/>
         <TextInput {...formInputs.profile.id.props} placeholder="id" />
@@ -85,9 +74,7 @@ const code = blockText`
 function CodePreview() {
   return (
     <div>
-      <Highlight language="jsx">
-        {code}
-      </Highlight>
+      <Highlight code={code} />
     </div>
   );
 }
