@@ -1,0 +1,13 @@
+pre {
+  margin: 0;
+}
+
+.hljs {
+  margin: 0;
+  padding: 16px;
+  font-size: 0.65rem;
+  border-radius: 9px;
+  background: linear-gradient(145deg, #3f4a5a, #353e4c);
+  box-shadow:  10px 10px 19px #313946,
+               -10px -10px 19px #455162;
+}

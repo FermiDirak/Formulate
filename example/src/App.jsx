@@ -1,105 +1,39 @@
 /** @flow */
 
-import React from 'react';
-import Highlight from "react-highlight.js";
-import './App.css';
-
-import logo from './logo.svg';
-import Form from './Form';
-
-const sourceCode = `
-/** @flow */
-
 import * as React from "react";
+import './App.css';
+import logo from './logo.svg';
 
-import useForm, {
-  FormInput,
-  FormArrayInput,
-} from './formulate';
-import TextInput from './TextInput';
-import Button from './Button';
+import Form from './Form';
+import CodePreview from './CodePreview';
 
-type FormData = {|
-  +name: string,
-  +friends: $ReadOnlyArray<string>,
-  +profile: {|
-    +id: string,
-  |}
-|};
-
-type FormInputs = {|
-  +name: FormInput<string>,
-  +friends: FormArrayInput<string>,
-  +profile: {
-    id: FormInput<string>,
-  }
-|}
-
-function Form () {
-  const formSchema = {
-    name: new FormInput({initial: "", isRequired: true}),
-    friends: new FormArrayInput({initial: ""}),
-    profile: {
-      id: new FormInput({initial: "et593", isRequired: true}),
-    },
-  };
-
-  const {formData, formInputs} = useForm<FormData, FormInputs>(formSchema);
-  const handleSubmit = () => { console.log('submitted: ', formData); };
-
-  return (
-    <form>
-      <TextInput {...formInputs.name.props()} placeholder="name" />
-
-      <div style={{display: "flex", flexDirection: "row"}}>
-        {formInputs.friends.map((friend, i) => (
-          <TextInput
-            key={friend.hash}
-            {...friend.props()}
-            placeholder={\`friend $\{i}\`}
-          />
-        ))}
-
-        <Button onClick={() => formInputs.friends.add()} label="add friend" />
-        <Button onClick={() => formInputs.friends.removeLast()} label="remove friend" />
-      </div>
-
-      <TextInput {...formInputs.profile.id.props()} placeholder="id" />
-
-      <Button onClick={handleSubmit} label="submit" />
-    </form>
-  );
-}
-
-export default Form;
-
-`
+const title = "Formulate";
+const description = "The type safe opinonated react forms library";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-
-        <div className="left-panel">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Formulate is a type safe controlled Form Library.
-          </p>
-          <p className="small">
-            Mock user bio form:
-          </p>
-
-          <Form />
-        </div>
-        <div className="right-panel">
-          <h2>Source code:</h2>
-          <Highlight language="jsx">
-              {sourceCode}
-          </Highlight>
-        </div>
+    <div className="app">
+      <header className="app-header">
+        <img src={logo} className="app-logo" alt="logo" />
+        <hgroup className="app-header-group">
+          <h1 className="app-title">{title}</h1>
+          <p className="app-description">{description}</p>
+        </hgroup>
       </header>
+
+      <div className="app-meta">
+        <CodePreview />
+      </div>
+
+      <div className="app-form">
+        <Form />
+      </div>
+
+      <div className="app-code">
+
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;

@@ -1,6 +1,11 @@
 .form {
   display: flex;
   flex-direction: column;
+  padding: 24px;
+  width: 520px;
+  margin: 0 auto;
+
+  border: 1px solid var(--grey40);
 }
 
 .form-header {

@@ -4,7 +4,7 @@ import * as React from "react";
 import './Form.css';
 
 import useForm, {FormInput, FormArrayInput} from './formulate';
-import {isRequired} from './formulate/validation';
+import {isRequired, isInRange} from './formulate/validators';
 
 import ErrorBanner from './ErrorBanner';
 import Label from './Label';
