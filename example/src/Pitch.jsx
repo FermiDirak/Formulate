@@ -3,6 +3,7 @@
 import * as React from "react";
 import './Pitch.css';
 import Button from './Button';
+import Spacer from './Spacer';
 
 /** returns text without starting and ending new line */
 function blockText([text]) {
@@ -43,6 +44,7 @@ function Pitch() {
 
       <div className="pitch-button-container">
         <Button label="Demo" onClick={() => {}} />
+        <Spacer />
         <Button label="Github" onClick={() => {}} />
       </div>
 

@@ -1,3 +1,5 @@
 .label {
-  margin-bottom: 4px;
+  font-size: 13px;
+  color: var(--grey20);
+  margin-bottom: 2px;
 }

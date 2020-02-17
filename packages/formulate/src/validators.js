@@ -32,9 +32,13 @@ const isValidEmail = (data: string, label: string) => {
   return null;
 }
 
-const isInRange = ({min, max}: {| +min: number, +max: number |}) => {
-  return (data: number, label: string) => {
+const isInRange = (min: number, max: number) => {
+  return (data: ?number, label: string) => {
     const errorMessage = `${label} must be in range [${min}, ${max}]`.trim();
+
+    if (data == null) {
+      return errorMessage;
+    }
 
     if (data < min || data > max) {
       return errorMessage;

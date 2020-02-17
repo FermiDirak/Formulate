@@ -1,12 +1,12 @@
 .button {
   box-sizing: border-box;
-  height: 40px;
+  height: 36px;
   width: fit-content;
 
   font-size: 1rem;
 
   padding: 0 24px;
-  margin: 0 12px 20px 0;
+  margin: 0 0 20px 0;
 
   background: var(--grey50);
   color: var(--grey00);

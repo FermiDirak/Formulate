@@ -29,15 +29,10 @@ function App() {
 
       <div className="app-code">
         <Explaination />
-        {/* <CodePreview /> */}
       </div>
 
-      {/* <div className="app-form">
+      <div className="app-form">
         <Form />
-      </div> */}
-
-      <div className="app-code">
-
       </div>
     </div>
   )

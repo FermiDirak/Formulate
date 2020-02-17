@@ -9,13 +9,15 @@ import {isRequired, isInRange} from './formulate/validators';
 import ErrorBanner from './ErrorBanner';
 import Label from './Label';
 import TextInput from './TextInput';
+import NumberInput from './NumberInput';
 import Button from './Button';
+import Spacer from './Spacer';
 
 type FormData = {|
   +name: string,
   +friends: $ReadOnlyArray<string>,
   +profile: {|
-    +id: string,
+    +id: ?number,
   |},
 |};
 
@@ -23,7 +25,7 @@ type FormInputs = {|
   +name: FormInput<string>,
   +friends: FormArrayInput<string>,
   +profile: {|
-    +id: FormInput<string>,
+    +age: FormInput<?number>,
   |},
 |};
 
@@ -32,7 +34,7 @@ function Form () {
     name: new FormInput({initial: "", label: 'Name', validators: [isRequired] }),
     friends: new FormArrayInput({initial: "", label: 'Friends'}),
     profile: {
-      id: new FormInput({initial: "et593", label: 'id', validators: [isRequired] }),
+      age: new FormInput({initial: null, label: 'age', validators: [isRequired, isInRange(0, 120)] }),
     },
   };
 
@@ -41,30 +43,35 @@ function Form () {
 
   return (
     <form className="form">
-      <h1 className="form-header">Complex Forms are dead easy</h1>
+      <h1 className="form-header">User Profile Form</h1>
       <ErrorBanner errors={errors} />
 
       <Label label="name"/>
       <TextInput {...formInputs.name.props} placeholder="Jack Kusto" />
 
-      <Label label="friends"/>
+      <h2 className="form-header-2">Friends</h2>
       <div className="form-array">
         {formInputs.friends.map((friend, i) => (
-          <TextInput
-            key={friend.hash}
-            {...friend.props}
-            placeholder={`friend ${i}`}
-          />
+          <div className="form-array-item">
+            <TextInput
+              key={friend.hash}
+              {...friend.props}
+              placeholder={`friend ${i}`}
+            />
+            <Spacer />
+            <Button onClick={() => formInputs.friends.remove(i)} label="remove" />
+          </div>
         ))}
 
         <div className="form-array-buttons">
           <Button onClick={() => formInputs.friends.add()} label="add friend" />
+          <Spacer />
           <Button onClick={() => formInputs.friends.removeLast()} label="remove friend" />
         </div>
       </div>
 
       <Label label="age"/>
-      <TextInput {...formInputs.profile.id.props} placeholder="id" />
+      <NumberInput {...formInputs.profile.age.props} placeholder="34" />
 
       <Button onClick={handleSubmit(onSubmit)} label="submit" />
     </form>
