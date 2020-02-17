@@ -1,0 +1,21 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-header {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.form-array {
+  display: flex;
+  flex-direction: column;
+  max-width: 392px;
+  padding-left: 8px;
+}
+
+.form-array-buttons {
+  display: flex;
+  flex-direction: row;
+}

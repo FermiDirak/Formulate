@@ -1,0 +1,31 @@
+.button {
+  box-sizing: border-box;
+  height: 2rem;
+  width: fit-content;
+
+  font-size: 1rem;
+
+  padding: 0 8px;
+  margin: 0 12px 20px 0;
+
+  background: var(--grey50);
+  color: var(--grey00);
+
+  border: 1px solid var(--grey40);
+  border-radius: 4px;
+
+  outline: none;
+  transition: all 150ms ease-in-out;
+}
+
+.button:hover {
+  background: var(--grey40);
+}
+
+.button:focus {
+  box-shadow: 0 0 0 2px var(--grey30);
+}
+
+.button:active {
+  background: var(--grey40);
+}

@@ -1,6 +1,7 @@
 /** @flow */
 
 import * as React from "react";
+import './Button.css';
 
 type Props = {|
   +label: string,
@@ -8,7 +9,13 @@ type Props = {|
 |}
 
 function Button({label, onClick}: Props) {
-  return <button type="button" onClick={onClick}>{label}</button>
+  return <button
+    type="button"
+    onClick={onClick}
+    className="button"
+  >
+      {label}
+    </button>
 }
 
 export default Button;

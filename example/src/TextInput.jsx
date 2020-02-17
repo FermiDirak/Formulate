@@ -1,6 +1,7 @@
 /** @flow */
 
 import * as React from "react";
+import "./input.css";
 
 type Props = {|
   +value: string,
@@ -11,6 +12,7 @@ type Props = {|
 function TextInput({value, onChange, placeholder}: Props) {
   return (
     <input
+      className="input"
       type="text"
       value={value}
       placeholder={placeholder}

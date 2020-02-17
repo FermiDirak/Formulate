@@ -1,12 +1,13 @@
 /** @flow */
 
 import * as React from "react";
-import Highlight from 'react-highlight.js';
+import './Form.css';
 
 import useForm, {FormInput, FormArrayInput} from './formulate';
 import {isRequired} from './formulate/validation';
 
 import ErrorBanner from './ErrorBanner';
+import Label from './Label';
 import TextInput from './TextInput';
 import Button from './Button';
 
@@ -39,12 +40,15 @@ function Form () {
   const onSubmit = () => { console.log('submitted: ', formData); };
 
   return (
-    <form>
+    <form className="form">
+      <h1 className="form-header">Complex Forms are dead easy</h1>
       <ErrorBanner errors={errors} />
 
-      <TextInput {...formInputs.name.props} placeholder="name" />
+      <Label label="name"/>
+      <TextInput {...formInputs.name.props} placeholder="Jack Kusto" />
 
-      <div style={{display: "flex", flexDirection: "row"}}>
+      <Label label="friends"/>
+      <div className="form-array">
         {formInputs.friends.map((friend, i) => (
           <TextInput
             key={friend.hash}
@@ -53,19 +57,16 @@ function Form () {
           />
         ))}
 
-        <Button onClick={() => formInputs.friends.add()} label="add friend" />
-        <Button onClick={() => formInputs.friends.removeLast()} label="remove friend" />
+        <div className="form-array-buttons">
+          <Button onClick={() => formInputs.friends.add()} label="add friend" />
+          <Button onClick={() => formInputs.friends.removeLast()} label="remove friend" />
+        </div>
       </div>
 
+      <Label label="age"/>
       <TextInput {...formInputs.profile.id.props} placeholder="id" />
 
       <Button onClick={handleSubmit(onSubmit)} label="submit" />
-
-      <br/>
-
-      <Highlight language="javascript">
-        {JSON.stringify(formData, null, 2)}
-      </Highlight>
     </form>
   );
 }

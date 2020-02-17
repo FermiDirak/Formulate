@@ -1,0 +1,79 @@
+.app {
+  display: grid;
+  grid-template-areas:
+    'a a'
+    'b c'
+    'd d';
+  grid-auto-columns: 50% 50%;
+  grid-auto-rows: min-content;
+  font-family: 'Roboto Slab', serif;
+  height: 100vh;
+  width: calc(100vw - 160px);
+  padding: 40px 80px;
+
+  background: linear-gradient(var(--grey50), var(--grey60));
+  color: var(--grey10);
+}
+
+.app-header {
+  grid-area: a;
+  display: flex;
+  flex-direction: row;
+  height: 12rem;
+  font-family: 'Tomorrow', sans-serif;
+}
+
+.app-logo {
+  height: 12rem;
+  width: 12rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .app-logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.app-header-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.app-title {
+  margin: 0;
+  font-size: 4rem;
+}
+
+.app-description {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.app-form {
+  grid-area: b;
+  width: 100%;
+  max-width: 100%;
+
+}
+
+.meta {
+  grid-area: c;
+
+}
+
+.code {
+  grid-area: d;
+
+}
