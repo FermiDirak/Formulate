@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import './App.css';
-import logo from './logo.svg';
+import logo from './test_tube.png';
 
 import Explaination from './Explaination';
 import Form from './Form';

@@ -30,20 +30,28 @@
 .app-logo {
   height: 12rem;
   width: 12rem;
+  transform: scale(0.6);
+  filter: hue-rotate(60deg)
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .app-logo {
-    animation: logo-spin infinite 20s linear;
+    animation: logo-rotate infinite 20s ease-in-out;
   }
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+@keyframes logo-rotate {
+  0% {
+    transform: scale(0.6)
+               rotate(0deg);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: scale(0.6)
+               rotate(5deg);
+  }
+  1000% {
+    transform: scale(0.6)
+               rotate(0deg);
   }
 }
 
