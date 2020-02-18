@@ -3,7 +3,8 @@
   grid-template-areas:
     'a a'
     'b c'
-    'd d';
+    'd d'
+    'e e';
   grid-auto-columns: 48% 52%;
   grid-auto-rows: min-content;
   column-gap: 60px;
@@ -11,9 +12,8 @@
   font-family: 'Roboto Slab', serif;
   height: 100%;
   width: calc(100vw - 220px);
-  padding: 40px 80px;
+  padding: 40px 80px 0 80px;
   color: var(--grey10);
-  margin-bottom: 160px;
 }
 
 .app-header {
@@ -37,6 +37,10 @@
 
 .app-pitch-2 {
   grid-area: d;
+}
+
+.app-footer {
+  grid-area: e;
 }
 
 .app-logo {

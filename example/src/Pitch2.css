@@ -1,0 +1,45 @@
+.pitch2 {
+  margin: 0 auto;
+  width: 800px;
+  max-width: 100%;
+}
+
+.pitch2-title {
+  font-family: 'Tomorrow', sans-serif;
+  margin-bottom: 24px;
+  color: var(--grey20);
+}
+
+.pitch2-paragraph {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: var(--grey20);
+  font-weight: 300;
+}
+
+.pitch2-codes {
+  display: flex;
+  flex-direction: row;
+}
+
+.pitch2-snippet {
+  display: inline-flex;
+  flex-direction: row;
+  box-shadow: none;
+  border-radius: 6px;
+  background: var(--grey70);
+  justify-content: center;
+  padding: 12px;
+  padding-left: 16px;
+}
+
+
+.pitch2-code {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pitch2-code > button {
+  margin: 0;
+}

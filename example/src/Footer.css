@@ -1,0 +1,24 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 100vw;
+  margin-left: -80px;
+  padding: 0 80px;
+  height: 160px;
+  margin-top: 160px;
+  background: var(--grey70);
+}
+
+.footer-title {
+  font-family: 'Tomorrow', sans-serif;
+  color: var(--grey30);
+  margin: 0;
+  padding-bottom: 16px;
+}
+
+.footer-buttons {
+  display: flex;
+  flex-direction: row;
+}

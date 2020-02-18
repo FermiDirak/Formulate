@@ -9,6 +9,7 @@ import Form from './Form';
 import CodePreview from './CodePreview';
 import Pitch from './Pitch';
 import Pitch2 from './Pitch2';
+import Footer from './Footer';
 
 const title = "Formulate";
 const description = "The type safe schema driven react forms library";
@@ -43,6 +44,10 @@ function App() {
       <div className="app-form">
         <Form />
       </div> */}
+
+      <div className="app-footer">
+        <Footer />
+      </div>
     </div>
   )
 }
