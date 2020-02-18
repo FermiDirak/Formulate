@@ -5,16 +5,7 @@ import './Explaination.css';
 import Highlight from './Highlight';
 import Button from './Button';
 import Form from './Form';
-
-/** returns text without starting and ending new line */
-function blockText([text]) {
-  const tabSize = 2;
-
-  return text.slice(1, text.length - 1)
-    .split('\n')
-    .map(line => line.slice(tabSize))
-    .join('\n');
-}
+import blockText from './utils/blockText';
 
 const step1 = blockText`
   Step 1: Declare a form schema containing the form's structure and logic

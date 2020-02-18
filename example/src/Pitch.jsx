@@ -5,16 +5,6 @@ import './Pitch.css';
 import Button from './Button';
 import Spacer from './Spacer';
 
-/** returns text without starting and ending new line */
-function blockText([text]) {
-  const tabSize = 2;
-
-  return text.slice(1, text.length - 1)
-    .split('\n')
-    .map(line => line.slice(tabSize))
-    .join('\n');
-}
-
 function Code({children}: {| +children: React.Node |}) {
   return (
     <pre className="pitch-code">

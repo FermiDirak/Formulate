@@ -4,16 +4,7 @@ import * as React from "react";
 import './Pitch2.css';
 import Button from './Button';
 import Spacer from './Spacer';
-
-/** returns text without starting and ending new line */
-function blockText([text]) {
-  const tabSize = 2;
-
-  return text.slice(1, text.length - 1)
-    .split('\n')
-    .map(line => line.slice(tabSize))
-    .join('\n');
-}
+import blockText from './utils/blockText';
 
 const title1 = "Why Formulate over React-Formik, React-hook-form, etc?"
 const body1 = blockText`

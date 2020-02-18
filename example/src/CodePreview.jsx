@@ -2,16 +2,7 @@
 
 import * as React from "react";
 import Highlight from './Highlight';
-
-/** returns text without starting and ending new line */
-function blockText([text]) {
-  const tabSize = 2;
-
-  return text.slice(1, text.length - 1)
-    .split('\n')
-    .map(line => line.slice(tabSize))
-    .join('\n');
-}
+import blockText from './utils/blockText';
 
 const code = blockText`
   import * as React from "react";

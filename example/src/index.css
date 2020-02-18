@@ -16,6 +16,12 @@
   --red60: #800000;
 }
 
+::selection {
+  background-color: var(--grey40);
+  height: 40%;
+  outline: firebrick;
+}
+
 
 html {
   background: var(--grey50)
