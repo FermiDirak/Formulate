@@ -8,6 +8,7 @@ import Explaination from './Explaination';
 import Form from './Form';
 import CodePreview from './CodePreview';
 import Pitch from './Pitch';
+import Pitch2 from './Pitch2';
 
 const title = "Formulate";
 const description = "The type safe schema driven react forms library";
@@ -31,9 +32,17 @@ function App() {
         <Explaination />
       </div>
 
+      <div className="app-pitch-2">
+        <Pitch2 />
+      </div>
+
+      {/* <div className="app-meta">
+        <CodePreview />
+      </div>
+
       <div className="app-form">
         <Form />
-      </div>
+      </div> */}
     </div>
   )
 }

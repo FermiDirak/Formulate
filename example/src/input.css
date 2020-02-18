@@ -5,7 +5,7 @@
   max-width: 100%;
 
   padding: 0 8px;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 
   height: 36px;
   font-size: 14px;
@@ -13,14 +13,14 @@
 
   border-radius: 4px;
   border: 1px solid var(--grey20);
-  background: var(--grey40);
-  color: var(--grey00);
+  background: var(--grey50);
+  color: var(--grey20);
 
   transition: all 150ms ease-in-out;
 }
 
 .input::placeholder {
-  color: var(--grey30);
+  color: var(--grey40);
 }
 
 .input:focus {

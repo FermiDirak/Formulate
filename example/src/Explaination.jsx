@@ -4,6 +4,7 @@ import * as React from "react";
 import './Explaination.css';
 import Highlight from './Highlight';
 import Button from './Button';
+import Form from './Form';
 
 /** returns text without starting and ending new line */
 function blockText([text]) {
@@ -15,7 +16,7 @@ function blockText([text]) {
     .join('\n');
 }
 
-const schemaCodeLabel = blockText`
+const step1 = blockText`
   Step 1: Declare a form schema containing the form's structure and logic
 `;
 
@@ -44,7 +45,7 @@ const text2 = blockText`
   input to your markup.
 `;
 
-const hookupCodeLabel = blockText`
+const step2 = blockText`
   Step 2: Pass your formSchema into useForm, then hook up your form data and
   inputs to your jsx.
 `;
@@ -85,14 +86,25 @@ const hookupCode = blockText`
   }
 `;
 
+const step3 = "Step 3: ??? Profit"
+
 function Explaination() {
   return (
     <div className="explaination">
+      <br/>
+      <br/>
       <h2 className="explaination-header">How it works</h2>
-      <Highlight code={schemaCode} label={schemaCodeLabel} />
+      <br/>
+      <Highlight code={schemaCode} label={step1} />
       <br/>
       <br/>
-      <Highlight code={hookupCode} label={hookupCodeLabel} />
+      <Highlight code={hookupCode} label={step2} />
+      <br/>
+      <br/>
+      <p className="explaination-step-label">{step3}</p>
+      <div className="explaination-form-wrapper">
+        <Form />
+      </div>
     </div>
   )
 }

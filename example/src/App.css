@@ -2,8 +2,8 @@
   display: grid;
   grid-template-areas:
     'a a'
-    'e d'
-    'c c';
+    'b c'
+    'd d';
   grid-auto-columns: 48% 52%;
   grid-auto-rows: min-content;
   column-gap: 60px;
@@ -13,12 +13,7 @@
   width: calc(100vw - 220px);
   padding: 40px 80px;
   color: var(--grey10);
-}
-
-.app-pitch {
-  position: relative;
-  grid-area: e;
-  padding-bottom: 20px;
+  margin-bottom: 160px;
 }
 
 .app-header {
@@ -28,6 +23,20 @@
   height: 12rem;
   font-family: 'Tomorrow', sans-serif;
   margin-bottom: 24px;
+}
+
+.app-pitch {
+  position: relative;
+  grid-area: b;
+  padding-bottom: 40px;
+}
+
+.app-code {
+  grid-area: c;
+}
+
+.app-pitch-2 {
+  grid-area: d;
 }
 
 .app-logo {
@@ -76,11 +85,8 @@
   margin: 0;
 }
 
-.meta {
-  grid-area: b;
-}
-
 .app-form {
+  position: relative;
   grid-area: c;
   width: 100%;
   display: flex;
@@ -88,7 +94,3 @@
   align-items: center;
 }
 
-.app-code {
-  grid-area: d;
-
-}

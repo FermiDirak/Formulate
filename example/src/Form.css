@@ -1,20 +1,22 @@
 .form {
   display: flex;
   flex-direction: column;
-  padding: 24px;
   width: 600px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
 .form-header {
   font-size: 1.2rem;
   font-weight: 400;
+  color: var(--grey20);
   padding-bottom: 8px;
   margin: 0 0 16px 0;
   border-bottom: 1px solid var(--grey20);
 }
 
 .form-header-2 {
+  color: var(--grey20);
   font-size: 1.2rem;
   font-weight: 400;
   margin: 0 0 16px 0;

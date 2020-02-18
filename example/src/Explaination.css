@@ -10,3 +10,17 @@
   color: var(--grey40);
   margin: 0 0 8px 0;
 }
+
+.explaination-step-label {
+  margin: 4px 0;
+  font-size: 1rem;
+  color: var(--grey10);
+}
+
+.explaination-form-wrapper {
+  padding: 24px 16px;
+  margin: 0;
+  border-radius: 9px;
+  box-shadow:  10px 10px 19px #313946,
+              -10px -10px 19px #455162;
+}
