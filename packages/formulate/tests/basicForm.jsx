@@ -6,6 +6,7 @@ import useForm, {
   FormInput,
   FormArrayInput,
 } from '../src/index';
+import ErrorBanner from './ErrorBanner';
 import TextInput from './TextInput';
 import Button from './Button';
 
@@ -38,11 +39,12 @@ function BasicForm ({onSubmit}: Props) {
     },
   };
 
-  const {formData, formInputs} = useForm<FormData, FormInputs>(formSchema);
+  const {formData, formInputs, errors} = useForm<FormData, FormInputs>(formSchema);
   const handleSubmit = () => onSubmit(formData);
 
   return (
     <form>
+      <ErrorBanner errors={errors} />
       <TextInput {...formInputs.name.props} />
 
       {formInputs.friends.map(friend => {
