@@ -2,61 +2,39 @@
 
 import * as React from "react";
 
-import useForm, {
-  FormInput,
-  FormArrayInput,
-} from '../src/index';
+import useForm, {FormInput} from '../src/index';
+import {isRequired} from '../src/validators';
 import ErrorBanner from './ErrorBanner';
 import TextInput from './TextInput';
 import Button from './Button';
 
+const noop = () => {};
+
 type Props = {|
-  +onSubmit: (formData: any) => void,
+  +onSubmit?: (formData: any) => void,
 |}
 
 type FormData = {|
   +name: string,
-  +friends: $ReadOnlyArray<string>,
-  +profile: {|
-    +age: string,
-  |}
 |};
 
 type FormInputs = {|
   +name: FormInput<string>,
-  +friends: FormArrayInput<string>,
-  +profile: {
-    id: FormInput<string>,
-  }
-|}
+|};
 
-function BasicForm ({onSubmit}: Props) {
-  const formSchema = {
-    name: new FormInput({initial: "" }),
-    friends: new FormArrayInput({initial: ""}),
-    profile: {
-      id: new FormInput({initial: "green" }),
-    },
-  };
+const formSchema = {
+  name: new FormInput({initial: "", validators: [isRequired] }),
+};
 
-  const {formData, formInputs, errors} = useForm<FormData, FormInputs>(formSchema);
-  const handleSubmit = () => onSubmit(formData);
+function BasicForm ({onSubmit = noop}: Props) {
+  const {formData, formInputs, errors, handleSubmit} = useForm<FormData, FormInputs>(formSchema);
 
   return (
     <form>
       <ErrorBanner errors={errors} />
       <TextInput {...formInputs.name.props} />
 
-      {formInputs.friends.map(friend => {
-        <TextInput {...friend.props} />
-      })}
-
-      <Button onClick={() => formInputs.friends.add()} label="add friend" />
-      <Button onClick={() => formInputs.friends.remove(0)} label="remove friend" />
-
-      <TextInput {...formInputs.profile.id.props} />
-
-      <Button onClick={handleSubmit} label="submit" />
+      <Button onClick={handleSubmit(() => onSubmit(formData))} label="submit" />
     </form>
   );
 }

@@ -9,9 +9,9 @@ type Props = {|
 function ErrorBanner({errors}: Props) {
   return (
     <ul>
-      {errors.map(error => {
+      {errors.map(error => (
         <li key={error}>{error}</li>
-      })}
+      ))}
     </ul>
   );
 }

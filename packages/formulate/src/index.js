@@ -48,8 +48,6 @@ function useForm<FormData: {}, FormInputs: {}>(
       };
     }
 
-    console.log(fieldErrorsRef.current);
-
     return cb;
   }
 
