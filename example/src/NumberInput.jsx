@@ -6,10 +6,11 @@ import "./input.css";
 type Props = {|
   +value: ?number,
   +onChange: (newValue: number) => void,
+  +onBlur: (e: Event) => void,
   +placeholder: string,
 |}
 
-function NumberInput({value, onChange, placeholder}: Props) {
+function NumberInput({value, onChange, onBlur, placeholder}: Props) {
   const [lastNumber, setLastNumber] = React.useState<?number>(value);
   const [text, setText] = React.useState(value === null ? "" : String(value));
 
@@ -32,8 +33,9 @@ function NumberInput({value, onChange, placeholder}: Props) {
         setLastNumber(parsed);
         onChange(parsed);
       }}
-      onBlur={() => {
+      onBlur={(e) => {
         setText(lastNumber);
+        onBlur(e);
       }}
     />
   );

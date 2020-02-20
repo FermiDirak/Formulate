@@ -8,7 +8,13 @@
   font-size: 1.2rem;
   font-weight: 400;
   color: var(--grey40);
-  margin: 0 0 8px 0;
+  margin: 48px 0 8px 0;
+}
+
+@media (max-width: 1400px) {
+  .explaination-header {
+    margin-top: 0px;
+  }
 }
 
 .explaination-step-label {

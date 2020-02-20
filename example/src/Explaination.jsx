@@ -82,8 +82,6 @@ const step3 = "Step 3: ??? Profit"
 function Explaination() {
   return (
     <div className="explaination">
-      <br/>
-      <br/>
       <h2 className="explaination-header">How it works</h2>
       <br/>
       <Highlight code={schemaCode} label={step1} />

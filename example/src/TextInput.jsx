@@ -6,10 +6,11 @@ import "./input.css";
 type Props = {|
   +value: string,
   +onChange: (newValue: string) => void,
+  +onBlur: (e: Event) => void,
   +placeholder: string,
 |}
 
-function TextInput({value, onChange, placeholder}: Props) {
+function TextInput({value, onChange, onBlur, placeholder}: Props) {
   return (
     <input
       className="input"
@@ -19,6 +20,7 @@ function TextInput({value, onChange, placeholder}: Props) {
       onChange={(e) => {
         onChange(e.target.value);
       }}
+      onBlur={onBlur}
     />
   );
 }

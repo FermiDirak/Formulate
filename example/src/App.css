@@ -11,9 +11,23 @@
   row-gap: 80px;
   font-family: 'Roboto Slab', serif;
   height: 100%;
-  width: calc(100vw - 220px);
+  width: calc(100vw - 240px);
+  max-width: 100vw - 40px;
   padding: 40px 80px 0 80px;
   color: var(--grey10);
+}
+
+@media (max-width: 1400px) {
+  .app {
+    grid-template-areas:
+      'a'
+      'b'
+      'c'
+      'd'
+      'e';
+    margin: 0 auto;
+    grid-auto-columns: 100%;
+  }
 }
 
 .app-header {
@@ -28,19 +42,29 @@
 .app-pitch {
   position: relative;
   grid-area: b;
+  min-width: 640px;
   padding-bottom: 40px;
+}
+
+@media (max-width: 1400px) {
+  .app-pitch {
+    padding-bottom: 0;
+  }
 }
 
 .app-code {
   grid-area: c;
+  min-width: 640px;
 }
 
 .app-pitch-2 {
   grid-area: d;
+  min-width: 640px;
 }
 
 .app-footer {
   grid-area: e;
+  min-width: 640px;
 }
 
 .app-logo {
