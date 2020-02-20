@@ -6,11 +6,16 @@
   justify-content: center;
 
   width: 100vw;
-  overflow-y: none;
   padding: 0 80px;
   height: 160px;
   margin-top: 160px;
   background: var(--grey70);
+}
+
+@media (max-width: 760px) {
+  .footer {
+    padding: 0 40px;
+  }
 }
 
 .footer-title {

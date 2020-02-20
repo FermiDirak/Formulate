@@ -9,7 +9,7 @@
   grid-template-areas:
     'b c'
     'd d';
-  grid-auto-columns: 48% 52%;
+  grid-auto-columns: 47% 53%;
   grid-auto-rows: min-content;
   column-gap: 60px;
   row-gap: 80px;
@@ -29,12 +29,25 @@
       'd';
     grid-auto-columns: 100%;
     width: 720px;
+    padding: 40px 0 0 0;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .app-grid {
+    width: 640px;
     margin: 0 auto;
   }
 }
 
 @media (max-width: 760px) {
-
+  .app-grid {
+    max-width: 100%;
+    width: auto;
+    padding: 40px 24px 0 24px;
+    max-width: calc(100vw - 48px);
+  }
 }
 
 .app-pitch {

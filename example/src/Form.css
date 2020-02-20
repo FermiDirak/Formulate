@@ -37,3 +37,9 @@
   display: flex;
   flex-direction: row;
 }
+
+@media (max-width: 360px) {
+  .form-array-buttons {
+    flex-direction: column;
+  }
+}

@@ -9,13 +9,6 @@
   display: flex;
   flex-direction: row;
   margin-top: 20px;
-  margin-bottom: -20px;
-}
-
-@media (max-width: 1400px) {
-  .pitch-button-container {
-    margin-bottom: 40px;
-  }
 }
 
 .pitch-header {
@@ -28,14 +21,14 @@
 }
 
 .pitch-header:not(:first-child) {
-  margin-left: 16px;
   margin-top: 40px;
+  margin-left: 12px;
 }
 
 .pitch-paragraph {
   font-weight: 300;
   color: var(--grey20);
-  margin-left: 32px;
+  margin-left: 12px;
   font-size: 1rem;
   line-height: 1.5rem;
 }
@@ -46,4 +39,24 @@
   border-radius: 3px;
   background: var(--grey60);
   padding: 3px 4px;
+}
+
+@media (max-width: 760px) {
+  .pitch-header {
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+    margin-left: 0;
+  }
+
+  .pitch-header:not(:first-child) {
+    margin-left: 0;
+  }
+
+  .pitch-paragraph {
+    margin-left: 0;
+  }
+
+  .pitch-button-container {
+    margin-bottom: -24px;
+  }
 }

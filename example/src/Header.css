@@ -7,12 +7,6 @@
   padding: 3vw 5vw 2vw 5vw;
 }
 
-@media (max-width: 760px) {
-  .header-container {
-    padding-left: 0;
-  }
-}
-
 .header-logo {
   height: 12rem;
   width: 12rem;
@@ -25,7 +19,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-
 }
 
 .header-title {
@@ -36,4 +29,21 @@
 .header-description {
   font-size: 1.5rem;
   margin: 0;
+}
+
+@media (max-width: 760px) {
+  .header-logo {
+    height: 6rem;
+    width: 6rem;
+    min-width: 6rem;
+  }
+
+  .header-title {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  .header-description {
+    font-size: 1rem;
+  }
 }

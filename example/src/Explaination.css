@@ -30,3 +30,10 @@
   box-shadow:  10px 10px 19px #313946,
               -10px -10px 19px #455162;
 }
+
+@media (max-width: 760px) {
+  .explaination-form-wrapper {
+    margin-left: -12px;
+    width: calc(100% - 8px);
+  }
+}

@@ -31,6 +31,7 @@
   justify-content: center;
   padding: 12px;
   padding-left: 16px;
+  width: fit-content;
 }
 
 
@@ -42,4 +43,15 @@
 
 .pitch2-code > button {
   margin: 0;
+}
+
+@media (max-width: 760px) {
+  .pitch2-codes {
+    flex-direction: column;
+  }
+
+  .pitch2-snippet:first-child {
+    margin-bottom: 20px;
+  }
+
 }
