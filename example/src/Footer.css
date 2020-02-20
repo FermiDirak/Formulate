@@ -12,10 +12,20 @@
 }
 
 .footer-title {
+  display: inline-flex;
+  align-items: center;
   font-family: 'Tomorrow', sans-serif;
   color: var(--grey30);
   margin: 0;
   padding-bottom: 16px;
+}
+
+.footer-logo {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 4px;
+
+  filter: hue-rotate(60deg)
 }
 
 .footer-buttons {
