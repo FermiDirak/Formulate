@@ -1,10 +1,12 @@
 .footer {
+  box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
 
-  width: 100%;
-  margin-left: -80px;
+  width: 100vw;
+  overflow-y: none;
   padding: 0 80px;
   height: 160px;
   margin-top: 160px;

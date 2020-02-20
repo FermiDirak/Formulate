@@ -1,0 +1,39 @@
+
+.header-container {
+  display: inline-flex;
+  flex-direction: row;
+  font-family: 'Tomorrow', sans-serif;
+  color: var(--grey10);
+  padding: 3vw 5vw 2vw 5vw;
+}
+
+@media (max-width: 760px) {
+  .header-container {
+    padding-left: 0;
+  }
+}
+
+.header-logo {
+  height: 12rem;
+  width: 12rem;
+  min-width: 12rem;
+  transform: scale(0.6);
+  filter: hue-rotate(60deg)
+}
+
+.header-header-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.header-title {
+  margin: 0;
+  font-size: 4rem;
+}
+
+.header-description {
+  font-size: 1.5rem;
+  margin: 0;
+}
