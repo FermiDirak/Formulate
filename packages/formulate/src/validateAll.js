@@ -1,19 +1,25 @@
 /** @flow */
 
 import NodeTypes, {getNodeType} from "./nodeTypes";
+import type {FieldErrors} from './fieldErrors';
 
-function validateAll<FormInputs: {}>(formInputs: FormInputs) {
+function validateAll<FormInputs: {}>(
+  formInputs: FormInputs,
+  fieldErrorsRef: {| current: FieldErrors |},
+) {
 
   function dfs(node: any): any {
     switch (getNodeType(node)) {
       case (NodeTypes.FormInput): {
         node.validate();
+        fieldErrorsRef.current.set(node, node.errors);
         return;
       }
 
       case (NodeTypes.FormArrayInput): {
         node.forEach(child => {
           child.validate();
+          fieldErrorsRef.current.set(child, child.errors);
         });
         return;
       }

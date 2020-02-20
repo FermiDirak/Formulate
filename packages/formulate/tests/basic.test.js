@@ -5,6 +5,7 @@ import {act} from "react-dom/test-utils";
 
 import BasicForm from '../tests/BasicForm';
 import ErrorBanner from '../tests/ErrorBanner';
+import InputError from '../tests/InputError';
 import TextInput from './TextInput';
 
 describe("basic form", () => {
@@ -33,16 +34,75 @@ describe("basic form", () => {
     );
   });
 
-  it("creates a form error if the form is invalid on onSubmit", () => {
-    const onSubmit = jest.fn();
+  describe("error propagation", () => {
+    it("creates a form error if the form is invalid on onSubmit", () => {
+      const onSubmit = jest.fn();
 
-    const wrapper = mount(<BasicForm onSubmit={onSubmit} />);
-    const input = wrapper.find(TextInput);
-    const submitButton = wrapper.find('button');
+      const wrapper = mount(<BasicForm onSubmit={onSubmit} />);
+      const input = wrapper.find(TextInput);
+      const submitButton = wrapper.find('button');
 
-    submitButton.simulate('click');
+      submitButton.simulate('click');
 
-    expect(wrapper.find(ErrorBanner).props().errors.length).toBe(1);
-    expect(onSubmit).not.toBeCalled();
+      const inputError = wrapper.find(InputError);
+      expect(inputError.props().errors.length).toBe(1);
+
+      const errorBanner = wrapper.find(ErrorBanner);
+      expect(errorBanner.props().errors.length).toBe(1);
+    });
+
+    it("does not show errors when there are none", () => {
+      const wrapper = mount(<BasicForm />);
+      const input = wrapper.find(TextInput);
+
+      act(() => {
+        input.props().onChange('Dirak');
+      });
+
+      wrapper.update();
+
+      const inputError = wrapper.find(InputError);
+      expect(inputError.props().errors.length).toBe(0);
+
+      const errorBanner = wrapper.find(ErrorBanner);
+      expect(errorBanner.props().errors.length).toBe(0);
+    });
+
+    it("does not perform error validation on field onChange", () => {
+      const wrapper = mount(<BasicForm />);
+      const input = wrapper.find(TextInput);
+
+      act(() => {
+        input.props().onChange('Dirak');
+        input.props().onChange('');
+      });
+
+      wrapper.update();
+
+      const inputError = wrapper.find(InputError);
+      expect(inputError.props().errors.length).toBe(0);
+
+      const errorBanner = wrapper.find(ErrorBanner);
+      expect(errorBanner.props().errors.length).toBe(0);
+    });
+
+    it("performs error validation on field onBlur", () => {
+      const wrapper = mount(<BasicForm />);
+      const input = wrapper.find(TextInput);
+
+      act(() => {
+        input.props().onChange('');
+        input.props().onBlur();
+      });
+
+      wrapper.update();
+
+      const inputError = wrapper.find(InputError);
+      expect(inputError.props().errors.length).toBe(1);
+
+      const errorBanner = wrapper.find(ErrorBanner);
+      expect(errorBanner.props().errors.length).toBe(0);
+    });
   });
+
 });

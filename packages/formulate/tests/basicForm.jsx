@@ -6,6 +6,7 @@ import useForm, {FormInput} from '../src/index';
 import {isRequired} from '../src/validators';
 import ErrorBanner from './ErrorBanner';
 import TextInput from './TextInput';
+import InputError from './InputError';
 import Button from './Button';
 
 const noop = () => {};
@@ -32,7 +33,9 @@ function BasicForm ({onSubmit = noop}: Props) {
   return (
     <form>
       <ErrorBanner errors={errors} />
+
       <TextInput {...formInputs.name.props} />
+      <InputError errors={formInputs.name.errors} />
 
       <Button onClick={handleSubmit(() => onSubmit(formData))} label="submit" />
     </form>

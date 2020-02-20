@@ -40,15 +40,12 @@ function useForm<FormData: {}, FormInputs: {}>(
   const errors = flattenFieldErrors(fieldErrorsRef.current);
 
   const handleSubmit = (cb) => {
-    validateAll<FormInputs>(formInputsRef.current);
+    return () => {
+      validateAll<FormInputs>(formInputsRef.current, fieldErrorsRef);
+      forceRerenderRef.current();
 
-    if (flattenFieldErrors(fieldErrorsRef.current).length !== 0) {
-      return () => {
-        forceRerenderRef.current();
-      };
-    }
-
-    return cb;
+      cb();
+    };
   }
 
   return {

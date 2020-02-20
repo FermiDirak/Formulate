@@ -12,12 +12,14 @@ type FormInputProps<T> = {|
 
 type InputProps<T> = {|
   value: T,
-  onChange: (value: T) => void,
+  +onChange: (value: T) => void,
+  +onBlur: (event: Event) => void,
 |};
 
 class FormInput<T> {
   hash: number;
   props: InputProps<T>;
+  errors: $ReadOnlyArray<string>;
 
   internal: {|
     args: FormInputProps<T>,
@@ -47,10 +49,14 @@ class FormInput<T> {
       onChange: (newValue: T) => {
         this.props.value = newValue;
         this.internal.touched = true;
-        this.validate();
         this.internal.forceRerenderRef.current();
       },
+      onBlur: () => {
+        this.validate();
+      }
     }
+
+    this.errors = [];
   }
 
   validate() {
@@ -63,7 +69,7 @@ class FormInput<T> {
     this.internal.args.validators.forEach(validator => {
       const validatorErrors = validator(
         this.props.value,
-        this.internal.args.label || ""
+        this.internal.args.label || "",
       );
 
       if (!validatorErrors) {
@@ -79,7 +85,7 @@ class FormInput<T> {
       }
     });
 
-    this.internal.fieldErrorsRef.current.set(this, errors);
+    this.errors = errors;
   }
 }
 
