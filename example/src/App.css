@@ -27,6 +27,8 @@
       'e';
     margin: 0 auto;
     grid-auto-columns: 100%;
+    width: 100%;
+    max-width: calc(100vw - 240px);
   }
 }
 
@@ -42,29 +44,44 @@
 .app-pitch {
   position: relative;
   grid-area: b;
-  min-width: 640px;
+  /* min-width: 640px; */
   padding-bottom: 40px;
 }
 
 @media (max-width: 1400px) {
   .app-pitch {
     padding-bottom: 0;
+    min-width: 640px;
+  }
+  .app-code {
+    grid-area: c;
+    min-width: 640px;
+  }
+
+  .app-pitch-2 {
+    grid-area: d;
+    min-width: 640px;
+  }
+
+  .app-footer {
+    grid-area: e;
+    min-width: 640px;
   }
 }
 
 .app-code {
   grid-area: c;
-  min-width: 640px;
+  /* min-width: 640px; */
 }
 
 .app-pitch-2 {
   grid-area: d;
-  min-width: 640px;
+  /* min-width: 640px; */
 }
 
 .app-footer {
   grid-area: e;
-  min-width: 640px;
+  /* min-width: 640px; */
 }
 
 .app-logo {

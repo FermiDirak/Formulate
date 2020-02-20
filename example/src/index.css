@@ -22,7 +22,6 @@
   outline: firebrick;
 }
 
-
 html {
   background: var(--grey50)
     linear-gradient(var(--grey50), var(--grey60));

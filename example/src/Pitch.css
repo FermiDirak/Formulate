@@ -12,6 +12,12 @@
   margin-bottom: -20px;
 }
 
+@media (max-width: 1400px) {
+  .pitch-button-container {
+    margin-bottom: 40px;
+  }
+}
+
 .pitch-header {
   font-family: 'Tomorrow', sans-serif;
   font-weight: 400;
