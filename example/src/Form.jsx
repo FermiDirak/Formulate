@@ -7,6 +7,7 @@ import useForm, {FormInput, FormArrayInput} from './formulate';
 import {isRequired, isInRange} from './formulate/validators';
 
 import ErrorBanner from './ErrorBanner';
+import InputError from './InputError';
 import Label from './Label';
 import TextInput from './TextInput';
 import NumberInput from './NumberInput';
@@ -48,19 +49,23 @@ function Form () {
 
       <Label label="name"/>
       <TextInput {...formInputs.name.props} placeholder="Jack Kusto" />
+      <InputError errors={formInputs.name.errors} />
 
       <h2 className="form-header-2">Friends</h2>
       <div className="form-array">
         {formInputs.friends.map((friend, i) => (
-          <div className="form-array-item">
-            <TextInput
-              key={friend.hash}
-              {...friend.props}
-              placeholder={`friend ${i}`}
-            />
-            <Spacer />
-            <Button onClick={() => formInputs.friends.remove(i)} label="remove" />
-          </div>
+          <>
+            <div className="form-array-item">
+              <TextInput
+                key={friend.hash}
+                {...friend.props}
+                placeholder={`friend ${i}`}
+              />
+              <Spacer />
+              <Button onClick={() => formInputs.friends.remove(i)} label="remove" />
+            </div>
+            <InputError errors={friend.errors} />
+          </>
         ))}
 
         <div className="form-array-buttons">
@@ -72,6 +77,7 @@ function Form () {
 
       <Label label="age"/>
       <NumberInput {...formInputs.profile.age.props} placeholder="34" />
+      <InputError errors={formInputs.profile.age.errors} />
 
       <Button onClick={handleSubmit(onSubmit)} label="submit" />
     </form>

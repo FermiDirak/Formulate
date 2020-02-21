@@ -1,0 +1,13 @@
+.inputerror {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: -16px;
+  margin-bottom: 16px;
+}
+
+.inputerror-item {
+  color: var(--red30);
+  font-size: 0.8rem;
+  line-height: 1rem;
+}

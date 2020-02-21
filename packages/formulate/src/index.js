@@ -35,7 +35,6 @@ function useForm<FormData: {}, FormInputs: {}>(
     buildFormInputs(formSchema, forceRerenderRef, fieldErrorsRef)
   );
 
-
   const formData = generateFormData(formInputsRef.current);
   const errors = flattenFieldErrors(fieldErrorsRef.current);
 

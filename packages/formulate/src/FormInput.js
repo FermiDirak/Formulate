@@ -53,6 +53,7 @@ class FormInput<T> {
       },
       onBlur: () => {
         this.validate();
+        this.internal.forceRerenderRef.current();
       }
     }
 
