@@ -2,14 +2,13 @@ import flow from 'rollup-plugin-flow';
 import flowEntry from 'rollup-plugin-flow-entry'
 
 export default {
-  input: 'src/index.js',
+  input: ['src/index.js', 'src/validators.js'],
   plugins: [
-    flowEntry(),
+    flowEntry({mode: 'strict'}),
     flow({pretty: true}),
   ],
   output: {
-    file: 'dist/bundle.js',
-    format: 'cjs'
+    dir: 'dist',
   },
   external: [ 'react' ],
 };
