@@ -21,6 +21,7 @@ jobs:
     - name: Setup and Run Tests
       run: |
         cd packages/formulate
+        pwd
         yarn install
         yarn build
         yarn test
