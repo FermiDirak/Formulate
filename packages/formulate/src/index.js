@@ -12,12 +12,6 @@ import generateFormData from './generateFormData';
 import {flattenFieldErrors, type FieldErrors} from './fieldErrors';
 import validateAll from './validateAll';
 
-/**
- * Best effort attempts have been made to make the internals typesafe,
- * however, internal type safety has been sacrified on the alter of better
- * performance and semantics.
- */
-
 function useForm<FormData: {}, FormInputs: {}>(
   formSchema: FormInputs,
 ): {

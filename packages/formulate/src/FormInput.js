@@ -29,11 +29,7 @@ class FormInput<T> {
   |};
 
   constructor(args: FormInputProps<T>) {
-    const {
-      initial,
-      label,
-      validators = [],
-    } = args;
+    const { initial, label, validators = [] } = args;
 
     this.internal = {
       args,
