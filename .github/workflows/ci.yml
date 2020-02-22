@@ -24,6 +24,3 @@ jobs:
         yarn install
         yarn build
         yarn test
-      env:
-        CI: true
-
