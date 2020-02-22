@@ -1,11 +1,13 @@
-/** @flow */
+/**
+ * @flow strict
+ */
 
 import FormInput from "./FormInput";
 import FormArrayInput from "./FormArrayInput";
 import NodeTypes, {getNodeType} from './nodeTypes'
 
 type FieldErrors = Map<
-  FormInput<any> | FormArrayInput<any>,
+  FormInput<mixed> | FormArrayInput<mixed>,
   $ReadOnlyArray<string>
 >;
 

@@ -1,4 +1,6 @@
-/** @flow */
+/**
+ * @flow strict
+ */
 
 import NodeTypes, {getNodeType} from "./nodeTypes";
 import type {FieldErrors} from './fieldErrors';
@@ -8,7 +10,8 @@ function validateAll<FormInputs: {}>(
   fieldErrorsRef: {| current: FieldErrors |},
 ) {
 
-  function dfs(node: any): any {
+  // $FlowFixMe(dirak) type unsafe
+  function dfs(node: any) {
     switch (getNodeType(node)) {
       case (NodeTypes.FormInput): {
         node.validate();

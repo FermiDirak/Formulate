@@ -1,4 +1,6 @@
-/** @flow */
+/**
+ * @flow strict
+ */
 
 import {cloneFormInput, hookupFormInput} from "./FormInput";
 import {cloneFormArrayInput, hookupFormArrayInput} from "./FormArrayInput";
@@ -10,6 +12,8 @@ function buildFormInputs<FormSchema: {}>(
   forceRerenderRef: {| current: () => void |},
   fieldErrorsRef: {| current: FieldErrors |},
 ): FormSchema {
+
+  // $FlowFixMe(dirak) type unsafe
   function generateClone(formNode: any): any {
     const nodeType = getNodeType(formNode);
 

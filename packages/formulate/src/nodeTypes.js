@@ -1,4 +1,6 @@
-/** @flow */
+/**
+ * @flow strict
+ */
 
 import FormInput from './FormInput';
 import FormArrayInput from './FormArrayInput';
@@ -19,7 +21,7 @@ const NodeTypes = Object.freeze({
 
 type NodeType = $Values<typeof NodeTypes>;
 
-function getNodeType(node: any): NodeType {
+function getNodeType(node: mixed): NodeType {
   if (node instanceof FormInput) {
     return NodeTypes.FormInput;
   }
@@ -44,7 +46,7 @@ function getNodeType(node: any): NodeType {
     return NodeTypes.Object;
   }
 
-  throw new Error(`Unknown Field for value ${node} of type ${typeof node}`);
+  throw new Error(`Unknown Field for value ${String(node)} of type ${typeof node}`);
 }
 
 export type { NodeType };

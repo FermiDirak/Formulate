@@ -1,8 +1,10 @@
-/** @flow */
+/**
+ * @flow strict
+ */
 
 type Validator<T> = (data: T, label: string) => string | string[] | null;
 
-const isRequired = (data: any, label: string) => {
+const isRequired = (data: mixed, label: string) => {
   const errorMessage = `${label} field is required`.trim();
 
   if (data === null) {

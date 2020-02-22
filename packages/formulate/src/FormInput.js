@@ -1,4 +1,6 @@
-/** @flow */
+/**
+ * @flow strict
+ */
 
 import genUuid from './genUuid';
 import {type Validator} from './validators';

@@ -1,4 +1,6 @@
-/** @flow */
+/**
+ * @flow strict
+ */
 
 import FormInput, {hookupFormInput} from './FormInput';
 import type {FieldErrors} from './fieldErrors';

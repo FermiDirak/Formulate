@@ -1,4 +1,6 @@
-/** @flow */
+/**
+ * @flow strict
+ */
 
 import NodeTypes, {getNodeType} from "./nodeTypes";
 
@@ -6,6 +8,7 @@ function generateFormData<FormData: {}, FormInputs: {}>(
   formInputs: FormInputs
 ): FormData {
 
+  // $FlowFixMe(dirak) type unsafe
   function dfs(node: any): any {
     switch (getNodeType(node)) {
       case (NodeTypes.FormInput): {
