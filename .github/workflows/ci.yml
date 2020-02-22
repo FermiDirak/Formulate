@@ -18,9 +18,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - run: cd packages/formulate
-    - run: yarn install
-    - run: yarn build --if-present
-    - run: yarn test
+    - name: Setup and Run Tests
+      working-directory: ./packages/formulate
+      run: |
+        yarn install
+        yarn build
+        yarn test
       env:
         CI: true
+
