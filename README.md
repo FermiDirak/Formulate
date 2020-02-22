@@ -101,14 +101,6 @@ Submit a github issue, even if it's only to show appreciation and support. Be su
 
 ## Whats still to be done
 
-__Error handling__
-
-There currently isn't a decided upon error handling / input error consumption API. Considerations for this API must have a good developer experience for the simple cases (ie when only `required` / `pattern` based validation is necessary), and must take into acount I18n as a first class consideration.
-
-__Support for Tuples and ES6 Data Structures (Set / Map)__
-
-Formulate is set up to be able to handle all data structures. This functionality just hasn't been hooked up yet.
-
 __FormArrayInput__
 
 The FormArrayInput api is currently not fleshed out and api considerations need to be made to enable actions such as prepopulating the array with multiple items, hashing, etc. One interesting idea would be to have untouched inputs be excluded in formData.
