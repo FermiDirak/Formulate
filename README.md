@@ -1,6 +1,8 @@
 # Formulate
 
-Formuate is a type-safe controlled React Forms library.
+Formuate is a React Forms Library built with auditability and type safety in mind.
+
+![Formulate CI](https://github.com/FermiDirak/Formulate/workflows/Formulate%20CI/badge.svg)
 
 ## Features
 
