@@ -19,8 +19,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Setup and Run Tests
-      working-directory: ./packages/formulate
       run: |
+        cd packages/formulate
         yarn install
         yarn build
         yarn test
