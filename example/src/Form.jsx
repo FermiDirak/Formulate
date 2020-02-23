@@ -3,8 +3,8 @@
 import * as React from "react";
 import './Form.css';
 
-import useForm, {FormInput, FormArrayInput} from './formulate';
-import {isRequired, isInRange} from './formulate/validators';
+import useForm, {FormInput, FormArrayInput} from 'formulate';
+import {isRequired, isInRange} from 'formulate/validators';
 
 import ErrorBanner from './ErrorBanner';
 import InputError from './InputError';

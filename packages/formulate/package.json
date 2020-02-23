@@ -2,7 +2,7 @@
   "name": "formulate",
   "version": "0.1.0",
   "description": "A react controlled forms library",
-  "main": "src/index.js",
+  "main": "index.js",
   "repository": "https://github.com/fermidirak/formulate",
   "author": "bryan manuele",
   "license": "MIT",

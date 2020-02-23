@@ -23,7 +23,7 @@ function useForm<FormData: {}, FormInputs: {}>(
   const forceRerenderRef = React.useRef(() => {});
   forceRerenderRef.current = useForceRerender();
 
-  const fieldErrorsRef = React.useRef<FieldErrors>(new Map());
+  const fieldErrorsRef: {| current: FieldErrors |} = React.useRef(new Map());
 
   const formInputsRef = React.useRef(
     buildFormInputs(formSchema, forceRerenderRef, fieldErrorsRef)
@@ -34,7 +34,7 @@ function useForm<FormData: {}, FormInputs: {}>(
 
   const handleSubmit = (cb) => {
     return () => {
-      validateAll<FormInputs>(formInputsRef.current, fieldErrorsRef);
+      validateAll(formInputsRef.current, fieldErrorsRef);
       forceRerenderRef.current();
 
       cb();

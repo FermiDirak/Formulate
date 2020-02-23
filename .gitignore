@@ -3,7 +3,8 @@ example/src/formulate
 
 
 # build files
-packages/formulate/dist
+packages/formulate/*.js
+packages/formulate/*.js.flow
 
 # Editor settings
 .vscode

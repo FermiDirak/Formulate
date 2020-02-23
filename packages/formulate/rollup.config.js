@@ -5,10 +5,10 @@ export default {
   input: ['src/index.js', 'src/validators.js'],
   plugins: [
     flowEntry({mode: 'strict'}),
-    flow({pretty: true}),
+    flow({pretty: true, all: true}),
   ],
   output: {
-    dir: 'dist',
+    dir: '.',
   },
   external: [ 'react' ],
 };
