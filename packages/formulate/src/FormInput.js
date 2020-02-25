@@ -96,9 +96,20 @@ function hookupFormInput<T>(
   formInput: FormInput<T>,
   forceRerenderRef: {| current: () => void |},
   fieldErrorsRef: {| current: FieldErrors |},
+  label: string,
 ): FormInput<T> {
   formInput.internal.forceRerenderRef = forceRerenderRef;
   formInput.internal.fieldErrorsRef = fieldErrorsRef;
+
+  // if label is unset, we set it
+  if (
+    formInput.internal.args.label === null ||
+    formInput.internal.args.label === undefined
+  ) {
+    // $FlowFixMe(dirak) dangerously write to readonly label
+    formInput.internal.args.label = label;
+  }
+
   return formInput;
 }
 

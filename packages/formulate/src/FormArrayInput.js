@@ -56,7 +56,12 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
       initial: this.internal.args.initial,
     });
 
-    hookupFormInput(newNode, this.internal.forceRerenderRef, this.internal.fieldErrorsRef);
+    hookupFormInput(
+      newNode,
+      this.internal.forceRerenderRef,
+      this.internal.fieldErrorsRef,
+      `${this.internal.args.label || ""}[${this.length}]`
+    );
     this.push(newNode);
     this.internal.forceRerenderRef.current();
   }
@@ -77,7 +82,12 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
         initial: this.internal.args.initial,
       });
 
-      hookupFormInput(newNode, this.internal.forceRerenderRef, this.internal.fieldErrorsRef);
+      hookupFormInput(
+        newNode,
+        this.internal.forceRerenderRef,
+        this.internal.fieldErrorsRef,
+        `${this.internal.args.label || ""}[0]`
+      );
       this.push(newNode);
     }
 
@@ -93,13 +103,23 @@ function hookupFormArrayInput<T>(
   formInput: FormArrayInput<T>,
   forceRerenderRef: {| current: () => void |},
   fieldErrorsRef: {| current: FieldErrors |},
+  label: string,
 ): FormArrayInput<T> {
 
   formInput.internal.forceRerenderRef = forceRerenderRef;
   formInput.internal.fieldErrorsRef = fieldErrorsRef;
 
+  // if label is unset, we set it
+  if (
+    formInput.internal.args.label === null ||
+    formInput.internal.args.label === undefined
+  ) {
+    // $FlowFixMe(dirak) dangerously write to readonly label
+    formInput.internal.args.label = label;
+  }
+
   for (let i = 0; i < formInput.length; ++i) {
-    hookupFormInput(formInput[i], forceRerenderRef, fieldErrorsRef);
+    hookupFormInput(formInput[i], forceRerenderRef, fieldErrorsRef, `${label}[${i}]`);
   }
 
   return formInput;

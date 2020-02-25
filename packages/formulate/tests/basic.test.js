@@ -103,6 +103,22 @@ describe("basic form", () => {
       const errorBanner = wrapper.find(ErrorBanner);
       expect(errorBanner.props().errors.length).toBe(0);
     });
-  });
 
+    it("(validator) infers input label as parent object key", () => {
+      const wrapper = mount(<BasicForm />);
+      const input = wrapper.find(TextInput);
+
+      act(() => {
+        input.props().onChange('');
+        input.props().onBlur();
+      });
+
+      wrapper.update();
+
+
+      const inputError = wrapper.find(InputError);
+      expect(inputError.props().errors.length).toBe(1);
+      expect(inputError.props().errors[0]).toMatch(/name/);
+    });
+  });
 });

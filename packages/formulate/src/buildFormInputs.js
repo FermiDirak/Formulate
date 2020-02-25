@@ -14,19 +14,19 @@ function buildFormInputs<FormSchema: {}>(
 ): FormSchema {
 
   // $FlowFixMe(dirak) type unsafe
-  function generateClone(formNode: any): any {
+  function generateClone(formNode: any, label: string): any {
     const nodeType = getNodeType(formNode);
 
     switch (nodeType) {
       case (NodeTypes.FormInput): {
         const clone = cloneFormInput(formNode)
-        hookupFormInput(clone, forceRerenderRef, fieldErrorsRef);
+        hookupFormInput(clone, forceRerenderRef, fieldErrorsRef, label);
         return clone;
       }
 
       case (NodeTypes.FormArrayInput): {
         const clone = cloneFormArrayInput(formNode);
-        hookupFormArrayInput(clone, forceRerenderRef, fieldErrorsRef);
+        hookupFormArrayInput(clone, forceRerenderRef, fieldErrorsRef, label);
         return clone;
       }
 
@@ -34,7 +34,7 @@ function buildFormInputs<FormSchema: {}>(
         const nestedClone = {};
         Object.keys(formNode).forEach(key => {
           const value = formNode[key];
-          nestedClone[key] = generateClone(value);
+          nestedClone[key] = generateClone(value, key);
         });
 
         return nestedClone;
@@ -58,7 +58,7 @@ function buildFormInputs<FormSchema: {}>(
     }
   }
 
-  const clone: FormSchema = generateClone(formSchema);
+  const clone: FormSchema = generateClone(formSchema, "");
   return clone;
 }
 
