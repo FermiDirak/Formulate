@@ -4,7 +4,7 @@ import * as React from "react";
 
 type Props = {|
   +label: string,
-  +onClick: () => void,
+  +onClick?: () => void,
 |}
 
 function Button({label, onClick}: Props) {

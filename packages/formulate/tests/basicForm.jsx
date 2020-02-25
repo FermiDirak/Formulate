@@ -28,16 +28,24 @@ const formSchema = {
 };
 
 function BasicForm ({onSubmit = noop}: Props) {
-  const {formData, formInputs, errors, handleSubmit} = useForm<FormData, FormInputs>(formSchema);
+  const {
+    formData,
+    formInputs,
+    errors,
+    handleSubmit,
+  } = useForm<FormData, FormInputs>(formSchema);
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(() => onSubmit(formData))}>
       <ErrorBanner errors={errors} />
 
       <TextInput {...formInputs.name.props} />
       <InputError errors={formInputs.name.errors} />
 
-      <Button onClick={handleSubmit(() => onSubmit(formData))} label="submit" />
+      <Button
+        // onClick={handleSubmit(() => onSubmit(formData))}
+        label="submit"
+      />
     </form>
   );
 }

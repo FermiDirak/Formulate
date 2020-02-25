@@ -25,7 +25,7 @@ describe("basic form", () => {
       input.props().onChange('Dirak');
     });
 
-    submitButton.simulate('click');
+    submitButton.simulate('submit');
 
     expect(onSubmit).toBeCalledWith(
       expect.objectContaining({
@@ -42,7 +42,7 @@ describe("basic form", () => {
       const input = wrapper.find(TextInput);
       const submitButton = wrapper.find('button');
 
-      submitButton.simulate('click');
+      submitButton.simulate('submit');
 
       const inputError = wrapper.find(InputError);
       expect(inputError.props().errors.length).toBe(1);
