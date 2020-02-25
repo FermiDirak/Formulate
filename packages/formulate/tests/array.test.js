@@ -36,24 +36,26 @@ describe("Array Form", () => {
     );
   });
 
-  // it("will show an error if the input is invalid", () => {
-  //   const onSubmit = jest.fn();
+  it("will show an error if the input is invalid", () => {
+    const onSubmit = jest.fn();
 
-  //   const wrapper = mount(<ArrayForm onSubmit={onSubmit} />);
-  //   const lastInput = wrapper.find(TextInput).last();
+    const wrapper = mount(<ArrayForm onSubmit={onSubmit} />);
+    const lastInput = wrapper.find(TextInput).last();
 
-  //   act(() => {
-  //     lastInput.props().onChange('Mayonnaise');
-  //     lastInput.props().onBlur();
-  //   });
+    act(() => {
+      lastInput.props().onChange('Mayonnaise');
+      lastInput.props().onBlur();
+    });
 
-  //   const errorBanner = wrapper.find(ErrorBanner);
-  //   console.log(errorBanner.props().errors);
+    wrapper.update();
 
+    const errorBanner = wrapper.find(ErrorBanner);
+    expect(wrapper.find(ErrorBanner).props().errors.length).toBe(0);
 
-  //   const submitButton = wrapper.find('button').find({children: "submit"});
-  //   submitButton.simulate("submit");
+    const submitButton = wrapper.find('button').find({children: "submit"});
+    submitButton.simulate("submit");
 
-  //   expect(onSubmit).not.toBeCalled();
-  // });
+    expect(onSubmit).not.toBeCalled();
+    expect(wrapper.find(ErrorBanner).props().errors.length).toBe(1);
+  });
 });

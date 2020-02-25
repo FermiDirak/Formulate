@@ -36,9 +36,11 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
       forceRerenderRef: { current: () => {} },
     };
 
-    prefillItems.forEach(child => {
+    prefillItems.forEach((child, i) => {
       const childNode = new FormInput({
         initial: child,
+        label: `${this.internal.args.label || ""}[${i}]`,
+        validators: this.internal.args.validators,
       });
 
       childNode.internal.touched = true;
@@ -48,6 +50,8 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
 
     const childNode = new FormInput({
       initial,
+      label: `${this.internal.args.label || ""}[${this.length}]`,
+      validators: this.internal.args.validators,
     });
 
     this.push(childNode);

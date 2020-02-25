@@ -39,6 +39,10 @@ function useForm<FormData: {}, FormInputs: {}>(
       validateAll(formInputsRef.current, fieldErrorsRef);
       forceRerenderRef.current();
 
+      if (flattenFieldErrors(fieldErrorsRef.current).length !== 0) {
+        return;
+      }
+
       cb(event);
     };
   }

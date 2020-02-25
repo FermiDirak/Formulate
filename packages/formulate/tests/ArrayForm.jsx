@@ -24,9 +24,7 @@ type FormInputs = {|
 |};
 
 const isMayoValidator = (instrument: string, label: string) => {
-  console.log('!!!!!', instrument);
-
-  if (instrument.toLowerCase() === 'Mayonnaise ') {
+  if (instrument.toLowerCase() === 'mayonnaise') {
     return `${label} cannot be Mayonnaise. Mayonnaise is not an instrument.`
   }
 
@@ -48,6 +46,8 @@ function ArrayForm ({onSubmit = noop}: Props) {
     errors,
     handleSubmit,
   } = useForm<FormData, FormInputs>(formSchema);
+
+  console.log('e!', errors);
 
   return (
     <form onSubmit={handleSubmit(() => onSubmit(formData))}>

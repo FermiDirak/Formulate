@@ -24,6 +24,7 @@ function validateAll<FormInputs: {}>(
           child.validate();
           fieldErrorsRef.current.set(child, child.errors);
         });
+
         return;
       }
 
