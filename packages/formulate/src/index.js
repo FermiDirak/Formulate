@@ -18,7 +18,7 @@ function useForm<FormData: {}, FormInputs: {}>(
   formInputs: FormInputs,
   formData: FormData,
   errors: $ReadOnlyArray<string>,
-  handleSubmit: (onSubmit: () => void) => (() => void),
+  handleSubmit: (onSubmit: (e: Event) => void) => ((e: Event) => void),
 } {
   const forceRerenderRef = React.useRef(() => {});
   forceRerenderRef.current = useForceRerender();
@@ -33,11 +33,13 @@ function useForm<FormData: {}, FormInputs: {}>(
   const errors = flattenFieldErrors(fieldErrorsRef.current);
 
   const handleSubmit = (cb) => {
-    return () => {
+    return (event: Event) => {
+      event.preventDefault();
+
       validateAll(formInputsRef.current, fieldErrorsRef);
       forceRerenderRef.current();
 
-      cb();
+      cb(event);
     };
   }
 
