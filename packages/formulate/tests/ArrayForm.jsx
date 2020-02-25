@@ -52,7 +52,7 @@ function ArrayForm ({onSubmit = noop}: Props) {
       <ErrorBanner errors={errors} />
 
       {formInputs.instruments.map((instrument, i) => (
-        <div key={instrument.hash}>
+        <div key={instrument.hash} className="inputContainer">
           <TextInput {...instrument.props} />
           <InputError errors={instrument.errors} />
           <Button label={`remove instrument ${i}`} onClick={() => formInputs.instruments.remove(i)} />

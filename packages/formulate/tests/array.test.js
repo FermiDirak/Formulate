@@ -110,7 +110,7 @@ describe("Array Form", () => {
     const onSubmit = jest.fn();
     const wrapper = mount(<ArrayForm onSubmit={onSubmit} />);
 
-        // add a lot of inputs
+    // add a lot of inputs
     const addButton = wrapper.find('button').find({children: 'add instrument'});
 
     act(() => {
@@ -138,5 +138,30 @@ describe("Array Form", () => {
     }, []);
 
     expect(errors.length).toBe(inputs.length);
+  });
+
+  it("creates hashes that don't collide", () => {
+    const wrapper = mount(<ArrayForm />);
+
+    // add a lot of inputs
+    const addButton = wrapper.find('button').find({children: 'add instrument'});
+
+    act(() => {
+      for (let i = 0; i < 10; ++i) {
+        addButton.simulate('click');
+      };
+    });
+
+    wrapper.update();
+
+    const keys = new Set();
+
+    const inputContainers = wrapper.find('.inputContainer');
+
+    inputContainers.forEach(container => {
+      keys.add(container.key())
+    });
+
+    expect(keys.size).toBe(inputContainers.length);
   });
 });
