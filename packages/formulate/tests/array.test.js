@@ -138,6 +138,13 @@ describe("Array Form", () => {
     }, []);
 
     expect(errors.length).toBe(inputs.length);
+
+    // error message labels should include indexes
+    errors.forEach((error, i) => {
+      const errorMessageLabel = error.split(' ')[0];
+
+      expect(errorMessageLabel).toBe(`instruments[${i}]`);
+    });
   });
 
   it("creates hashes that don't collide", () => {
