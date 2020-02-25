@@ -47,8 +47,6 @@ function ArrayForm ({onSubmit = noop}: Props) {
     handleSubmit,
   } = useForm<FormData, FormInputs>(formSchema);
 
-  console.log('e!', errors);
-
   return (
     <form onSubmit={handleSubmit(() => onSubmit(formData))}>
       <ErrorBanner errors={errors} />
@@ -57,12 +55,12 @@ function ArrayForm ({onSubmit = noop}: Props) {
         <div key={instrument.hash}>
           <TextInput {...instrument.props} />
           <InputError errors={instrument.errors} />
-          <Button label={`remove friend ${i}`} onClick={() => formInputs.instruments.remove(i)} />
+          <Button label={`remove instrument ${i}`} onClick={() => formInputs.instruments.remove(i)} />
         </div>
       ))}
 
-      <Button label="add friend" onClick={formInputs.instruments.add} />
-      <Button label="remove last friend" onClick={formInputs.instruments.removeLast} />
+      <Button label="add instrument" onClick={() => formInputs.instruments.add()} />
+      <Button label="remove last instrument" onClick={() => formInputs.instruments.removeLast()} />
 
       <Button label="submit" />
     </form>

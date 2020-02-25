@@ -60,6 +60,8 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
   add() {
     const newNode = new FormInput({
       initial: this.internal.args.initial,
+      label: `${this.internal.args.label || ""}[${this.length}]`,
+      validators: this.internal.args.validators,
     });
 
     hookupFormInput(
