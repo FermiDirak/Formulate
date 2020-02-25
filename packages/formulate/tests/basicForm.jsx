@@ -1,4 +1,4 @@
-/** @flow */
+/** @flow strict */
 
 import * as React from "react";
 
@@ -12,7 +12,7 @@ import Button from './Button';
 const noop = () => {};
 
 type Props = {|
-  +onSubmit?: (formData: any) => void,
+  +onSubmit?: (formData: FormData) => void,
 |}
 
 type FormData = {|
@@ -42,10 +42,7 @@ function BasicForm ({onSubmit = noop}: Props) {
       <TextInput {...formInputs.name.props} />
       <InputError errors={formInputs.name.errors} />
 
-      <Button
-        // onClick={handleSubmit(() => onSubmit(formData))}
-        label="submit"
-      />
+      <Button label="submit" />
     </form>
   );
 }

@@ -41,6 +41,8 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
         initial: child,
       });
 
+      childNode.internal.touched = true;
+
       this.push(childNode);
     });
 
