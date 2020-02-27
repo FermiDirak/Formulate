@@ -205,7 +205,7 @@ describe("Array Form", () => {
 
       act(() => {
         wrapper.find('button').find({children: 'remove instrument 5'}).props().onClick();
-      })
+      });
 
       wrapper.update();
 
@@ -213,8 +213,6 @@ describe("Array Form", () => {
         acc.push(...inputError.props().errors);
         return acc;
       }, []);
-
-      console.log(errors);
 
       // error message labels should include indexes in order
       errors.forEach((error, i) => {
