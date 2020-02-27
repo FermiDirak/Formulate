@@ -75,7 +75,19 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
   }
 
   remove(index: number) {
-    throw new Error("@TODO To be implemented")
+    const [deleted] = this.splice(index, 1);
+
+    // $FlowFixMe(dirak) mixed incompatible with T
+    this.internal.fieldErrorsRef.current.delete(deleted);
+
+    // relabel items
+    for (let i = 0; i < this.length; ++i) {
+      // $FlowFixMe(dirak) dangerously write to readonly label
+      this[i].internal.args.label = `${this.internal.args.label || ""}[${i}]`;
+      this[i].validate();
+    }
+
+    this.internal.forceRerenderRef.current();
   }
 
   removeLast() {

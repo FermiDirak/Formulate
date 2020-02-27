@@ -8,6 +8,31 @@ import ErrorBanner from '../tests/ErrorBanner';
 import InputError from '../tests/InputError';
 import TextInput from './TextInput';
 
+function fillAndBlur10Inputs(wrapper, onSubmit, text) {
+  // add a lot of inputs
+  const addButton = wrapper.find('button').find({children: 'add instrument'});
+
+  act(() => {
+    for (let i = 0; i < 10; ++i) {
+      addButton.simulate('click');
+    };
+  });
+
+  wrapper.update();
+
+  const inputs = wrapper.find(TextInput);
+
+  act(() => {
+    inputs.forEach(input => {
+      input.props().onChange(text);
+      input.props().onBlur();
+    });
+  });
+
+  wrapper.update();
+
+}
+
 describe("Array Form", () => {
   it("renders without crashing", () => {
     const div = document.createElement('div');
@@ -110,36 +135,16 @@ describe("Array Form", () => {
     const onSubmit = jest.fn();
     const wrapper = mount(<ArrayForm onSubmit={onSubmit} />);
 
-    // add a lot of inputs
-    const addButton = wrapper.find('button').find({children: 'add instrument'});
-
-    act(() => {
-      for (let i = 0; i < 10; ++i) {
-        addButton.simulate('click');
-      };
-    });
-
-    wrapper.update();
-
-    const inputs = wrapper.find(TextInput);
-
-    act(() => {
-      inputs.forEach(input => {
-        input.props().onChange("Mayonnaise");
-        input.props().onBlur();
-      });
-    });
-
-    wrapper.update();
+    fillAndBlur10Inputs(wrapper, onSubmit, "Mayonnaise");
 
     const errors = wrapper.find(InputError).reduce((acc, inputError) => {
       acc.push(...inputError.props().errors);
       return acc;
     }, []);
 
-    expect(errors.length).toBe(inputs.length);
+    expect(errors.length).toBe(wrapper.find(TextInput).length);
 
-    // error message labels should include indexes
+    // error message labels should include indexes in order
     errors.forEach((error, i) => {
       const errorMessageLabel = error.split(' ')[0];
 
@@ -170,5 +175,53 @@ describe("Array Form", () => {
     });
 
     expect(keys.size).toBe(inputContainers.length);
+  });
+
+  describe("item removal via .remove(i)", () => {
+    it("removes an item when remove(i) is called", () => {
+      const onSubmit = jest.fn();
+      const wrapper = mount(<ArrayForm onSubmit={onSubmit} />);
+
+      fillAndBlur10Inputs(wrapper, onSubmit, "Clarinet");
+
+      const initialInputsCount = wrapper.find(TextInput).length;
+
+      act(() => {
+        wrapper.find('button').find({children: 'remove instrument 5'}).props().onClick();
+      })
+
+      wrapper.update();
+
+      const endInputsCount = wrapper.find(TextInput).length;
+
+      expect(initialInputsCount - 1).toBe(endInputsCount);
+    });
+
+    it("reflows form input labels", () => {
+      const onSubmit = jest.fn();
+      const wrapper = mount(<ArrayForm onSubmit={onSubmit} />);
+
+      fillAndBlur10Inputs(wrapper, onSubmit, "Mayonnaise");
+
+      act(() => {
+        wrapper.find('button').find({children: 'remove instrument 5'}).props().onClick();
+      })
+
+      wrapper.update();
+
+      const errors = wrapper.find(InputError).reduce((acc, inputError) => {
+        acc.push(...inputError.props().errors);
+        return acc;
+      }, []);
+
+      console.log(errors);
+
+      // error message labels should include indexes in order
+      errors.forEach((error, i) => {
+        const errorMessageLabel = error.split(' ')[0];
+
+        expect(errorMessageLabel).toBe(`instruments[${i}]`);
+      });
+    });
   });
 });
