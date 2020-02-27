@@ -58,7 +58,11 @@ class FormInput<T> {
     this.errors = [];
   }
 
-  validate() {
+  validate(force?: boolean = false) {
+    if (!force && !this.internal.touched) {
+      return;
+    }
+
     if (!this.internal.args.validators) {
       return;
     }

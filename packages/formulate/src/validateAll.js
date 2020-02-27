@@ -14,14 +14,14 @@ function validateAll<FormInputs: {}>(
   function dfs(node: any) {
     switch (getNodeType(node)) {
       case (NodeTypes.FormInput): {
-        node.validate();
+        node.validate(true);
         fieldErrorsRef.current.set(node, node.errors);
         return;
       }
 
       case (NodeTypes.FormArrayInput): {
         node.forEach(child => {
-          child.validate();
+          child.validate(true);
           fieldErrorsRef.current.set(child, child.errors);
         });
 
