@@ -77,8 +77,6 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
   remove(index: number) {
     const [deleted] = this.splice(index, 1);
 
-    console.log(deleted, '!!!!!!!!!')
-
     // $FlowFixMe(dirak) mixed incompatible with T
     this.internal.fieldErrorsRef.current.delete(deleted);
 
