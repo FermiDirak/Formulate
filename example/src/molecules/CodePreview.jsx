@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Highlight from './Highlight';
-import blockText from './utils/blockText';
+import blockText from '../utils/blockText';
 
 const code = blockText`
   import * as React from "react";

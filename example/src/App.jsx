@@ -4,13 +4,13 @@ import * as React from "react";
 import './App.css';
 import logo from './test_tube.png';
 
-import Header from './Header';
-import Explaination from './Explaination';
-import Form from './Form';
-import CodePreview from './CodePreview';
-import Pitch from './Pitch';
-import Pitch2 from './Pitch2';
-import Footer from './Footer';
+import Header from './molecules/Header';
+import Explaination from './molecules/Explaination';
+import Form from './molecules/Form';
+import CodePreview from './molecules/CodePreview';
+import Pitch from './molecules/Pitch';
+import Pitch2 from './molecules/Pitch2';
+import Footer from './molecules/Footer';
 
 function App() {
   return (

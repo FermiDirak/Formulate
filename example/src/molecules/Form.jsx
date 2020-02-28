@@ -3,16 +3,16 @@
 import * as React from "react";
 import './Form.css';
 
-import useForm, {FormInput, FormArrayInput} from 'formulate';
-import {isRequired, isInRange} from 'formulate/validators';
+import useForm, {FormInput, FormArrayInput} from '../formulate';
+import {isRequired, isInRange} from '../formulate/validators';
 
-import ErrorBanner from './ErrorBanner';
-import InputError from './InputError';
-import Label from './Label';
-import TextInput from './TextInput';
-import NumberInput from './NumberInput';
-import Button from './Button';
-import Spacer from './Spacer';
+import ErrorBanner from '../atoms/ErrorBanner';
+import InputError from '../atoms/InputError';
+import Label from '../atoms/Label';
+import TextInput from '../atoms/TextInput';
+import NumberInput from '../atoms/NumberInput';
+import Button from '../atoms/Button';
+import Spacer from '../atoms/Spacer';
 
 type FormData = {|
   +name: string,

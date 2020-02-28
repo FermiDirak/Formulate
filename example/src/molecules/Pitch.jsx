@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import './Pitch.css';
-import Button from './Button';
-import Spacer from './Spacer';
+import Button from '../atoms/Button';
+import Spacer from '../atoms/Spacer';
 
 function Code({children}: {| +children: React.Node |}) {
   return (

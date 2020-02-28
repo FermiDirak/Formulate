@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import './Header.css';
-import logo from './test_tube.png';
+import logo from '../test_tube.png';
 
 const title = "Formulate";
 const description = "The type safe schema driven react forms library";

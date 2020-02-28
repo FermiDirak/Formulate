@@ -3,9 +3,9 @@
 import * as React from "react";
 import './Explaination.css';
 import Highlight from './Highlight';
-import Button from './Button';
+import Button from '../atoms/Button';
 import Form from './Form';
-import blockText from './utils/blockText';
+import blockText from '../utils/blockText';
 
 const step1 = blockText`
   Step 1: Declare a form schema containing the form's structure and logic

@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import './Pitch2.css';
-import Button from './Button';
-import Spacer from './Spacer';
-import blockText from './utils/blockText';
+
+import Button from '../atoms/Button';
+import Spacer from '../atoms/Spacer';
+import blockText from '../utils/blockText';
 
 const title1 = "Why Formulate over React-Formik, React-hook-form, etc?"
 const body1 = blockText`

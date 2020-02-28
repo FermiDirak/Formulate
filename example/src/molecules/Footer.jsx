@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import './Footer.css';
-import Button from './Button';
-import Spacer from './Spacer';
-import logo from './test_tube.png';
+import Button from '../atoms/Button';
+import Spacer from '../atoms/Spacer';
+import logo from '../test_tube.png';
 
 function Footer() {
   return (
