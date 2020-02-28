@@ -52,7 +52,7 @@ function useForm<FormInputs>(formSchema: FormInputs): {
     formInputs: FormInputs,
     formData: Mapped<FormInputs>,
     errors: string[],
-    handleSubmit: (onSubmit: () => void) => (() => void),
+    handleSubmit: (onSubmit: (e: Event) => void) => ((e: Event) => void),
 }
 
 export {FormInput, FormArrayInput};

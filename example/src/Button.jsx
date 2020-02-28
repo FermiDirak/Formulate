@@ -5,7 +5,7 @@ import './Button.css';
 
 type Props = {|
   +label: string,
-  +onClick: () => void,
+  +onClick: (e: Event) => void,
 |}
 
 function Button({label, onClick}: Props) {
