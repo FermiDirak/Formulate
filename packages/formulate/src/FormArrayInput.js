@@ -77,8 +77,29 @@ class FormArrayInput<T> extends Array<FormInput<T>> {
   remove(index: number) {
     const [deleted] = this.splice(index, 1);
 
+    console.log(deleted, '!!!!!!!!!')
+
     // $FlowFixMe(dirak) mixed incompatible with T
     this.internal.fieldErrorsRef.current.delete(deleted);
+
+    // form array input must always have at least one input
+    if (this.length === 0) {
+      const newNode = new FormInput({
+        initial: this.internal.args.initial,
+        label: `${this.internal.args.label || ""}[${this.length}]`,
+        validators: this.internal.args.validators,
+      });
+
+      hookupFormInput(
+        newNode,
+        this.internal.forceRerenderRef,
+        this.internal.fieldErrorsRef,
+        `${this.internal.args.label || ""}[0]`
+      );
+
+      this.push(newNode);
+    }
+
 
     // relabel items
     for (let i = 0; i < this.length; ++i) {
