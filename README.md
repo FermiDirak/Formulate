@@ -33,7 +33,7 @@ function Form () {
   return (
     <form onSubmit={onSubmit}>
       <ErrorBanner errors={errors} />
-      
+
       <TextInput {...formInputs.name.props} placeholder="name" />
       <InputError errors={formInput.name.errors} />
 
@@ -63,14 +63,14 @@ function Form () {
 
 ## What is Formulate?
 
-Formulate is a schema-driven React Forms Library that is UI agnostic (works out of the box with ant-design, material-ui, blueprintjs), type-safe for both Typescript and Flow, and easy on the eyes. The biggest selling point to Formulate is that enables you keep your form schema and your form markup separate. 
+Formulate is a schema-driven React Forms Library that is UI agnostic (works out of the box with ant-design, material-ui, blueprintjs), type-safe for both Typescript and Flow, and easy on the eyes. The biggest selling point to Formulate is that enables you keep your form schema and your form markup separate.
 
 Formulate handles your form's state manage and error validation, and does so with industry standard best practices built in. Never worry about error display strategies again 🧪
 
 ## How does it work?
 
-If you like to learn by example, check out this sandbox: (@TODO ADD LINK)
-Otherwise, this section will walk you through how formulate can be used
+If you prefer to learn by example, check out this sandbox: (@TODO ADD LINK)
+Otherwise, this section will walk you through how Formulate can be used
 
 
 Provide `useForm` with a form schema, and it will return your form data `formData` and the input props you'll need to hook up to your inputs `formInputs`. That's it!
