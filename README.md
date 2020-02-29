@@ -1,87 +1,77 @@
+<img align="left" width="140" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/test-tube_1f9ea.png" alt="test tube logo">
+
+
 # Formulate
 
-Formuate is a React Forms Library built with auditability and type safety in mind.
+Formuate is a schema-driven React Forms Library for building ui agnostic forms.
 
 ![Formulate CI](https://github.com/FermiDirak/Formulate/workflows/Formulate%20CI/badge.svg)
 ![Formulate NPM](https://badge.fury.io/js/formulate.svg)
-
-## Features
-
-* Typesafe for Flow and (soon) Typescript
-* Built with DX in mind. Uses React hooks
-* Error propagation
-* Controlled -- mutate and access your form state outside the conext of your form
-* Built in form best practices and standards
-* Tiny bundle size
+![Formulate Size](https://img.shields.io/bundlephobia/min/formulate)
+![Formulate License](https://img.shields.io/github/license/fermidirak/formulate)
 
 ## Quick start Example
 
-See this demo in action at https://formulatedemo.netlify.com
+> See this demo in action at https://formulatedemo.netlify.com
 
-```jsx
+```tsx
 import useForm, {FormInput, FormArrayInput} from 'formulate';
+import {isRequired, isInRange} from "formulate/validators";
 
-type FormData = {|
-  +name: string,
-  +friends: $ReadOnlyArray<string>,
-  +profile: {|
-    +id: string,
-  |}
-|};
-
-type FormInputs = {|
-  +name: FormInput<string>,
-  +friends: FormArrayInput<string>,
-  +profile: {
-    id: FormInput<string>,
-  }
-|}
+const formSchema = {
+  name: new FormInput({initial: '', validators: [isRequired]}),
+  friends: new FormArrayInput({initial: ''}),
+  profile: {
+    age: new FormInput<?number>({initial: null, validators: [isRequired, isInRange(0, 120)]}),
+  },
+};
 
 function Form () {
-  const formSchema = {
-    name: new FormInput({initial: "", isRequired: true }),
-    friends: new FormArrayInput({initial: ""}),
-    profile: {
-      id: new FormInput({initial: "et593", isRequired: true }),
-    },
-  };
-
-  const {formData, formInputs, errors} = useForm<FormData, FormInputs>(formSchema);
-  const handleSubmit = () => { console.log('submitted: ', formData); };
+  const {formData, formInputs, errors, handleSubmit} = useForm(formSchema);
+  const onSubmit = handleSubmit(() => alert(`submitted: ${formData}`));
 
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <ErrorBanner errors={errors} />
-      <TextInput {...formInputs.name.props()} placeholder="name" />
+      
+      <TextInput {...formInputs.name.props} placeholder="name" />
+      <InputError errors={formInput.name.errors} />
 
       {formInputs.friends.map((friend, i) => (
-        <TextInput
-          key={friend.hash}
-          {...friend.props()}
-          placeholder={`friend ${i}`}
-        />
+        <>
+          <TextInput
+            key={friend.hash}
+            {...friend.props}
+            placeholder={`friend ${i}`}
+          />
+          <InputError errors={friend.errors} />
+          <Button onClick={() => formInputs.friends.remove(i)} />
+        </>
       ))}
 
       <Button onClick={() => formInputs.friends.add()} label="add friend" />
       <Button onClick={() => formInputs.friends.removeLast()} label="remove friend"/>
 
-      <TextInput {...formInputs.profile.id.props()} placeholder="id" />
+      <NumberInput {...formInputs.profile.age.props} placeholder="age" />
+      <InputError errors={formInput.name.errors} />
 
-      <Button onClick={handleSubmit} label="submit" />
+      <Button type="submit" label="Submit" />
     </form>
   );
 }
 ```
 
-## Why Formulate over Formik, react-hook-form, formula-one, etc?
+## What is Formulate?
 
-Formulate is a type-sound controlled form library that puts Developer Experience as its number one priority, and provides the highest degree of control over form data of all the above mentioned form libraries. This means you have complete control over your form's schema, and can update and read form data from outside the context of your form.
+Formulate is a schema-driven React Forms Library that is UI agnostic (works out of the box with ant-design, material-ui, blueprintjs), type-safe for both Typescript and Flow, and easy on the eyes. The biggest selling point to Formulate is that enables you keep your form schema and your form markup separate. 
 
-Formulate is also unique in that it will work out of the box with most design systems without a need for DSL component wrappers for hooking up props. So long as your design system's inputs take in a `value` and `onChange` prop, there is no need to register your inputs via refs or create custom Form DSL input components.
-
-Formulate is type sound for both Flow and Typescript, allowing for strong guarantees around the shape and value types of your form.
+Formulate handles your form's state manage and error validation, and does so with industry standard best practices built in. Never worry about error display strategies again 🧪
 
 ## How does it work?
+
+If you like to learn by example, check out this sandbox: (@TODO ADD LINK)
+Otherwise, this section will walk you through how formulate can be used
+
 
 Provide `useForm` with a form schema, and it will return your form data `formData` and the input props you'll need to hook up to your inputs `formInputs`. That's it!
 
@@ -92,22 +82,12 @@ To configure your form, you'll need the following three things
 
 `useForm` will then return you with `formData` and `formInputs`, which you'll hook up with your form fields. And with that, you have a hooked up form!
 
-## Q & A
+## Install
 
-__Why do FormData and FormInputs need to be explicitly typed separately? Couldn't FormData be inferred from FormInput?__
-
-Ideally it would be, but Flow doesn't support generic typeguards. Until it does, both FormData and FormInput must be explicitly typed. In the future there will be an eslint rule to keep both in sync.
+```
+npm install -S formulate
+```
 
 __I'd like to give feedback / express my appreciation for this project. How can I do so?__
 
 Submit a github issue, even if it's only to show appreciation and support. Be sure to use the appropriate tag though!
-
-## Whats still to be done
-
-__FormArrayInput__
-
-The FormArrayInput api is currently not fleshed out and api considerations need to be made to enable actions such as prepopulating the array with multiple items, hashing, etc. One interesting idea would be to have untouched inputs be excluded in formData.
-
-__Eslint Rule for syncing FormData and FormInput types__
-
-As mentioned in the Q&A, a FormData and FormInput type must both be specified as generics in order to use Formulate. This opens up the possibility for the two to desync in usages of Formulate. An eslint rule can be created to ensure the two are always in sync.
