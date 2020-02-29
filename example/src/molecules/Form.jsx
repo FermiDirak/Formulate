@@ -40,10 +40,10 @@ function Form () {
   };
 
   const {formData, formInputs, errors, handleSubmit} = useForm<FormData, FormInputs>(formSchema);
-  const onSubmit = () => { console.log('submitted: ', formData); };
+  const onSubmit = () => { alert(`submitted: \n\n ${JSON.stringify(formData, null, 2)}`); };
 
   return (
-    <form className="form">
+    <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <h1 className="form-header">User Profile Form</h1>
       <ErrorBanner errors={errors} />
 
@@ -79,7 +79,7 @@ function Form () {
       <NumberInput {...formInputs.profile.age.props} placeholder="34" />
       <InputError errors={formInputs.profile.age.errors} />
 
-      <Button onClick={handleSubmit(onSubmit)} label="submit" />
+      <Button type="submit" label="submit" />
     </form>
   );
 }
