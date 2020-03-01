@@ -43,6 +43,7 @@ function Form () {
       <input type="text" {...formInputs.name.props} placeholder="name" />
       {formInput.name.errors.map(error => <p>{error}</p>)}
 
+      {/* form input arrays allow the user to dynamically add and remove items */}
       {formInputs.friends.map((friend, i) => (
         <>
           <input
