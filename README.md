@@ -150,6 +150,13 @@ That's it! Happy hacking! 🧪
 npm install -S formulate
 ```
 
+## Features
+
+- type-sound for both Typescript and Flow
+- first class hooks api
+- no magic
+- ui agnostic
+
 ## Comparison to React-Formik
 
 React Formulate is differentiated from react-formik in that it was designed from the ground up for react-hooks and type soundness. There are no render props and no DSL `Field` wrappers you need to wrap your inputs in. This allows Formulate to work right out of the box with any design system. Formulate also takes a batteries attached approach with respect to form validation, and no configuration is required for setting up when form errors are displayed.
