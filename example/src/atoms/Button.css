@@ -32,3 +32,56 @@
   border-color: var(--grey30);
   text-shadow: 0 0 2px var(--grey00);
 }
+
+
+.button-cool {
+  box-sizing: border-box;
+  height: 44px;
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+
+  font-size: 1.1rem;
+  font-family: 'Tomorrow', sans-serif;
+  font-weight: 600;
+
+  padding: 0 24px;
+  margin: 0 0 20px 0;
+
+  background: var(--grey10);
+  color: var(--green50);
+
+  border: 0px;
+  border-radius: 4px;
+
+  outline: none;
+  transition: all 150ms ease-in-out;
+
+  cursor: pointer;
+}
+
+.button-cool:hover {
+  color: var(--grey10);
+  background: var(--green50);
+}
+
+.button-cool:hover img {
+  filter: brightness(100000);
+}
+
+.button-cool:focus {
+  box-shadow: 0 0 0 3px var(--grey20);
+}
+
+.button-svg {
+  height: 24px;
+  padding-right: 12px;
+  margin-left: -8px;
+  fill: pink;
+  color: pink;
+
+  transition: all 150ms ease-in-out;
+}
+
+

@@ -14,6 +14,13 @@
   --red40: #D92736;
   --red50: #BA0202;
   --red60: #800000;
+
+  --green10: #F5FFFC;
+  --green20: #BAF8EA;
+  --green30: #82F2DA;
+  --green40: #45DABE;
+  --green50: #1DB595;
+  --green60: #008062;
 }
 
 ::selection {

@@ -4,6 +4,14 @@
   width: 100vw;
 }
 
+.app-grid-container {
+  background: var(--grey50)
+    linear-gradient(var(--grey50), var(--grey60));
+
+  padding-top: 80px;
+  padding-bottom: 160px;
+}
+
 .app-grid {
   display: grid;
   grid-template-areas:
