@@ -27,7 +27,7 @@ class FormInput<T> {
     /** The props for that should be used to populate the given input */
     props: InputProps<T>;
     /** Errors for this particular input */
-    error: string[];
+    errors: string[];
 
     constructor(args: FormInputProps<T>);
 }

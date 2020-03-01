@@ -69,8 +69,49 @@ Formulate handles your form's state manage and error validation, and does so wit
 
 ## How does it work?
 
-If you prefer to learn by example, check out this sandbox: (@TODO ADD LINK)
-Otherwise, this section will walk you through how Formulate can be used
+If you prefer to learn by example, check out this sandbox: (https://codesandbox.io/s/formulate-example-l95mp)
+
+Otherwise, this section will walk you through how Formulate should be used:
+
+### Defining your Schema
+
+The form schema dictates what fields your form will have, the shape of your form's data, and how validation is performed on each of your form inputs. There are two top level APIs you'll use when building a form schema: `FormInput` and `FormArrayInput`.
+
+```tsx
+const newsletterFormSchema = {
+  email: new FormInput({
+    // how the field will initially be populated
+    initial: "", validators: [isRequired, isValidEmail]}),
+
+
+}
+
+```
+
+
+```tsx
+type FormInputProps<T> = {
+  // the initial value in the input field
+  initial: T,
+  // Used as the label for error handling
+  label?: string,
+  // validators that will run on onBlur and onSubmit and populate errors
+  validators?: Validator<T>[],
+}
+
+type InputProps<T> = {
+  value: T,
+  onChange: (value: T) => void,
+  onBlur: (event: Event) => void,
+}
+
+class FormInput<T> {
+  hash: number;
+  props: InputProps<T>;
+  error: string[];
+}
+```
+
 
 
 Provide `useForm` with a form schema, and it will return your form data `formData` and the input props you'll need to hook up to your inputs `formInputs`. That's it!
