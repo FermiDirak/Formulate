@@ -10,6 +10,12 @@ Formuate is a schema-driven React Forms Library for building ui agnostic forms.
 ![Formulate Size](https://img.shields.io/bundlephobia/min/formulate)
 ![Formulate License](https://img.shields.io/github/license/fermidirak/formulate)
 
+## What is Formulate?
+
+Formulate is a schema-driven React Forms Library that is UI agnostic (works out of the box with ant-design, material-ui, blueprintjs), type-safe for both Typescript and Flow, and easy on the eyes. The biggest selling point to Formulate is that enables you keep your form schema and your form markup separate.
+
+Formulate handles your form's state manage and error validation, and does so with industry standard best practices built in. Never worry about error display strategies again 🧪
+
 ## Quick start Example
 
 > See this demo in action at https://codesandbox.io/s/formulate-example-l95mp
@@ -67,12 +73,6 @@ function Form () {
   );
 }
 ```
-
-## What is Formulate?
-
-Formulate is a schema-driven React Forms Library that is UI agnostic (works out of the box with ant-design, material-ui, blueprintjs), type-safe for both Typescript and Flow, and easy on the eyes. The biggest selling point to Formulate is that enables you keep your form schema and your form markup separate.
-
-Formulate handles your form's state manage and error validation, and does so with industry standard best practices built in. Never worry about error display strategies again 🧪
 
 ## How does it work?
 
