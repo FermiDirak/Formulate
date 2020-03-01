@@ -57,7 +57,7 @@ function Form () {
       ))}
 
       <button type="button" onClick={() => formInputs.friends.add()}>add friend</button>
-      <button type="button" => formInputs.friends.removeLast()}>remove last friend</button>
+      <button type="button" onClick={() => formInputs.friends.removeLast()}>remove last friend</button>
 
       <input type="date" {...formInputs.profile.birthday.props} placeholder="birthday" />
       {formInputs.profile.birthday.errors.map(error => <p>{error}</p>)}
