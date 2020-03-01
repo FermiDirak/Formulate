@@ -18,7 +18,7 @@ type InputProps<T> = {
     /** Called with the new value of the input */
     onChange: (value: T) => void,
     /** Called when the input is blurred */
-    onBlur: (event: Event) => void,
+    onBlur: (event: React.FocusEvent) => void,
 }
 
 class FormInput<T> {
@@ -72,7 +72,7 @@ function useForm<FormSchema>(formSchema: FormSchema): {
     /** Form level errors. Populated on onSubmit */
     errors: string[],
     /** Wrap `onSubmit` in handleSubmit */
-    handleSubmit: (onSubmit: (e: Event) => void) => ((e: Event) => void),
+    handleSubmit: (onSubmit: (e: React.FormEvent) => void) => ((e: React.FormEvent) => void),
 }
 
 export {FormInput, FormArrayInput};
