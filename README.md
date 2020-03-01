@@ -18,11 +18,12 @@ Formuate is a schema-driven React Forms Library for building ui agnostic forms.
 import useForm, {FormInput, FormArrayInput} from 'formulate';
 import {isRequired, isInRange} from "formulate/validators";
 
+// step 1: define your form schema
 const formSchema = {
   name: new FormInput({initial: '', validators: [isRequired]}),
   friends: new FormArrayInput({initial: ''}),
   profile: {
-    age: new FormInput<number | null>({
+    birthday: new FormInput<date | null>({
       initial: null,
       validators: [isRequired, isInRange(0, 120)]
     }),
@@ -30,35 +31,37 @@ const formSchema = {
 };
 
 function Form () {
+  // step 2: retrieve your form data and input bindings
   const {formData, formInputs, errors, handleSubmit} = useForm(formSchema);
   const onSubmit = handleSubmit(() => alert(`submitted: ${formData}`));
 
+  // step 3: bind your input bindings to your markup
   return (
     <form onSubmit={onSubmit}>
-      <ErrorBanner errors={errors} />
+      {errors.map(error => <p>{error}</p>)}
 
-      <TextInput {...formInputs.name.props} placeholder="name" />
-      <InputError errors={formInput.name.errors} />
+      <input type="text" {...formInputs.name.props} placeholder="name" />
+      {formInput.name.errors.map(error => <p>{error}</p>)}
 
       {formInputs.friends.map((friend, i) => (
         <>
-          <TextInput
+          <input
             key={friend.hash}
             {...friend.props}
             placeholder={`friend ${i}`}
           />
-          <InputError errors={friend.errors} />
-          <Button onClick={() => formInputs.friends.remove(i)} />
+          {friend.errors.map(error => <p>{error}</p>)}
+          <button type="button" onClick={() => formInputs.friends.remove(i)}>Remove friend</button>
         </>
       ))}
 
-      <Button onClick={() => formInputs.friends.add()} label="add friend" />
-      <Button onClick={() => formInputs.friends.removeLast()} label="remove friend"/>
+      <button type="button" onClick={() => formInputs.friends.add()}>add friend</button>
+      <button type="button" => formInputs.friends.removeLast()}>remove last friend</button>
 
-      <NumberInput {...formInputs.profile.age.props} placeholder="age" />
-      <InputError errors={formInput.name.errors} />
+      <input type="date" {...formInputs.profile.birthday.props} placeholder="birthday" />
+      {formInputs.profile.birthday.errors.map(error => <p>{error}</p>)}
 
-      <Button type="submit" label="Submit" />
+      <button type="submit">Submit</button>
     </form>
   );
 }
@@ -145,3 +148,13 @@ That's it! Happy hacking! 🧪
 ```
 npm install -S formulate
 ```
+
+## Comparison to React-Formik
+
+React Formulate is differentiated from react-formik in that it was designed from the ground up for react-hooks and type soundness. There are no render props and no DSL `Field` wrappers you need to wrap your inputs in. This allows Formulate to work right out of the box with any design system. Formulate also takes a batteries attached approach with respect to form validation, and no configuration is required for setting up when form errors are displayed.
+
+## Comparison to React-Hook-Form
+
+Formulate is a controlled library, meaning during every render you'll have perfect information about the state of your form, and can update and read from your form from the outside. Formulate also requires no hooking up of refs, and keeps a clean separation between your form schema definition and your markup, never mixing the two.
+
+🧪
