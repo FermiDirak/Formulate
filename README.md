@@ -142,8 +142,6 @@ return (
 );
 ```
 
-That's it! Happy hacking! 🧪
-
 ## Install
 
 ```
@@ -152,10 +150,10 @@ npm install -S formulate
 
 ## Features
 
-- type-sound for both Typescript and Flow
-- first class hooks api
-- no magic
-- ui agnostic
+- type-sound for both Typescript and Flow ✅
+- first class hooks api ✅
+- opaque no magic api ✅
+- ui agnostic ✅
 
 ## Comparison to React-Formik
 
