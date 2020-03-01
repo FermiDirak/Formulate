@@ -12,7 +12,7 @@ Formuate is a schema-driven React Forms Library for building ui agnostic forms.
 
 ## Quick start Example
 
-> See this demo in action at https://formulatedemo.netlify.com
+> See this demo in action at https://codesandbox.io/s/formulate-example-l95mp
 
 ```tsx
 import useForm, {FormInput, FormArrayInput} from 'formulate';
@@ -22,7 +22,10 @@ const formSchema = {
   name: new FormInput({initial: '', validators: [isRequired]}),
   friends: new FormArrayInput({initial: ''}),
   profile: {
-    age: new FormInput<?number>({initial: null, validators: [isRequired, isInRange(0, 120)]}),
+    age: new FormInput<number | null>({
+      initial: null,
+      validators: [isRequired, isInRange(0, 120)]
+    }),
   },
 };
 
@@ -71,7 +74,7 @@ Formulate handles your form's state manage and error validation, and does so wit
 
 If you prefer to learn by example, check out this sandbox: (https://codesandbox.io/s/formulate-example-l95mp)
 
-Otherwise, this section will walk you through how Formulate should be used:
+Otherwise, this section will walk you through how Formulate to get started with Formulate:
 
 ### Defining your Schema
 
@@ -80,55 +83,65 @@ The form schema dictates what fields your form will have, the shape of your form
 ```tsx
 const newsletterFormSchema = {
   email: new FormInput({
-    // how the field will initially be populated
-    initial: "", validators: [isRequired, isValidEmail]}),
+    /** The initial value that will be used to populate the input  */
+    initial: "",
+    /** a set of validators that will create error messages if input data is incorrect  */
+    validators: [isRequired, isValidEmail],
+  }),
 
-
+  /** FormArrayInputs have dynamic lengths and allow inputs to be added / removed by the user */
+  subscribeTo: new FormArrayInput({initial: ""}),
 }
-
 ```
 
+After defining your form schema, pass it into `useForm` to access your form state and input bindings.
 
 ```tsx
-type FormInputProps<T> = {
-  // the initial value in the input field
-  initial: T,
-  // Used as the label for error handling
-  label?: string,
-  // validators that will run on onBlur and onSubmit and populate errors
-  validators?: Validator<T>[],
-}
-
-type InputProps<T> = {
-  value: T,
-  onChange: (value: T) => void,
-  onBlur: (event: Event) => void,
-}
-
-class FormInput<T> {
-  hash: number;
-  props: InputProps<T>;
-  error: string[];
-}
+function NewsletterForm() {
+  const {
+    /** The current state of your form's data. Matching the shape of formSchema */
+    formData,
+    /** Bindings for your inputs. Matching the shape of formSchema.
+     *  Used to hook up input props and error messages */
+    formInputs,
+    /** Form level errors. Populated on onSubmit */
+    errors,
+    /** Wrap your `onSubmit` in handleSubmit */
+    handleSubmit,
+  } = useForm(newsletterFormSchema);
+  ...
 ```
 
+Now all that's left is to hook up for form bindings and data to your JSX markup! This separation of form state and markup is what allows Formulate to be design-system agnostic.
 
+```tsx
+return (
+  <form onSubmit={handleSubmit(() => alert(JSON.stringify(formData)))}>
+    {errors.map(error => <p>{error}</p>)}
 
-Provide `useForm` with a form schema, and it will return your form data `formData` and the input props you'll need to hook up to your inputs `formInputs`. That's it!
+    <input type="text" {...formInputs.email.props} />
+    {formInput.email.errors.map(error => <p>{error}</p>)}
 
-To configure your form, you'll need the following three things
-* `type FormData`: a type struct that describes the shape of your from's data
-* `type FormInputs`: mirrors FormData in shape, except form input fields are replaced with `FormInput` and `FormArrayInput`. This is necessary for Formulate to understand the boundaries between data and form fields.
-* `formSchema`: A schema composed of `FormInput`s and `FormArrayInput`s
+    {formInputs.subscribeTo.map((subscribee, i) => (
+      <>
+        <input type="text" {...subscribee.props} />
+        <button type="button" onClick={() => formInputs.subscribeTo.remove(i)}>Remove {i}</button>
+        {subscribee.errors.map(error => <p>{error}</p>)}
+      </>
+    ))}
 
-`useForm` will then return you with `formData` and `formInputs`, which you'll hook up with your form fields. And with that, you have a hooked up form!
+    <button type="button" onClick={() => formInputs.subscribeTo.add()}>Add</button>
+    <button type="button" onClick={() => formInputs.subscribeTo.removeLast()}>Remove Last</button>
+
+    <button type="submit"/>
+  </form>
+);
+```
+
+That's it! Happy hacking! 🧪
 
 ## Install
 
 ```
 npm install -S formulate
 ```
-
-__I'd like to give feedback / express my appreciation for this project. How can I do so?__
-
-Submit a github issue, even if it's only to show appreciation and support. Be sure to use the appropriate tag though!
