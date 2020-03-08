@@ -26,18 +26,6 @@ function Shiny({children}: {| +children: React.Node |}) {
 function Pitch() {
   return (
     <div className="pitch">
-      <h2 className="pitch-header">
-        <span style={{color: "#61DAFB"}}>Formulate</span>
-        {" "}is a React Forms library designed for building{" "}
-        <span style={{color: "#F1FA8C"}}>complex forms</span>.
-      </h2>
-
-      <div className="pitch-button-container">
-        <Button label="Demo" onClick={() => {}} />
-        <Spacer />
-        <Button label="Github" onClick={() => {}} />
-      </div>
-
       <h2 className="pitch-header"><span style={{color: "#ff79c6"}}>Declarative</span> API</h2>
       <p className="pitch-paragraph">
         Formulate forms are configured via a <Shiny>singular schema</Shiny>,

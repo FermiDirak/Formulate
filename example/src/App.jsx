@@ -5,6 +5,8 @@ import './App.css';
 import logo from './test_tube.png';
 
 import Header from './molecules/Header';
+import Header2 from './molecules/Header2';
+
 import Explaination from './molecules/Explaination';
 import Form from './molecules/Form';
 import CodePreview from './molecules/CodePreview';
@@ -16,6 +18,7 @@ function App() {
   return (
     <div className="app">
       <Header />
+      <Header2 />
 
       <div className="app-grid-container">
         <div className="app-grid">
