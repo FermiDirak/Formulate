@@ -9,9 +9,10 @@ type Props = {|
   +onClick?: (e: Event) => void,
   +style?: "basic" | "cool",
   +svg?: string,
+  +href?: string,
 |}
 
-function Button({type = "button", label, onClick, style="basic", svg}: Props) {
+function Button({type = "button", label, onClick, href, style="basic", svg}: Props) {
   let Svg = null;
 
   if (svg) {
@@ -20,15 +21,18 @@ function Button({type = "button", label, onClick, style="basic", svg}: Props) {
     )
   }
 
+  const Element = href ? 'a' : 'button';
+
   return (
-    <button
+    <Element
       type={type}
+      href={href}
       onClick={onClick}
       className={style === "basic" ? "button" : "button-cool"}
     >
       {Svg}
       {label}
-    </button>
+    </Element>
   )
 }
 

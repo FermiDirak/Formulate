@@ -5,6 +5,13 @@
   max-width: 100%;
   margin: 0 auto;
   font-family: 'Tomorrow';
+
+  padding: 24px 16px 8px 16px;
+
+  border-radius: 9px;
+  box-shadow:  10px 10px 19px #313946,
+              -10px -10px 19px #455162;
+  background: linear-gradient(145deg,#3f4a5a,#353e4c);
 }
 
 .form-header {

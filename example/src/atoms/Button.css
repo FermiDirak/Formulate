@@ -1,4 +1,6 @@
 .button {
+  display: flex;
+  align-items: center;
   box-sizing: border-box;
   height: 36px;
   width: fit-content;
@@ -14,6 +16,7 @@
   border: 1px solid var(--grey40);
   border-radius: 4px;
 
+  text-decoration: none;
   outline: none;
   transition: all 150ms ease-in-out;
 }
@@ -55,6 +58,7 @@
   border: 0px;
   border-radius: 4px;
 
+  text-decoration: none;
   outline: none;
   transition: all 150ms ease-in-out;
 

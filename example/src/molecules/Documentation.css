@@ -1,0 +1,14 @@
+.documentation {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  min-height: 100vh;
+
+  font-size: 1.1rem;
+  font-family: 'Tomorrow', sans-serif;
+  color: var(--grey20);
+
+  padding: 80px;
+  margin: 0 auto;
+  width: 600px;
+}

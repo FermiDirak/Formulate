@@ -1,0 +1,9 @@
+.prefooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  padding: 80px 0 120px 0;
+  width: 100vw;
+  background: var(--grey50);
+}

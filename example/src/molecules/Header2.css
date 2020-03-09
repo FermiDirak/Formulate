@@ -1,14 +1,20 @@
 .header2 {
   display: flex;
-  width: 100%;
-  padding: 80px 0;
+  flex-direction: column;
+  width: calc(100vw - 160px);
+  padding: 40px 80px;
   justify-content: center;
 
   background: var(--grey50);
 }
 
+.header2-row {
+  margin: 40px 0;
+}
+
 .header2-title {
   position: relative;
+  display: inline-flex;
 
   font-family: 'Tomorrow', sans-serif;
   font-weight: 400;
@@ -30,4 +36,23 @@
 
   height: 24px;
   background: #3f4959;
+}
+
+.header2-subtitle {
+  display: inline-flex;
+
+  font-family: 'Tomorrow', sans-serif;
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  color: var(--grey10);
+  margin: 0;
+}
+
+
+.header2-paragraph {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: var(--grey20);
+  font-weight: 300;
 }

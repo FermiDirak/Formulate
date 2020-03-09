@@ -32,9 +32,9 @@ function Header () {
 
 
       <div className="header-action-buttons">
-        <Button style="cool" svg={github} label="Star on Github" onClick={() => {}} />
+        <Button style="cool" svg={github} label="Star on Github" href="https://github.com/FermiDirak/Formulate/" />
         <Spacer />
-        <Button style="cool" svg={document} label="Documentation" onClick={() => {}} />
+        <Button style="cool" svg={document} label="Documentation" href="/documentation" />
       </div>
 
       <div className="header-downloads">

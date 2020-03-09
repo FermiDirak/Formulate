@@ -1,0 +1,15 @@
+.explainedcode-container {
+  display: flex;
+  flex-direction: row;
+
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.explainedcode-explaination {
+  flex: 1;
+}
+
+.explainedcode-code {
+  flex: 1;
+}

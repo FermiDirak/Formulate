@@ -14,9 +14,11 @@ function Footer() {
         Formulate
       </p>
       <div className="footer-buttons">
-        <Button label="Home" onClick={() => {}} />
+        <Button label="Home" onClick={() => {
+          window.scrollTo(0, 0);
+        }} />
         <Spacer />
-        <Button label="Github" onClick={() => {}} />
+        <Button label="Github" href="https://github.com/FermiDirak/Formulate/" />
       </div>
     </div>
   );
