@@ -1,7 +1,7 @@
 .app {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
 }
 
 .app-grid-container {

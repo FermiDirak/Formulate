@@ -8,6 +8,13 @@
   background: var(--grey50);
 }
 
+@media (max-width: 760px) {
+  .header2 {
+    padding: 40px 40px;
+    width: calc(100vw - 80px);
+  }
+}
+
 .header2-row {
   margin: 40px 0;
 }

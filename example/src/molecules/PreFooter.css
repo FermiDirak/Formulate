@@ -3,7 +3,23 @@
   flex-direction: row;
   justify-content: center;
 
-  padding: 80px 0 120px 0;
+  padding: 40px 0 120px 0;
   width: 100vw;
   background: var(--grey50);
+}
+
+@media (max-width: 760px) {
+  .prefooter {
+    padding-top: 20px;
+    padding-bottom: 80px;
+  }
+}
+
+@media (max-width: 620px) {
+  .prefooter {
+    align-items: center;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-bottom: 80px;
+  }
 }

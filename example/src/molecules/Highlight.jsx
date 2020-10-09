@@ -9,14 +9,14 @@ type Props = {|
   +code: string,
 |};
 
-function Highlight({label, code}: Props) {
+function Highlight({ label, code }: Props) {
   return (
-    <div>
+    <>
       {label && <p className="highlight-label">{label}</p>}
-      <ReactHighlight language="jsx">
+      <ReactHighlight language="jsx" className="highlight-pre">
         {code}
       </ReactHighlight>
-    </div>
+    </>
   );
 }
 

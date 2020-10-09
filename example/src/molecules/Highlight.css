@@ -1,4 +1,4 @@
-pre {
+.highlight-pre {
   box-sizing: border-box;
   margin: 0;
   border-radius: 9px;
@@ -22,12 +22,11 @@ pre {
 }
 
 @media (max-width: 760px) {
-  pre {
-    margin-left: -12px;
-    width: calc(100vw - 24px);
-    border-radius: 3px;
-    box-shadow:  3px 3px 2px #313946,
-                -3px -3px 2px #455162;
+  .highlight-pre {
+    margin-left: -40px;
+    width: 100vw;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .hljs {

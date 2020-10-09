@@ -7,11 +7,11 @@ import yarnSvg from '../yarn.svg';
 import npmSvg from '../npm.svg';
 
 type Props = {|
-  +distributor: "yarn" | "npm";
+  +distributor: "yarn" | "npm",
   +code: string,
 |};
 
-function Download({distributor, code}: Props) {
+function Download({ distributor, code }: Props) {
   const svg = distributor === 'yarn' ? yarnSvg : npmSvg;
   const link = distributor === 'yarn' ?
     "https://yarnpkg.com/package/formulate"

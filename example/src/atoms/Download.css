@@ -1,7 +1,7 @@
 .download-container {
   display: inline-flex;
   align-items: center;
-  margin: 0 8px;
+  margin: 8px;
   background: var(--grey30);
   height: 40px;
   color: black;
@@ -13,6 +13,7 @@
   padding-top: 2px;
   margin: 0 12px;
   height: 20px;
+  min-width: 50px;
 }
 
 .download-code {

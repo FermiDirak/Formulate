@@ -14,6 +14,22 @@
   background: linear-gradient(145deg,#3f4a5a,#353e4c);
 }
 
+@media (max-width: 760px) {
+  .form {
+    margin-left: -24px;
+  }
+}
+
+@media (max-width: 500px) {
+  .form {
+    width: 100vw;
+    max-width: calc(100vw - 32px);
+    margin-left: -80px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
 .form-header {
   font-size: 1.2rem;
   font-weight: 400;

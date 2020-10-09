@@ -61,7 +61,12 @@
 .header-selling-points {
   margin-top: 40px;
   margin-bottom: 44px;
+}
 
+@media (max-width: 500px) {
+  .header-selling-points {
+    margin-bottom: 16px;
+  }
 }
 
 .header-selling-points li {
@@ -71,11 +76,15 @@
   font-size: 1.3rem;
 }
 
-
-
 .header-action-buttons {
   display: flex;
   margin: 40px 0;
+}
+
+@media (max-width: 500px) {
+  .header-action-buttons {
+    flex-direction: column;
+  }
 }
 
 .header-downloads {
@@ -86,18 +95,20 @@
   padding: 4px 0;
 
   background: var(--green60);
+
+}
+
+@media (max-width: 900px) {
+  .header-downloads {
+    flex-direction: column;
+  }
 }
 
 .header-install {
   font-size: 1.2rem;
   font-weight: 400;
-  margin-right: 20px;
+  margin: 8px 20px 8px 0;
 }
-
-
-
-
-
 
 @media (max-width: 760px) {
   .header-logo {
