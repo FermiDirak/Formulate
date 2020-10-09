@@ -15,7 +15,6 @@
   margin-left: -40px;
 }
 
-
 .getting-started-row {
   display: inline-flex;
   margin: 32px 0;
@@ -52,4 +51,13 @@
   font-size: 1.2rem;
   margin: 0 0 0 40px;
   color: var(--grey30);
+}
+
+@media (max-width: 760px) {
+  .getting-started-paragraph {
+    max-width: 110%;
+    width: 110%;
+    min-width: 110%;
+    margin-left: 0;
+  }
 }

@@ -24,7 +24,7 @@
   .form {
     width: 100vw;
     max-width: calc(100vw - 32px);
-    margin-left: -40px;
+    margin-left: -20px;
     border-radius: 0;
     box-shadow: none;
   }
