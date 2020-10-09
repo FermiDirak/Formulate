@@ -10,9 +10,7 @@ Formuate is a schema-driven React Forms Library for building ui agnostic forms.
 ![Formulate Size](https://img.shields.io/bundlephobia/minzip/formulate)
 ![Formulate License](https://img.shields.io/github/license/fermidirak/formulate)
 
-## Website
-
-Check out our cool landing page at https://formulatedemo.netlify.app/
+Check out our landing page at https://formulatedemo.netlify.app/
 
 ## What is Formulate?
 
