@@ -12,3 +12,37 @@
   margin: 0 auto;
   width: 600px;
 }
+
+.documentation-proptable-container {
+  margin: 16px 0;
+  background: #313946;
+}
+
+.documentation-proptable-header {
+  padding: 16px;
+  margin: 0;
+  background: #3c4859;
+}
+
+.documentation-prop-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.documentation-prop-header {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 6px;
+}
+
+.documentation-prop-header-name {
+  font-weight: bold;
+  color: white;
+  margin-right: 8px;
+}
+
+.documentation-prop-header-type {
+  color: var(--grey30);
+}
+

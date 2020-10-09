@@ -13,14 +13,14 @@ function Documentation() {
 
       <p>
         This page contains reference materials for Formulate APIs.
-        For learning materials, check out the <a style={{color: "#61DAFB"}}>walkthrough page</a>.
+        For learning materials, check out the <a style={{ color: "#61DAFB" }} href="https://codesandbox.io/s/formulate-example-l95mp">Codepen Example</a>.
       </p>
 
       <h2>FormInput</h2>
       <p>
         FormInput is used to define a singular input in your form schema.
       </p>
-      <PropTable name="FormInput constructor">
+      <PropTable name="FormInput constructor params">
         <Prop name="initial" type="T">
           The initial value the input field will be populated with.
         </Prop>
@@ -143,15 +143,19 @@ function Documentation() {
 type PropProps = {|
   +name: string,
   +type: string,
-  +children: React.Node,
+    +children: React.Node,
 |};
 
-function Prop({name, type, children}: PropProps) {
+function Prop({ name, type, children }: PropProps) {
   return (
     <div className="documentation-prop-container">
       <div className="documentation-prop-header">
-        {name}
-        {type}
+        <div className="documentation-prop-header-name">
+          {name}
+        </div>
+        <div className="documentation-prop-header-type">
+          {type}
+        </div>
       </div>
       {children}
     </div>
@@ -163,10 +167,10 @@ type PropTableProps = {|
   +children: React.Node,
 |};
 
-function PropTable({name, children}: PropTableProps) {
+function PropTable({ name, children }: PropTableProps) {
   return (
     <div className="documentation-proptable-container">
-      {name}
+      <h3 className="documentation-proptable-header">{name}</h3>
       {children}
     </div>
   );
